@@ -2,9 +2,9 @@ import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
-// import { Collection } from "@/components/shared/Collection";
-// import Header from "@/components/shared/Header";
-// import { getUserImages } from "@/lib/actions/image.actions";
+import { Collection } from "@/components/shared/Collection";
+import Header from "@/components/shared/Header";
+import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
 const Profile = async ({ searchParams }: SearchParamProps) => {
@@ -14,9 +14,11 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
   if (!userId) redirect("/sign-in");
 
   const user = await getUserById(userId);
+  const images = await getUserImages({ page, userId: user._id });
 
   return (
     <>
+      <Header title="Profile" />
 
       <section className="profile">
         <div className="profile-balance">
@@ -43,13 +45,17 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
               height={50}
               className="size-9 md:size-12"
             />
-            <h2 className="h2-bold text-dark-600">{}</h2>
+            <h2 className="h2-bold text-dark-600">{images?.data.length}</h2>
           </div>
         </div>
       </section>
 
       <section className="mt-8 md:mt-14">
-        
+        <Collection
+          images={images?.data}
+          totalPages={images?.totalPages}
+          page={page}
+        />
       </section>
     </>
   );
