@@ -13,14 +13,13 @@ const Sidebar = () => {
   return (
     <aside className="sidebar">
       <div className="flex size-full flex-col gap-4">
-        <Link href="/" className="sidebar-logo">
-          <Image src="/assets/images/logo-text.svg" alt="logo" width={180} height={28} />
+        <Link href="/" style={{ marginTop: '-15px', marginBottom: '-15px' }} className="sidebar-logo">
+          <Image src="/assets/images/juno-logo.svg" alt="logo" width={180} height={28} />
         </Link>
-
         <nav className="sidebar-nav">
           <SignedIn>
             <ul className="sidebar-nav_elements">
-              {navLinks.slice(0, 6).map((link) => {
+              {navLinks.slice(0, 5).map((link) => {
                 const isActive = link.route === pathname
 
                 return (
@@ -44,7 +43,7 @@ const Sidebar = () => {
 
 
             <ul className="sidebar-nav_elements">
-              {navLinks.slice(6).map((link) => {
+              {navLinks.slice(5).map((link) => {
                 const isActive = link.route === pathname
 
                 return (
