@@ -1,27 +1,22 @@
 export const navLinks = [
     {
-      label: "Home",
-      route: "/",
-      icon: "/assets/icons/home.svg",
-    },
-    {
-      label: "Image Restore",
-      route: "/transformations/add/restore",
-      icon: "/assets/icons/image.svg",
-    },
-    {
-      label: "Generative Fill",
-      route: "/transformations/add/fill",
+      label: "Quick Start",
+      route: "/profile",
       icon: "/assets/icons/stars.svg",
     },
     {
-      label: "Object Remove",
-      route: "/transformations/add/remove",
+      label: "Lab",
+      route: "/lab",
       icon: "/assets/icons/scan.svg",
     },
     {
-      label: "Object Recolor",
-      route: "/transformations/add/recolor",
+      label: "Library",
+      route: "/library",
+      icon: "/assets/icons/image.svg",
+    },
+    {
+      label: "Guide",
+      route: "/profile",
       icon: "/assets/icons/filter.svg",
     },
     {
@@ -122,8 +117,8 @@ export const navLinks = [
   export const transformationTypes = {
     restore: {
       type: "restore",
-      title: "Restore Image",
-      subTitle: "Refine images by removing noise and imperfections",
+      title: "Library",
+      subTitle: "Browse throuh a collection of curated profiles with custom personialities, voices, and capabilities.",
       config: { restore: true },
       icon: "image.svg",
     },
@@ -136,8 +131,8 @@ export const navLinks = [
     },
     fill: {
       type: "fill",
-      title: "Generative Fill",
-      subTitle: "Enhance an image's dimensions using AI outpainting",
+      title: "Create your ideal AI ",
+      subTitle: "Take less than 3 minutes to create your ideal AI",
       config: { fillBackground: true },
       icon: "stars.svg",
     },

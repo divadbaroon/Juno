@@ -4,19 +4,19 @@ import { getAllImages } from "@/lib/actions/image.actions"
 import Image from "next/image"
 import Link from "next/link"
 
-const Home = async ({ searchParams }: SearchParamProps) => {
+const Library = async ({ searchParams }: SearchParamProps) => {
   const page = Number(searchParams?.page) || 1;
   const searchQuery = (searchParams?.query as string) || '';
 
   const images = await getAllImages({ page, searchQuery})
 
+  const tab = 'Profiles'
+
   return (
     <>
       <div className="root-container">
-        {/* Title */}
-        <h2 className="h2-bold text-dark-600">Juno</h2>
-        {/* Subtitle */}
-        <p className="p-20-regular text-dark-400 mt-2">Juno offers a seamless integration of AI into your browser, enhancing your browsing experience with customizable intelligence.</p>
+        <h2 className="h2-bold text-dark-600">Library</h2>
+        <p className="p-20-regular text-dark-400 mt-3">Browse through a selection of profiles, extensions, LLM's, and voices.</p>
       </div>
 
       <section className="sm:mt-12">
@@ -28,8 +28,10 @@ const Home = async ({ searchParams }: SearchParamProps) => {
           tab ={"Profiles"}
         />
       </section>
+
+    
     </>
   )
 }
 
-export default Home
+export default Library

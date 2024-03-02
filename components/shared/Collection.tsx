@@ -24,11 +24,13 @@ export const Collection = ({
   images,
   totalPages = 1,
   page,
+  tab = "Profiles",
 }: {
   images: IImage[];
   totalPages?: number;
   page: number;
   hasSearch?: boolean;
+  tab: string;
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -48,10 +50,11 @@ export const Collection = ({
 
   return (
     <>
-      <div className="collection-heading">
-        <h2 className="h2-bold text-dark-600">Recent Edits</h2>
-        {hasSearch && <Search />}
-      </div>
+
+    <div className="collection-heading">
+      <h2 className="h2-bold text-dark-600">{tab}</h2>
+      {hasSearch && <Search />}
+    </div>
 
       {images.length > 0 ? (
         <ul className="collection-list">
