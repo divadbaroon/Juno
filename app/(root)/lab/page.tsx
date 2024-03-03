@@ -1,8 +1,5 @@
 "use client";
 import React, { useState } from 'react';
-import { useForm, FormProvider } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 
 import { Separator } from "@/components/ui/separator"
 
@@ -11,29 +8,11 @@ import { ProfileCreation } from "@/components/shared/lab/ProfileCreation"
 import { VoiceCreation } from "@/components/shared/lab/VoiceCreation"
 import { ExtensionCreation } from "@/components/shared/lab/ExtensionCreation"
 
-// Your original form schema
-const formSchema = z.object({
-  username: z.string().min(2, { message: "Username must be at least 2 characters." }),
-});
-
-// New form schema
-const emailFormSchema = z.object({
-  email: z.string().email({ message: "Invalid email address." }),
-});
-
-type UsernameFormData = z.infer<typeof formSchema>;
-type EmailFormData = z.infer<typeof emailFormSchema>;
-
 export function ProfileForm() {
-  const [showProfileCreation, setShowProfileCreation] = useState(false);
-  const [showLargeLanguageModel, setShowLargeLanguageModel] = useState(false);
-  const [showVoice, setShowVoice] = useState(false);
-  const [showExtensions, setShowExtensions] = useState(false);
-
+  // The actively selected Tab
   const [activeSection, setActiveSection] = useState('about');
 
   return (
-
     <div className="root-container">
       <div className="space-y-1">
         <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '-34px' }}>The Lab</h4>

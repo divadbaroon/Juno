@@ -1,37 +1,35 @@
-import { Collection } from "@/components/shared/Collection"
-import { navLinks } from "@/constants"
-import { getAllImages } from "@/lib/actions/image.actions"
-import Image from "next/image"
-import Link from "next/link"
+"use client";
+import React, { useState } from 'react';
 
-const Library = async ({ searchParams }: SearchParamProps) => {
-  const page = Number(searchParams?.page) || 1;
-  const searchQuery = (searchParams?.query as string) || '';
+import { Separator } from "@/components/ui/separator"
 
-  const images = await getAllImages({ page, searchQuery})
+import { About } from "@/components/shared/library/About"
+import { CardContainer } from "@/components/shared/library/CardContainer"
 
-  const tab = 'Profiles'
+export function ProfileForm() {
+  // The actively selected Tab
+  const [activeSection, setActiveSection] = useState('about');
 
   return (
-    <>
-      <div className="root-container">
-        <h2 className="h2-bold text-dark-600">Library</h2>
-        <p className="p-20-regular text-dark-400 mt-3">Browse through a selection of profiles, extensions, LLM's, and voices.</p>
+    <div className="root-container">
+      <div className="space-y-1">
+        <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '-34px' }}>The Lab</h4>
+        <p className="p-20-regular text-dark-400" style={{ marginTop: '15px' }}>
+         Use the lab to create and customize your AI just the way you want.
+      </p>
       </div>
+      <Separator className="my-4" />
+      <div className="flex h-5 items-center space-x-4 text-sm">
+        <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('about')}>About</div>
+        <Separator orientation="vertical" />
+        <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('profile')}>Library</div>
+      </div>
+      <Separator className="my-4" />
 
-      <section className="sm:mt-12">
-        <Collection 
-          hasSearch={true}
-          images={images?.data}
-          totalPages={images?.totalPage}
-          page={page}
-          tab ={"Profiles"}
-        />
-      </section>
-
-    
-    </>
+      {activeSection === 'about' && <About />}
+      {activeSection === 'profile' && <CardContainer />}
+    </div>
   )
 }
 
-export default Library
+export default ProfileForm

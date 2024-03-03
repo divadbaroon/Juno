@@ -104,27 +104,6 @@ export const ProfileCreation = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-bold">Persona</FormLabel>
-                  <FormDescription style={{ marginTop: '.2rem' }}>
-                    The role or archetype your AI embodies.
-                  </FormDescription>
-                  <FormControl>
-                    <Input placeholder="Barack Obama" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </FormProvider>
-
-        <FormProvider {...emailForm}>
-          <form className="space-y-8">
-            <FormField
-              control={emailForm.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
                   <FormLabel className="font-bold">Personality</FormLabel>
                   <FormDescription style={{ marginTop: '.2rem' }}>             
                     Define the personality traits of your AI.
@@ -160,7 +139,49 @@ export const ProfileCreation = () => {
           </form>
         </FormProvider>
         </div>
-        )}
+      )}
+
+<FormProvider {...emailForm}>
+          <form className="space-y-8">
+            <FormField
+              control={emailForm.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="font-bold">Persona</FormLabel>
+                  <FormDescription style={{ marginTop: '.2rem' }}>
+                    The archetype your AI will embody.
+                  </FormDescription>
+                  <FormControl>
+                    <Input placeholder="Barack Obama" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </FormProvider>
+
+      <FormProvider {...emailForm}>
+        <form className="space-y-8">
+          <FormField
+            control={emailForm.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-bold">Restrictions</FormLabel>
+                <FormDescription style={{ marginTop: '.2rem' }}>             
+                  Sets restrictions on how your AI communicates with you
+                </FormDescription>
+                <FormControl>
+                  <Input placeholder="Only respond in a poetic fashion" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </form>
+      </FormProvider>
 
       <div onClick={() => setShowLargeLanguageModel(!showLargeLanguageModel)}
           className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4">
