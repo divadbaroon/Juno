@@ -5,6 +5,8 @@ import { Separator } from "@/components/ui/separator"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
+import { Button } from "@/components/ui/button";
+
 import {
     FormControl,
     FormDescription,
@@ -15,7 +17,7 @@ import {
   } from "@/components/ui/form";
   import { Input } from "@/components/ui/input";
 
-  // Define your form schemas
+// Define your form schemas
 const formSchema = z.object({
     username: z.string().min(2, { message: "Username must be at least 2 characters." }),
   });
@@ -195,7 +197,9 @@ export const VoiceCreation = () => {
                 </form>
             </FormProvider>
 
-    </div>
+        </div>
+        <Button style={{ float: 'right', marginTop: '1em', marginRight: '2em' }}>Create</Button>
+
     </div>
      
     );

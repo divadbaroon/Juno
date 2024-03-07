@@ -2,14 +2,14 @@ import React from 'react';
 
 import { Separator } from "@/components/ui/separator";
 
-export const QuickStart = () => {
+const QuickStart = () => {
     return (
       <div className="about-section">
         {/* Overview Section */}
         <div className="section">
-          <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>Quick Start</h2>
+        <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '0px' }}>Quick Start</h4>
           <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-            Get a curated AI integrated into your webbrowser in under 3 minutes.
+            Discover how to seamlessly integrate Juno into your browser within minutes.
           </p>
           <Separator className="my-4" />
         </div>
@@ -18,16 +18,16 @@ export const QuickStart = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>Overview</h2>
           <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-            Juno is a highly customizable platform for integrating user curated AI into the webbrowser for enhanced browsing experience and capablilties. This section focues on quickly getting you setup with a profile. However, to further see the capabilites of this platform it's recommended to look into the library and lab sections.
+            Juno is a platform tailored for enriching your browsing experience with user-driven AI functionalities. Begin by setting up your profile to unlock the full potential of our tools. For an in-depth understanding, delve into our extensive library and laboratory sections.
           </p>
           <Separator className="my-4" />
         </div>
         
          {/* Voice Creation Section */}
          <div className="section">
-          <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>Select A profile</h2>
+          <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>Personalize</h2>
           <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-            Browse through and select a profile that speaks to you.
+            Choose a profile that resonates with you from our diverse collection to start personalizing your experience.
           </p>
           <Separator className="my-4" />
         </div>
@@ -36,10 +36,12 @@ export const QuickStart = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>Usage</h2>
           <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-            Install the Juno Chrome Extension, set a key-bind, and interact. That's it.
+            Install the Juno Chrome Extension, define your preferred key-bindings, and dive into an interactive digital journey.
           </p>
           <Separator className="my-4" />
         </div>
       </div>
     );
-}
+};
+
+export default QuickStart;

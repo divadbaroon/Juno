@@ -66,7 +66,7 @@ export const ProfileCreation = () => {
     <div className="root-container">
       <h2 className="h2-bold text-dark-600" style={{ marginTop: '-25px' }}>Profile Creation</h2>
       <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-        Customize and create your AI profile using the forms below. After creation your profile will automatically sync with the Juno Chrome Extension, allowing you to instantly interact.
+        Customize and create your own AI profile from scratch. After creation your profile will automatically sync with the Juno Chrome Extension, allowing you to instantly interact.
       </p>
       <Separator className="my-4" />
 
@@ -138,10 +138,8 @@ export const ProfileCreation = () => {
             />
           </form>
         </FormProvider>
-        </div>
-      )}
 
-<FormProvider {...emailForm}>
+        <FormProvider {...emailForm}>
           <form className="space-y-8">
             <FormField
               control={emailForm.control}
@@ -182,6 +180,8 @@ export const ProfileCreation = () => {
           />
         </form>
       </FormProvider>
+        </div>
+      )}
 
       <div onClick={() => setShowLargeLanguageModel(!showLargeLanguageModel)}
           className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4">

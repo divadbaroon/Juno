@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button"; // Assuming you have a Button component
+import { Button } from "@/components/ui/button"; 
 
 export const About = () => {
     // States to manage the visibility of dropdown content for each section
@@ -14,7 +14,7 @@ export const About = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>Overview</h2>
           <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-            Welcome to The Lab: your dedicated space for AI customization. Here, you can mold and refine your AI to meet your exact specifications. Dive into the realm of personalized artificial intelligence and transform your ideas into reality.
+            The lab is your dedicated space for AI customization. Here, you can mold and refine your AI to meet your exact specifications. Dive into the realm of personalized artificial intelligence and transform your ideas into reality.
           </p>
           <Separator className="my-4" />
         </div>

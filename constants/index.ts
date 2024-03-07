@@ -1,7 +1,7 @@
 export const navLinks = [
     {
       label: "Quick Start",
-      route: "/profile",
+      route: "/quickstart",
       icon: "/assets/icons/stars.svg",
     },
     {
