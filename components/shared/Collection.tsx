@@ -24,13 +24,13 @@ export const Collection = ({
   images,
   totalPages = 1,
   page,
-  tab = "Profiles",
+  libraryType = "Profiles",
 }: {
   images: IImage[];
   totalPages?: number;
   page: number;
   hasSearch?: boolean;
-  tab: string;
+  libraryType: string;
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -50,9 +50,8 @@ export const Collection = ({
 
   return (
     <>
-
-    <div className="collection-heading">
-      <h2 className="h2-bold text-dark-600">{tab}</h2>
+    <div className="collection-heading -mt-5">
+      <h2 className="h2-bold text-dark-600"></h2>
       {hasSearch && <Search />}
     </div>
 

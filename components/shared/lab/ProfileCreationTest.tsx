@@ -3,9 +3,6 @@ import React, { useState } from 'react';
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
-import { LibraryPage } from "@/components/shared/library/LibraryPage"
-
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -81,9 +78,6 @@ export const ProfileCreation = () => {
       </div>
       {showProfileCreation && (
       <div className="forms-container space-y-8 mt-5"> {/* Updated container for vertical layout */}
-        <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-          Lay the foundation for your AI by providing essential information that defines its identity and purpose.
-        </p>
         <FormProvider {...usernameForm}>
           <form className="space-y-8">
             <FormField
@@ -195,34 +189,299 @@ export const ProfileCreation = () => {
           className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4">
         <h2 className="text-lg font-bold text-dark-600">Large-Language Model</h2>
       </div>
-      {showLargeLanguageModel && <LibraryPage 
-                h2Text="" 
-                pText="Select the Large-Language Model (LLM) that will power your AI's natural language understanding and generation capabilities."
-                libraryType="LLM"
-      />}
-      
+      {showLargeLanguageModel && (
+        <div>
+          <div className="card-container flex flex-wrap gap-4 mt-8"> {/* Updated Flex container for cards */}
+            <Card>
+              <CardHeader>
+                <CardTitle>GPT-4.5-Turbo</CardTitle>
+                <CardDescription>OpenAI</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>Most advanced GPT model.</p>
+              </CardContent>
+              <CardFooter>
+                <Button>Select</Button>
+              </CardFooter>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>GPT-4</CardTitle>
+                <CardDescription>OpenAI</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>Highly versatile and comprehensive.</p>
+              </CardContent>
+              <CardFooter>
+                <Button>Select</Button>
+              </CardFooter>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>GPT-3.5-Turbo</CardTitle>
+                <CardDescription>OpenAI</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>Optimized performance and efficiency.</p>
+              </CardContent>
+              <CardFooter>
+                <Button>Select</Button>
+              </CardFooter>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>mistral</CardTitle>
+                <CardDescription>Mistral AI</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>7B param language model</p>
+              </CardContent>
+              <CardFooter>
+                <Button>Select</Button>
+              </CardFooter>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>llama2</CardTitle>
+                <CardDescription>Meta</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>70B param language model</p>
+              </CardContent>
+              <CardFooter>
+                <Button>Select</Button>
+              </CardFooter>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>gemma</CardTitle>
+                <CardDescription>Google DeepMind</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>Lightweight open source model</p>
+              </CardContent>
+              <CardFooter>
+                <Button>Select</Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+      )}
+
       {/* Voice Section */}
       <div onClick={() => setShowVoice(!showVoice)}
           className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4">
         <h2 className="text-lg font-bold text-dark-600">Voice</h2>
       </div>
-      {showVoice && <LibraryPage 
-                h2Text="" 
-                pText="Give your AI a unique voice that complements its personality and enhances the user experience."
-                libraryType="Voice"
-      />}
-    
-      {/* Extensions Section */}
-      <div onClick={() => setShowExtensions(!showExtensions)}
-          className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4">
-        <h2 className="text-lg font-bold text-dark-600">Extensions</h2>
-      </div>
-      {showExtensions && <LibraryPage 
-        h2Text="" 
-        pText="Enhance the capabilities of your AI by adding extensions that provide additional features and functionalities."
-        libraryType="Extension"
-      />}
+      {showVoice && (
+    <div>
+      <p className="p-4 text-dark-400 mt-2">
+        Select the voice for your AI. To browse through more voices, visit the Library. To create your own, visit the Lab.
+      </p>
+      <Separator className="my-4" />
+      <div className="card-container flex flex-wrap gap-4 mt-8">
+        {/* List of Voice Cards */}
+        {/* Repeat this structure for each voice card */}
+        <Card>
+            <CardHeader>
+              <CardTitle>Barack Obama</CardTitle>
+              <CardDescription>Elevenlabs</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Most advanced GPT model.</p>
+            </CardContent>
+            <CardFooter>
+            <Button>Sample</Button>
+            <Button>Select</Button>
+            </CardFooter>
+          </Card>
 
+          <Card>
+            <CardHeader>
+              <CardTitle>David Attenborough</CardTitle>
+              <CardDescription>Elevenlabs</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Highly versatile and comprehensive.</p>
+            </CardContent>
+            <CardFooter>
+            <Button>Sample</Button>
+            <Button>Select</Button>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Morgan Freeman</CardTitle>
+              <CardDescription>Elevenlabs</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Optimized performance and efficiency.</p>
+            </CardContent>
+            <CardFooter>
+            <Button>Sample</Button>
+            <Button>Select</Button>
+            </CardFooter>
+          </Card>
+      
+          {/* Add more Card components as needed */}
+        </div>
+        <div className="card-container flex space-x-4 mt-8"> {/* Flex container for cards */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Alloy</CardTitle>
+              <CardDescription>OpenAI</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Opensourced 7B param model</p>
+            </CardContent>
+            <CardFooter>
+            <Button>Sample</Button>
+            <Button>Select</Button>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Echo</CardTitle>
+              <CardDescription>OpenAI</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>70B param language model</p>
+            </CardContent>
+            <CardFooter>
+            <Button>Sample</Button>
+            <Button>Select</Button>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Fable</CardTitle>
+              <CardDescription>OpenAI</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Lightweight open source model</p>
+            </CardContent>
+            <CardFooter>
+            <Button>Sample</Button>
+            <Button>Select</Button>
+            </CardFooter>
+          </Card>
+        {/* Add more voice cards as needed */}
+          </div>
+        </div>
+      )}
+    {/* Extensions Section */}
+    <div onClick={() => setShowExtensions(!showExtensions)}
+        className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4">
+      <h2 className="text-lg font-bold text-dark-600">Extensions</h2>
+    </div>
+    {showExtensions && (
+    <div>
+      <p className="p-4 text-dark-400 mt-2">
+        Extend the capabilities of your AI by adding extensions. To browse through more extensions, visit the Library. To create your own, visit the Lab.
+      </p>
+      <Separator className="my-4" />
+      <div className="card-container flex flex-wrap gap-4 mt-8">
+        {/* List of Extension Cards */}
+        {/* Repeat this structure for each extension card */}
+        <Card>
+            <CardHeader>
+              <CardTitle>Page Reader</CardTitle>
+              <CardDescription>Creator: divadbaroon</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Highlight text and interact with Juno to instantly have it included as context</p>
+            </CardContent>
+            <CardFooter>
+              <Button>More Info</Button>
+              <Button>Add</Button>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Document Reader</CardTitle>
+              <CardDescription>Creator: divadbaroon</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Streamline reading by having webpages and documents read and analyzed for quick summaries or in-depth info.</p>
+            </CardContent>
+            <CardFooter>
+              <Button>More Info</Button>
+              <Button>Add</Button>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Webbrowser</CardTitle>
+              <CardDescription>Creator: divadbaroon</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Navigate the web with voice-activated commands for a smoother browsing experience</p>
+            </CardContent>
+            <CardFooter>
+              <Button>More Info</Button>
+              <Button>Add</Button>
+            </CardFooter>
+          </Card>
+        
+
+          {/* Add more Card components as needed */}
+        </div>
+        <div className="card-container flex space-x-4 mt-8"> {/* Flex container for cards */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Spotify</CardTitle>
+              <CardDescription>Creator: divadbaroon</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Control Spotify with voice commands, making your music experience hands-free.</p>
+            </CardContent>
+            <CardFooter>
+              <Button>More Info</Button>
+              <Button>Add</Button>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Google Calendar</CardTitle>
+              <CardDescription>Creator: divadbaroon</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Effortlessly handle schedules and appointments with Google Calendar integration.</p>
+            </CardContent>
+            <CardFooter>
+              <Button>More Info</Button>
+              <Button>Add</Button>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Youtube</CardTitle>
+              <CardDescription>Creator: divadbaroon</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Effortlessly handle schedules and appointments with Google Calendar integration.</p>
+            </CardContent>
+            <CardFooter>
+              <Button>More Info</Button>
+              <Button>Add</Button>
+            </CardFooter>
+          </Card>
+          </div>
+          </div>
+          
+        )}
         <div onClick={() => setShowShare(!showShare)}
                     className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4">
                     <h2 className="text-lg font-bold text-dark-600">Share Preference</h2>
@@ -236,8 +495,9 @@ export const ProfileCreation = () => {
                 name="username"
                 render={({ field }) => (
                     <FormItem>
+                    <FormLabel className="font-bold">Share Preference</FormLabel>
                     <FormDescription style={{ marginTop: '.2rem' }}>
-                      Determine the level of access and visibility for your newly created AI profile.
+                        Select who can access your newly created profile.
                     </FormDescription>
                         <fieldset>
                         <div className="mt-3 space-y-6">

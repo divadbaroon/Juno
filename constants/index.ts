@@ -15,11 +15,6 @@ export const navLinks = [
       icon: "/assets/icons/image.svg",
     },
     {
-      label: "Engine",
-      route: "/profile",
-      icon: "/assets/icons/camera.svg",
-    },
-    {
       label: "Guide",
       route: "/profile",
       icon: "/assets/icons/filter.svg",

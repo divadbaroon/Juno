@@ -1,5 +1,5 @@
-import React from 'react'; 
-import { useForm, FormProvider } from "react-hook-form";
+"use client";
+import React, { useState } from 'react';import { useForm, FormProvider } from "react-hook-form";
 import { Separator } from "@/components/ui/separator"
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,6 +26,10 @@ const formSchema = z.object({
   });
 
 export const VoiceCreation = () => {
+    const [showBasicDetails, setShowBasicDetails] = useState(false);
+    const [showTrainingData, setShowTrainingData] = useState(false);
+    const [showShare, setShowShare] = useState(false);
+
      // Form hooks
     const usernameForm = useForm({
         resolver: zodResolver(formSchema),
@@ -46,6 +50,13 @@ export const VoiceCreation = () => {
           <Separator className="my-4" />
         </div>
 
+        <div onClick={() => setShowBasicDetails(!showBasicDetails)}
+           className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4">
+        <h2 className="text-lg font-bold text-dark-600">Basic Details</h2>
+        
+      </div>
+      {showBasicDetails && (
+      <div className="forms-container space-y-8 mt-5"> {/* Updated container for vertical layout */}
         <FormProvider {...usernameForm}>
             <form className="mb-8 space-y-8">
                 <FormField
@@ -87,40 +98,6 @@ export const VoiceCreation = () => {
                 />
                 </form>
             </FormProvider>
-
-            <FormProvider {...usernameForm}>
-            <form className="mb-8 space-y-8">
-                <FormField
-                control={usernameForm.control}
-                name="username"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel className="font-bold">Audio Sample</FormLabel>
-                    <FormDescription style={{ marginTop: '.2rem' }}>
-                        Upload a an audio sample of your voice desired voice. Five minutes is all that is needed. Ensure that the audio sample is high quality and has no background noise.
-                    </FormDescription>
-                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                        <div className="text-center">
-                            <svg className="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
-                            </svg>
-                            <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                                <label htmlFor="file-upload" className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                    <span>Upload a file</span>
-                                    <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                                </label>
-                                <p className="pl-1">or drag and drop</p>
-                            </div>
-                            <p className="text-xs leading-5 text-gray-600">wav, mp3, mp4 up to 10MB</p>
-                        </div>
-                    </div>
-                    <FormMessage />
-                    </FormItem>
-                    )}
-                />
-                </form>
-            </FormProvider>
-
             <FormProvider {...usernameForm}>
             <form className="mb-8 space-y-8">
                 <FormField
@@ -153,6 +130,56 @@ export const VoiceCreation = () => {
                 />
                 </form>
             </FormProvider>
+        </div>
+      )}
+
+        <div onClick={() => setShowTrainingData(!showTrainingData)}
+                className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4">
+                <h2 className="text-lg font-bold text-dark-600">Training Data</h2>
+                
+            </div>
+            {showTrainingData && (
+            <div className="forms-container space-y-8 mt-5"> {/* Updated container for vertical layout */}
+                <FormProvider {...usernameForm}>
+            <form className="mb-8 space-y-8">
+                <FormField
+                control={usernameForm.control}
+                name="username"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel className="font-bold">Audio Sample</FormLabel>
+                    <FormDescription style={{ marginTop: '.2rem' }}>
+                        Upload a an audio sample of your voice desired voice. Five minutes is all that is needed. Ensure that the audio sample is high quality and has no background noise.
+                    </FormDescription>
+                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                        <div className="text-center">
+                            <svg className="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
+                            </svg>
+                            <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                                <label htmlFor="file-upload" className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                    <span>Upload a file</span>
+                                    <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                                </label>
+                                <p className="pl-1">or drag and drop</p>
+                            </div>
+                            <p className="text-xs leading-5 text-gray-600">wav, mp3, mp4 up to 10MB</p>
+                        </div>
+                    </div>
+                    <FormMessage />
+                    </FormItem>
+                    )}
+                />
+                </form>
+            </FormProvider>
+                </div>
+            )}
+
+            <div onClick={() => setShowShare(!showShare)}
+                    className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4">
+                    <h2 className="text-lg font-bold text-dark-600">Share Preference</h2>
+                </div>
+            {showShare && (
 
             <FormProvider {...usernameForm}>
             <form className="mb-8 space-y-8">
@@ -163,7 +190,7 @@ export const VoiceCreation = () => {
                     <FormItem>
                     <FormLabel className="font-bold">Share Preference</FormLabel>
                     <FormDescription style={{ marginTop: '.2rem' }}>
-                        Upload a profile photo to represent your voice.
+                        Select who can access your newly created profile.
                     </FormDescription>
                         <fieldset>
                         <div className="mt-3 space-y-6">
@@ -185,7 +212,7 @@ export const VoiceCreation = () => {
                                 <input id="push-nothing" name="push-notifications" type="radio" className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
                                 <div className="text-sm leading-6">
                                     <label htmlFor="push-nothing" className="block text-sm font-medium leading-6 text-gray-900">Keep Private</label>
-                                    <p className="text-gray-500">Allow you will be able to access your newly created voice.</p>
+                                    <p className="text-gray-500">Only you will be able to access your newly created voice.</p>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +223,7 @@ export const VoiceCreation = () => {
                 />
                 </form>
             </FormProvider>
-
+            )}
         </div>
         <Button style={{ float: 'right', marginTop: '1em', marginRight: '2em' }}>Create</Button>
 

@@ -6,9 +6,10 @@ import { Separator } from "@/components/ui/separator";
 interface ProfilesProps {
     h2Text: string;
     pText: string;
+    libraryType: string;
   }
 
-export const LibraryPage = ({ h2Text, pText }: ProfilesProps) => {
+export const LibraryPage = ({ h2Text, pText, libraryType }: ProfilesProps) => {
     // Placeholder values for the Collection component
     const [images, setImages] = useState({ data: [] }); // Set images to an empty array
     const totalPages = 0; // Placeholder for total pages
@@ -27,7 +28,7 @@ export const LibraryPage = ({ h2Text, pText }: ProfilesProps) => {
             images={images?.data}
             totalPages={totalPages}
             page={page}
-            tab ={"Profiles"}
+            libraryType ={libraryType}
             />
         </section>
       </div>

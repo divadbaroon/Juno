@@ -39,7 +39,7 @@ export const About = () => {
          <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>Voice Creation</h2>
           <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-            Venture into the Voice Creation suite to clone any voice within minutes.
+          Step into the Voice Creation suite and discover the power to clone any voice in mere minutes. Give your AI a unique vocal identity that perfectly matches its personality.
           </p>
           <Button className="action-button" onClick={() => setShowVoiceExample(!showVoiceExample)} 
             style={{marginTop: '15px' }}>Show Example</Button>
@@ -56,7 +56,7 @@ export const About = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>Extensions Creation</h2>
           <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-            The Extensions Creation space is where your AI's functionality knows no bounds.
+          In the Extension Creation workshop, the possibilities for your AI's capabilities are endless. Develop custom extensions that push the boundaries of what your AI can do, making it an indispensable part of your digital life.
           </p>
           <Button className="action-button" onClick={() => setShowExtensionsExample(!showExtensionsExample)} style={{marginTop: '15px' }}>Show Example</Button>
           {showExtensionsExample && (
