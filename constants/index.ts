@@ -5,27 +5,27 @@ export const navLinks = [
       icon: "/assets/icons/stars.svg",
     },
     {
-      label: "Lab",
-      route: "/lab",
-      icon: "/assets/icons/scan.svg",
-    },
-    {
       label: "Library",
       route: "/library",
       icon: "/assets/icons/image.svg",
     },
     {
+      label: "Lab",
+      route: "/lab",
+      icon: "/assets/icons/scan.svg",
+    },
+    {
       label: "Guide",
-      route: "/profile",
+      route: "/guide",
       icon: "/assets/icons/filter.svg",
     },
     {
-      label: "Profile",
+      label: "My Collection",
       route: "/profile",
       icon: "/assets/icons/profile.svg",
     },
     {
-      label: "Buy Credits",
+      label: "Upgrade",
       route: "/credits",
       icon: "/assets/icons/bag.svg",
     },

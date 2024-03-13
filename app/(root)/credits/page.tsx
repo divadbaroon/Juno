@@ -18,8 +18,8 @@ const Credits = async () => {
   return (
     <>
       <Header
-        title="Buy Credits"
-        subtitle="Choose a credit package that suits your needs!"
+        title="Upgrade Your Plan"
+        subtitle="Upgrade to a plan that suits your needs!"
       />
 
       <section>

@@ -10,7 +10,7 @@ import { ExtensionCreation } from "@/components/shared/lab/ExtensionCreation"
 
 export function ProfileForm() {
   // The actively selected Tab
-  const [activeSection, setActiveSection] = useState('about');
+  const [activeSection, setActiveSection] = useState('profile');
 
   return (
     <div className="root-container">
@@ -22,7 +22,6 @@ export function ProfileForm() {
       </div>
       <Separator className="my-4" />
       <div className="flex h-5 items-center space-x-4 text-sm">
-        <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('about')}>About</div>
         <Separator orientation="vertical" />
         <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('profile')}>Profile Creation</div>
         <Separator orientation="vertical" />
@@ -32,7 +31,6 @@ export function ProfileForm() {
       </div>
       <Separator className="my-4" />
 
-      {activeSection === 'about' && <About />}
       {activeSection === 'profile' && <ProfileCreation />}
       {activeSection === 'voice' && <VoiceCreation />}
       {activeSection === 'extension' && <ExtensionCreation />}
