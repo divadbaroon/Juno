@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 
 import { Separator } from "@/components/ui/separator"
 
-import { About } from "@/components/shared/lab/About"
 import { ProfileCreation } from "@/components/shared/lab/ProfileCreation"
 import { VoiceCreation } from "@/components/shared/lab/VoiceCreation"
 import { ExtensionCreation } from "@/components/shared/lab/ExtensionCreation"
@@ -18,11 +17,14 @@ export function ProfileForm() {
         <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '-15px' }}>The Lab</h4>
         <p className="p-20-regular text-dark-400" style={{ marginTop: '15px' }}>
           Unleash your creativity and build the AI companion of your dreams in the Lab.
-      </p>
+        </p>
       </div>
       <Separator className="my-4" />
       <div className="flex h-5 items-center space-x-4 text-sm">
+<<<<<<< HEAD
         <Separator orientation="vertical" />
+=======
+>>>>>>> 392b86fff4280b98d9e8d3d017da18c2d020eefc
         <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('profile')}>Profile Creation</div>
         <Separator orientation="vertical" />
         <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('voice')}>Voice Creation</div>
