@@ -56,7 +56,7 @@ export const About = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>Extensions Creation</h2>
           <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-          In the Extension Creation workshop, the possibilities for your AI's capabilities are endless. Develop custom extensions that push the boundaries of what your AI can do, making it an indispensable part of your digital life.
+          In the Extension Creation workshop, the possibilities for your AI&apos;s capabilities are endless. Develop custom extensions that push the boundaries of what your AI can do, making it an indispensable part of your digital life.
           </p>
           <Button className="action-button" onClick={() => setShowExtensionsExample(!showExtensionsExample)} style={{marginTop: '15px' }}>Show Example</Button>
           {showExtensionsExample && (
@@ -72,7 +72,7 @@ export const About = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>Share</h2>
           <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-            Embrace the spirit of collaboration by sharing your AI creations with the vibrant Juno community. Showcase the unique personalities, voices, and functionalities you've meticulously crafted.
+            Embrace the spirit of collaboration by sharing your AI creations with the vibrant Juno community. Showcase the unique personalities, voices, and functionalities you&apos;ve meticulously crafted.
           </p>
         </div>
       </div>

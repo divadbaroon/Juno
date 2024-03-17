@@ -136,3 +136,21 @@ declare type CreateUserParams = {
     hasDownload?: boolean;
     setIsTransforming?: React.Dispatch<React.SetStateAction<boolean>>;
   };
+
+  declare type CreateProfileParams = {
+    name: string;
+    description: string;
+    avatar?: string;
+    llm: string;
+    personality: string;
+    role: string;
+    persona: string;
+    interactionGuidelines: string;
+    voice: string;
+    extensions: string[];
+    sharePreference: string;
+    photo: File | null;
+  };
+
+  declare type UpdateProfileParams = Partial<CreateProfileParams>;
+  

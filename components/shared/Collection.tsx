@@ -1,131 +1,98 @@
-"use client";
+import React, { useState } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Pagination, PaginationContent, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
+import { Search } from './Search';
+import { Separator } from "@/components/ui/separator";
+import { formUrlQuery } from '@/lib/utils';
+import DisplayCard from './DisaplayCard';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useSearchParams, useRouter } from "next/navigation";
-import { CldImage } from "next-cloudinary";
+interface Data {
+  _id: string;
+  name: string;
+  creator: string;
+  description: string;
+  sharePreference: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
-import {
-  Pagination,
-  PaginationContent,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import { transformationTypes } from "@/constants";
-import { IImage } from "@/lib/database/models/image.model";
-import { formUrlQuery } from "@/lib/utils";
-
-import { Button } from "../ui/button";
-
-import { Search } from "./Search";
-
-export const Collection = ({
-  hasSearch = false,
-  images,
-  totalPages = 1,
-  page,
-  libraryType = "Profiles",
-}: {
-  images: IImage[];
+export const Collection: React.FC<{
+  contextType: string;
+  type: string;
   totalPages?: number;
   page: number;
   hasSearch?: boolean;
-  libraryType: string;
-}) => {
+  items: Data[];
+}> = ({ hasSearch = false, totalPages = 1, contextType, type, page, items }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [selectedCard, setSelectedCard] = useState<string | null>(null);
 
-  // PAGINATION HANDLER
   const onPageChange = (action: string) => {
-    const pageValue = action === "next" ? Number(page) + 1 : Number(page) - 1;
-
+    const pageValue = action === "next" ? page + 1 : page - 1;
     const newUrl = formUrlQuery({
       searchParams: searchParams.toString(),
       key: "page",
       value: pageValue,
     });
-
     router.push(newUrl, { scroll: false });
+  };
+
+  const handleCardSelect = (cardId: string) => {
+    setSelectedCard((prevSelectedCard) => (prevSelectedCard === cardId ? null : cardId));
   };
 
   return (
     <>
-    <div className="collection-heading -mt-5">
-      <h2 className="h2-bold text-dark-600"></h2>
-      {hasSearch && <Search />}
-    </div>
-
-      {images.length > 0 ? (
-        <ul className="collection-list">
-          {images.map((image) => (
-            <Card image={image} key={image._id} />
+      <div className="collection-heading">
+        <h2 className="collection-heading__title"></h2>
+        {hasSearch && <Search />}
+      </div>
+      <Separator className="collection-separator mb-5"/>
+      {items.length > 0 ? (
+        <ul className="collection-list" style={{ maxHeight: contextType === 'Library' ? '750px' : '500px', overflowY: 'auto' }}>
+          {items.map(({ _id, name, creator, description }) => (
+            <li key={_id}>
+              <DisplayCard
+                type={type}
+                title={name}
+                creator={creator}
+                description={description}
+                isSelected={selectedCard === _id}
+                onSelect={() => handleCardSelect(_id)}
+              />
+            </li>
           ))}
         </ul>
       ) : (
         <div className="collection-empty">
-          <p className="p-20-semibold">Empty List</p>
+          <p className="collection-empty__text">Empty List</p>
         </div>
       )}
-
       {totalPages > 1 && (
-        <Pagination className="mt-10">
-          <PaginationContent className="flex w-full">
+        <Pagination className="collection-pagination">
+          <PaginationContent className="collection-pagination__content">
             <Button
-              disabled={Number(page) <= 1}
-              className="collection-btn"
+              disabled={page <= 1}
+              className="collection-pagination__button"
               onClick={() => onPageChange("prev")}
             >
-              <PaginationPrevious className="hover:bg-transparent hover:text-white" />
+              <PaginationPrevious className="collection-pagination__button-icon" />
             </Button>
-
-            <p className="flex-center p-16-medium w-fit flex-1">
+            <p className="collection-pagination__info">
               {page} / {totalPages}
             </p>
-
             <Button
-              className="button w-32 bg-purple-gradient bg-cover text-white"
+              className="collection-pagination__button"
               onClick={() => onPageChange("next")}
-              disabled={Number(page) >= totalPages}
+              disabled={page >= totalPages}
             >
-              <PaginationNext className="hover:bg-transparent hover:text-white" />
+              <PaginationNext className="collection-pagination__button-icon" />
             </Button>
           </PaginationContent>
         </Pagination>
       )}
     </>
-  );
-};
-
-const Card = ({ image }: { image: IImage }) => {
-  return (
-    <li>
-      <Link href={`/transformations/${image._id}`} className="collection-card">
-        <CldImage
-          src={image.publicId}
-          alt={image.title}
-          width={image.width}
-          height={image.height}
-          {...image.config}
-          loading="lazy"
-          className="h-52 w-full rounded-[10px] object-cover"
-          sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 33vw"
-        />
-        <div className="flex-between">
-          <p className="p-20-semibold mr-3 line-clamp-1 text-dark-600">
-            {image.title}
-          </p>
-          <Image
-            src={`/assets/icons/${
-              transformationTypes[
-                image.transformationType as TransformationTypeKey
-              ].icon
-            }`}
-            alt={image.title}
-            width={24}
-            height={24}
-          />
-        </div>
-      </Link>
-    </li>
   );
 };

@@ -1,6 +1,6 @@
 import { Document, Schema, model, models } from "mongoose";
 
-export interface IVoice extends Document {
+export interface IExtensions extends Document {
   name: string;  
   creator: string;
   description: string;
@@ -9,7 +9,7 @@ export interface IVoice extends Document {
   updatedAt?: Date;
 }
 
-const VoiceSchema = new Schema({
+const ExtensionSchema = new Schema({
   name: { type: String, required: true },
   creator: { type: String, required: true },
   description: { type: String, required: true },
@@ -19,6 +19,6 @@ const VoiceSchema = new Schema({
 });
 
 
-const Voice = models?.Voice || model('Voice', VoiceSchema);
+const Extension = models?.Extension || model('Extension', ExtensionSchema);
 
-export default Voice;
+export default Extension;

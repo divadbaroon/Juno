@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator"
 
 import { LibraryPage } from "@/components/shared/library/LibraryPage"
 
-export function ProfileForm() {
+function ProfileForm() {
   // The actively selected Tab
   const [activeSection, setActiveSection] = useState('profile');
 
@@ -29,24 +29,28 @@ export function ProfileForm() {
       <Separator className="my-4" />
 
       {activeSection === 'profile' && <LibraryPage 
+          contextType="Library"
+          libraryType="Profiles" 
           h2Text="Profiles" 
           pText="Discover our wide range of AI profiles tailored for different needs and preferences. Whether you're seeking a professional advisor or a personal companion, navigate through our collection to find your perfect AI match."
-          libraryType="Profiles" 
       />}
       {activeSection === 'extension' && <LibraryPage
+          contextType="Library"
+          libraryType="Extensions" 
           h2Text="Extensions" 
           pText="Enhance your AI's abilities with our unique extensions. Browse through our library to find tools and features that add extra functionality to your AI, from advanced analytics to interactive games."
-          libraryType="Extensions" 
       />}
       {activeSection === 'voice' && <LibraryPage
+          contextType="Library"
+          libraryType="Voices" 
           h2Text="Voices" 
           pText="Personalize your AI's interaction with our selection of voices. From warm and friendly to formal and authoritative, choose the voice that best fits your style and enhances your AI's communication."
-          libraryType="Voices" 
       />}
       {activeSection === 'llm' && <LibraryPage 
+          contextType="Library"
+          libraryType="LLMs" 
           h2Text="Large-Language Models" 
           pText="Explore our assortment of large-language models to supercharge your AI. Select from a variety of models that offer different strengths, from natural language understanding to creative content generation."
-          libraryType="LLM" 
       />}
 
     </div>

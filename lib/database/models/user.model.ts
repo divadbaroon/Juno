@@ -34,6 +34,11 @@ const UserSchema = new Schema({
     type: Number,
     default: 10,
   },
+  userCollection: {
+    profiles: [{ type: String }], 
+    voices: [{ type: String }],   
+    llms: [{ type: String }]  
+  },    
 });
 
 const User = models?.User || model("User", UserSchema);

@@ -4,14 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import { Separator } from "@/components/ui/separator";
 
-export const Guide = () => {
+const Guide = () => {
   return (
     <>
       <div className="about-section">
         {/* Overview Section */}
         <div className="section">
         <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '25px' }}>Guide</h4>        <p className="p-20-regular text-dark-400" style={{ fontSize: '20px', lineHeight: '1.6', marginTop: '20px' }}>
-        Welcome to the Juno guide! In this section, we'll walk you through the process of creating, customizing, and bringing your AI companion to life. Discover the tools and features that make Juno the ultimate platform for crafting your ideal AI companion.
+        Welcome to the Juno guide! In this section, we&apos;ll walk you through the process of creating, customizing, and bringing your AI companion to life. Discover the tools and features that make Juno the ultimate platform for crafting your ideal AI companion.
         </p>
         <Separator className="my-8" />
     </div>
@@ -40,7 +40,7 @@ export const Guide = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ fontSize: '28px', marginTop: '40px' }}>Extensions: Expanding Capabilities</h2>
           <p className="p-20-regular text-dark-400" style={{ fontSize: '18px', marginTop: '20px', lineHeight: '1.6' }}>
-            In the Extension Creation workshop, the possibilities for your AI's abilities are limitless. Craft custom extensions that redefine what your AI can accomplish, transforming them into an essential part of your digital experience. Unlock new dimensions of interaction and functionality.
+            In the Extension Creation workshop, the possibilities for your AI&apos;s abilities are limitless. Craft custom extensions that redefine what your AI can accomplish, transforming them into an essential part of your digital experience. Unlock new dimensions of interaction and functionality.
           </p>
           <Link href="/extensions" className="text-primary-600 hover:underline" style={{ display: 'block', marginTop: '20px' }}>Explore Example Extensions →</Link>
           <Separator className="my-8" />
@@ -50,7 +50,7 @@ export const Guide = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ fontSize: '28px', marginTop: '40px' }}>Sharing: A Collaborative Community</h2>
           <p className="p-20-regular text-dark-400" style={{ fontSize: '18px', marginTop: '20px', lineHeight: '1.6' }}>
-            Join our thriving community of creators and share your AI masterpieces with the world. Showcase the extraordinary personalities, voices, and capabilities you've brought to life. Connect with like-minded innovators, exchange ideas, and inspire one another to push the boundaries of AI companionship.
+            Join our thriving community of creators and share your AI masterpieces with the world. Showcase the extraordinary personalities, voices, and capabilities you&apos;ve brought to life. Connect with like-minded innovators, exchange ideas, and inspire one another to push the boundaries of AI companionship.
           </p>
           <Link href="/community" className="text-primary-600 hover:underline" style={{ display: 'block', marginTop: '20px' }}>Discover the Juno Community →</Link>
         </div>

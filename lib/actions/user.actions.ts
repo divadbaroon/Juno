@@ -28,9 +28,6 @@ export async function getUserById(userId: string) {
 
     if (!user) throw new Error("User not found");
 
-    console.log("User found: ", user);
-    console.log("User found: ", JSON.parse(JSON.stringify(user)));
-
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
     handleError(error);

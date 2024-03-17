@@ -7,7 +7,7 @@ import { ProfileCreation } from "@/components/shared/lab/ProfileCreation"
 import { VoiceCreation } from "@/components/shared/lab/VoiceCreation"
 import { ExtensionCreation } from "@/components/shared/lab/ExtensionCreation"
 
-export function ProfileForm() {
+function ProfileForm() {
   // The actively selected Tab
   const [activeSection, setActiveSection] = useState('profile');
 
@@ -21,10 +21,7 @@ export function ProfileForm() {
       </div>
       <Separator className="my-4" />
       <div className="flex h-5 items-center space-x-4 text-sm">
-<<<<<<< HEAD
         <Separator orientation="vertical" />
-=======
->>>>>>> 392b86fff4280b98d9e8d3d017da18c2d020eefc
         <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('profile')}>Profile Creation</div>
         <Separator orientation="vertical" />
         <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('voice')}>Voice Creation</div>
