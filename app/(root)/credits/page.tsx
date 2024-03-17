@@ -19,7 +19,7 @@ const Credits = async () => {
     <>
       <Header
         title="Upgrade Your Plan"
-        subtitle="Upgrade to a plan that suits your needs!"
+        subtitle="Upgrade your plan to grant yourself full access to all the features of the platform."
       />
 
       <section>
@@ -32,7 +32,7 @@ const Credits = async () => {
                   {plan.name}
                 </p>
                 <p className="h1-semibold text-dark-600">${plan.price}</p>
-                <p className="p-16-regular">{plan.credits} Credits</p>
+                <p className="p-16-regular">Usage/day: {plan.usage}</p>
               </div>
 
               {/* Inclusions */}
@@ -55,9 +55,9 @@ const Credits = async () => {
                 ))}
               </ul>
 
-              {plan.name === "Free" ? (
+              {plan.name === "Trial" ? (
                 <Button variant="outline" className="credits-btn">
-                  Free Consumable
+                  Active
                 </Button>
               ) : (
                 <SignedIn>
