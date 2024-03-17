@@ -374,3 +374,22 @@
   font-weight: 600;
   color: #384262;
 }
+
+@keyframes ping-slow {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  75% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.animate-ping-slow {
+  animation: ping-slow 5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
