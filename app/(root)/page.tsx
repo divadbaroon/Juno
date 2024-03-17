@@ -10,7 +10,7 @@ const Home = () => {
         <div className="space-y-6">
           <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '25px' }}>Welcome to Juno</h4>
           <p className="p-20-regular text-dark-400" style={{ marginTop: '15px' }}>
-            Juno is a platform that allows you to create, customize, and seamlessly interact with your own personalized AI profile directly within your webbrowser.
+            Create, customize, and seamlessly interact with your own personalized AI directly within your webbrowser.
           </p>
           
         </div>
@@ -20,7 +20,7 @@ const Home = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>Getting Started</h2>
           <p className="p-20-regular text-dark-400" style={{ fontSize: '18px', marginTop: '20px', lineHeight: '1.6' }}>
-            Get started by exploring Juno&apos;s <Link href="/quickstart" className="text-primary-600 underline">Quick Start guide</Link>. This step-by-step tutorial will walk you through creating and integrating your own personalized AI profile in minutes.
+            Get started by exploring Juno&apos;s <Link href="/quickstart" className="text-primary-600 underline">Quick Start guide</Link>. This step-by-step tutorial will walk you through creating and integrating your own personalized AI in minutes.
           </p>
         </div>
         <Separator className="my-8" />
@@ -30,7 +30,7 @@ const Home = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>Explore Juno</h2>
           <p className="p-20-regular text-dark-400" style={{ fontSize: '18px', marginTop: '20px', lineHeight: '1.6' }}>
-            Discover Juno&apos;s extensive features and capabilities by browsing the <Link href="/library" className="text-primary-600 underline">Library</Link>, where you can find a diverse collection of AI profiles, voices, LLMs, and extensions crafted by our collaborative community.
+            Discover Juno&apos;s extensive features and capabilities by browsing the <Link href="/library" className="text-primary-600 underline">Library</Link>, where you'll find a collection of pre-made AI profiles, voices, language models, and extensions crafted by our community.
           </p>
         </div>
         <Separator className="my-8" />
@@ -39,7 +39,7 @@ const Home = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>Unleash Your Creativity</h2>
           <p className="p-20-regular text-dark-400" style={{ fontSize: '18px', marginTop: '20px', lineHeight: '1.6' }}>
-            Visit the <Link href="/lab" className="text-primary-600 underline">Lab</Link> to craft your own custom AI profiles, voices, and extensions tailored to your exact preferences. Let your imagination soar as you design your perfect AI profile.
+            Visit the <Link href="/lab" className="text-primary-600 underline">Lab</Link> to craft your own custom AI profiles, voices, and extensions tailored to your exact preferences. Let your imagination soar as you design your perfect AI.
           </p>
         </div>
         <Separator className="my-8" />
