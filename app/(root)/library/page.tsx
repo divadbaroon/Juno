@@ -12,7 +12,7 @@ function ProfileForm() {
   return (
     <div className="root-container">
       <div className="space-y-1">
-        <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '-15px' }}>The Library</h4>
+        <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '-35px' }}>The Library</h4>
         
       </div>
       <Separator className="my-4" />

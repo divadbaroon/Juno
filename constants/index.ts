@@ -20,7 +20,7 @@ export const navLinks = [
       icon: "/assets/icons/filter.svg",
     },
     {
-      label: "My Collection",
+      label: "Profile",
       route: "/profile",
       icon: "/assets/icons/profile.svg",
     },

@@ -31,7 +31,7 @@ const QuickStart = () => {
   return (
     <div className="about-section">
       <div className="section">
-        <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '25px' }}>Quick Start</h4>
+        <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '0px' }}>Quick Start</h4>
         <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
           A step-by-step guide on how to quickly customize and interact with your own personalized AI.
         </p>
