@@ -74,7 +74,7 @@ declare type CreateUserParams = {
   // ====== TRANSACTION PARAMS
   declare type CheckoutTransactionParams = {
     plan: string;
-    credits: number;
+    credits: string;
     amount: number;
     buyerId: string;
   };

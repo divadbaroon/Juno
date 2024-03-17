@@ -16,7 +16,7 @@ const Checkout = ({
 }: {
   plan: string;
   amount: number;
-  credits: number;
+  credits: string;
   buyerId: string;
 }) => {
   const { toast } = useToast();
