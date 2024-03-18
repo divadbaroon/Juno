@@ -13,7 +13,7 @@ const MobileNav = () => {
 
   return (
     <header className="header">
-      <Link href="/" className="flex items-center gap-2 md:py-2" style={{ marginTop: '1px', marginBottom: '0px', marginLeft: '-15px' }}>
+      <Link href="/" className="flex items-center gap-2 md:py-2" style={{ marginTop: '1px', marginBottom: '0px', marginLeft: '-40px' }}>
         <Image
           src="/assets/images/juno-logo-mobile.svg"
           alt="logo"
