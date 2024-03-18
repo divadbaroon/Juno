@@ -19,7 +19,7 @@ const Credits = async () => {
     <>
       <Header
         title="Upgrade Your Plan"
-        subtitle="Upgrade your plan to grant yourself full access to all the features of the platform."
+        subtitle="Upgrade your plan to increase your alloted usage time for each day."
       />
 
       <section>

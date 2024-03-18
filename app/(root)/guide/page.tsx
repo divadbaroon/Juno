@@ -11,9 +11,9 @@ const Guide = () => {
         {/* Overview Section */}
         <div className="section">
         <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '0px' }}>Guide</h4>        <p className="p-20-regular text-dark-400" style={{ fontSize: '20px', lineHeight: '1.6', marginTop: '20px' }}>
-        Welcome to the Juno guide! In this section, we&apos;ll walk you through the process of creating, customizing, and bringing your AI companion to life. Discover the tools and features that make Juno the ultimate platform for crafting your ideal AI companion.
+          Learn in detail how to create, customize, and interact with your personalized AI companion.
         </p>
-        <Separator className="my-8" />
+        <Separator className="my-4" />
     </div>
 
         {/* Profile Creation Section */}

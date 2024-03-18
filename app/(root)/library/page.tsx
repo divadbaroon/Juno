@@ -13,7 +13,9 @@ function ProfileForm() {
     <div className="root-container">
       <div className="space-y-1">
         <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '-35px' }}>The Library</h4>
-        
+        <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
+          Explore our curated collection of pre-made AI profiles, voices, language models, and extensions 
+        </p>
       </div>
       <Separator className="my-4" />
       <div className="flex h-5 items-center space-x-4 text-sm">
@@ -32,26 +34,26 @@ function ProfileForm() {
           contextType="Library"
           libraryType="Profiles" 
           h2Text="Profiles" 
-          pText="Discover our wide range of AI profiles tailored for different needs and preferences. Whether you're seeking a professional advisor or a personal companion, navigate through our collection to find your perfect AI match."
-      />}
+          pText="Browse through a collection of AI profiles, each serving a unique experience, purpose, and feel to your AI interactions."
+          />}
       {activeSection === 'extension' && <LibraryPage
           contextType="Library"
           libraryType="Extensions" 
           h2Text="Extensions" 
-          pText="Enhance your AI's abilities with our unique extensions. Browse through our library to find tools and features that add extra functionality to your AI, from advanced analytics to interactive games."
+          pText="Use extensions to add capabilites and enhancements to your AI. Add as many extensions as you need to create the perfect AI for your needs."
       />}
       {activeSection === 'voice' && <LibraryPage
           contextType="Library"
           libraryType="Voices" 
           h2Text="Voices" 
-          pText="Personalize your AI's interaction with our selection of voices. From warm and friendly to formal and authoritative, choose the voice that best fits your style and enhances your AI's communication."
+          pText="Personalize how your AI sounds by selecting from our wide-range of life-like voices. From warm and friendly to formal and authoritative, choose the voice that best fits your style and enhances your AI's communication."
       />}
       {activeSection === 'llm' && <LibraryPage 
           contextType="Library"
           libraryType="LLMs" 
           h2Text="Large-Language Models" 
-          pText="Explore our assortment of large-language models to supercharge your AI. Select from a variety of models that offer different strengths, from natural language understanding to creative content generation."
-      />}
+          pText="Select the Large Language Model that provides your profile's underlying intelligence. Different LLMs have different strengths and weaknesses, such as reasoning, coding abilities, speed, and expertise on certain topics. Choose the one that best aligns with your preferences and requirements."
+          />}
 
     </div>
   )
