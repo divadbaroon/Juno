@@ -2,22 +2,22 @@ export const navLinks = [
     {
       label: "Quick Start",
       route: "/quickstart",
-      icon: "/assets/icons/stars.svg",
+      icon: "/assets/icons/bolt.svg",
     },
     {
       label: "Library",
       route: "/library",
-      icon: "/assets/icons/image.svg",
+      icon: "/assets/icons/book.svg",
     },
     {
       label: "Lab",
       route: "/lab",
-      icon: "/assets/icons/scan.svg",
+      icon: "/assets/icons/beaker.svg",
     },
     {
       label: "Guide",
       route: "/guide",
-      icon: "/assets/icons/filter.svg",
+      icon: "/assets/icons/guide.svg",
     },
     {
       label: "Profile",
@@ -27,7 +27,7 @@ export const navLinks = [
     {
       label: "Upgrade",
       route: "/credits",
-      icon: "/assets/icons/bag.svg",
+      icon: "/assets/icons/unlock.svg",
     },
   ];
   
