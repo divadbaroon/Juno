@@ -16,8 +16,8 @@ const Sidebar = () => {
   return (
     <aside className="sidebar">
       <div className="flex size-full flex-col gap-4">
-        <Link href="/" style={{ marginTop: '0px', marginBottom: '-44px', marginLeft: '55px' }} className="sidebar-logo">
-            <Image src="/assets/images/juno-logo.svg" alt="logo" width={130} height={10} />
+        <Link href="/" style={{ marginTop: '-10px', marginBottom: '-28px', marginLeft: '15px' }} className="sidebar-logo">
+            <Image src="/assets/images/juno-logo.svg" alt="logo" width={190} height={10} />
         </Link>
         <Separator className="my-5" />
 
