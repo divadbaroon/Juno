@@ -56,7 +56,7 @@ export const navLinks = [
     },
     {
       _id: 2,
-      name: "Standard Plan",
+      name: "Standard",
       icon: "/assets/icons/free-plan.svg",
       price: 10,
       usage: "2 hours",
@@ -77,7 +77,7 @@ export const navLinks = [
     },
     {
       _id: 2,
-      name: "Premium Plan",
+      name: "Premium",
       icon: "/assets/icons/free-plan.svg",
       price: 25,
       usage: "6 hours",

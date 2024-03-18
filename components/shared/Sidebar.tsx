@@ -7,16 +7,21 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '../ui/button'
 
+import { Separator } from "@/components/ui/separator"
+
+
 const Sidebar = () => {
   const pathname = usePathname();
 
   return (
     <aside className="sidebar">
       <div className="flex size-full flex-col gap-4">
-        <Link href="/" style={{ marginTop: '-15px', marginBottom: '-15px' }} className="sidebar-logo">
-          <Image src="/assets/images/juno-logo.svg" alt="logo" width={160} height={10} />
+        <Link href="/" style={{ marginTop: '20px', marginBottom: '-66px', marginLeft: '25px' }} className="sidebar-logo">
+            <Image src="/assets/images/juno-logo.svg" alt="logo" width={160} height={10} />
         </Link>
-        <nav className="sidebar-nav">
+        <Separator className="my-5" />
+
+        <nav className="sidebar-nav -mt-4">
           <SignedIn>
             <ul className="sidebar-nav_elements">
               {navLinks.slice(0, 4).map((link) => {

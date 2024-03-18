@@ -27,13 +27,16 @@ const UserSchema = new Schema({
     type: String,
   },
   planId: {
-    type: Number,
-    default: 1,
+    type: String,
+    default: "Trial",
   },
-  creditBalance: {
+  usageLeft: {
     type: Number,
-    default: 10,
-  }   
+    default: 900,
+  },
+  lastUsed: {
+    type: Date,
+  }, 
 });
 
 const User = models?.User || model("User", UserSchema);

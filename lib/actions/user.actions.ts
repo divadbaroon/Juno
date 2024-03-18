@@ -91,3 +91,17 @@ export async function updateCredits(userId: string, creditFee: number) {
     handleError(error);
   }
 }
+
+// GET PLAN
+
+// GET TIME LEFT FOR DAY
+
+// GET DATE OF LAST USAGe
+
+// GET USER's SAVED PROFILES
+
+// GET USER's SAVED EXTENSIONS
+
+// GET USER's SAVED VOICES
+
+// GET USER's SAVED LLMS
