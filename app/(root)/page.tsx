@@ -11,11 +11,11 @@ const Home = () => {
         <div className="space-y-6">
           <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '0px' }}>Welcome to Juno</h4>
           <p className="p-20-regular text-dark-400" style={{ marginTop: '15px' }}>
-            Create, customize, and seamlessly interact with your own personalized AI directly within your webbrowser.
+            Customize, create, and seamlessly interact with your own personalized AI.
           </p>
           
         </div>
-        <Separator className="my-8" />
+        <Separator className="my-4" />
 
         {/* Getting Started Section */}
         <div className="section">
