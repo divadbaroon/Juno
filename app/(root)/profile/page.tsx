@@ -12,7 +12,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
 
   return (
     <>
-      <Header title="Profile" />
+      <Header title="Dashboard" />
 
       <Separator className="my-4" />
 
