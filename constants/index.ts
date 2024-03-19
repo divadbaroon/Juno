@@ -15,14 +15,14 @@ export const navLinks = [
       icon: "/assets/icons/beaker.svg",
     },
     {
+      label: "Dashboard",
+      route: "/profile",
+      icon: "/assets/icons/chart.svg",
+    },
+    {
       label: "Guide",
       route: "/guide",
       icon: "/assets/icons/guide.svg",
-    },
-    {
-      label: "Profile",
-      route: "/profile",
-      icon: "/assets/icons/profile.svg",
     },
     {
       label: "Upgrade",
