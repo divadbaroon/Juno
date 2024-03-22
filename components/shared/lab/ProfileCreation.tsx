@@ -118,7 +118,7 @@ export const ProfileCreation = () => {
       {showProfileCreation && (
         <div className="forms-container space-y-8 mt-5">
           <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-            Fine-tune your selected LLM to align with your AI's intended behavior and identity.
+            Fine-tune your selected LLM to align with your AI&apos;s intended behavior and identity.
           </p>
           <FormProvider {...emailForm}>
             <form className="space-y-8">
