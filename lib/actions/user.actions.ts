@@ -92,16 +92,21 @@ export async function updateCredits(userId: string, creditFee: number) {
   }
 }
 
-// GET PLAN
+// UPDATE PLAN
+export async function updatePlan(userId: string, newPlan: string) {
+  try {
+    await connectToDatabase();
 
-// GET TIME LEFT FOR DAY
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId  },
+      { $set: { plan: newPlan } },
+      { new: true }
+    );
 
-// GET DATE OF LAST USAGe
+    if (!updatedUser) throw new Error("User plan update failed");
 
-// GET USER's SAVED PROFILES
-
-// GET USER's SAVED EXTENSIONS
-
-// GET USER's SAVED VOICES
-
-// GET USER's SAVED LLMS
+    return JSON.parse(JSON.stringify(updatedUser));
+  } catch (error) {
+    handleError(error);
+  }
+}
