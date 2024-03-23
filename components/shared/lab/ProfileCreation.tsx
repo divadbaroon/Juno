@@ -28,13 +28,11 @@ const emailFormSchema = z.object({
 });
 
 export const ProfileCreation = () => {
-  // State hooks to show fields
-  const [showBasicDetails, setShowBasicDetails] = useState(false);
-  const [showProfileCreation, setShowProfileCreation] = useState(false);
-  const [showLargeLanguageModel, setShowLargeLanguageModel] = useState(false);
+  // State hooks to show sections
+  const [showLanguageModel, setShowLanguageModel] = useState(false);
   const [showVoice, setShowVoice] = useState(false);
   const [showExtensions, setShowExtensions] = useState(false);
-  const [showShare, setShowShare] = useState(false);
+  const [showProfileDetails, setShowProfileDetails] = useState(false);
 
   // State hooks to store form data
   const [name, setName] = useState("");
@@ -92,134 +90,127 @@ export const ProfileCreation = () => {
       </p>
       <Separator className="my-4" />
 
-      {/* LLM Selection */}
+      {/* Language Model Section */}
       <div
-        onClick={() => setShowLargeLanguageModel(!showLargeLanguageModel)}
+        onClick={() => setShowLanguageModel(!showLanguageModel)}
         className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
       >
-        <h2 className="text-lg font-bold text-dark-600">LLM Selection</h2>
+        <h2 className="text-lg font-bold text-dark-600">AI Model Configuration</h2>
       </div>
-      {showLargeLanguageModel && (
-        <LibraryPage
-          contextType="Lab"
-          libraryType="LLMs"
-          h2Text=""
-          pText="Select the Large-Language Model (LLM) that will power your AI's natural language understanding and generation capabilities."
-        />
-      )}
+      {showLanguageModel && (
+        <>
+          <LibraryPage
+            contextType="Lab"
+            libraryType="LLMs"
+            h2Text=""
+            pText="Select the language model that will power your AI's natural language understanding and generation."
+          />
+          <div className="forms-container space-y-8 mt-5">
+            <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
+              Fine-tune your selected LLM to align with your AI&apos;s intended behavior and identity.
+            </p>
+            <FormProvider {...emailForm}>
+              <form className="space-y-8">
+                <FormField
+                  control={emailForm.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-bold">Personality</FormLabel>
+                      <FormDescription style={{ marginTop: '.2rem' }}>
+                        Define the personality traits of your AI.
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          placeholder="Friendly"
+                          value={personality}
+                          onChange={(e) => setPersonality(e.target.value)}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </FormProvider>
 
-      {/* LLM Configuration */}
-      <div
-        onClick={() => setShowProfileCreation(!showProfileCreation)}
-        className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
-      >
-        <h2 className="text-lg font-bold text-dark-600">LLM Configuration</h2>
-      </div>
-      {showProfileCreation && (
-        <div className="forms-container space-y-8 mt-5">
-          <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-            Fine-tune your selected LLM to align with your AI&apos;s intended behavior and identity.
-          </p>
-          <FormProvider {...emailForm}>
-            <form className="space-y-8">
-              <FormField
-                control={emailForm.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-bold">Personality</FormLabel>
-                    <FormDescription style={{ marginTop: '.2rem' }}>
-                      Define the personality traits of your AI.
-                    </FormDescription>
-                    <FormControl>
-                      <Input
-                        placeholder="Friendly"
-                        value={personality}
-                        onChange={(e) => setPersonality(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </form>
-          </FormProvider>
+            <FormProvider {...emailForm}>
+              <form className="space-y-8">
+                <FormField
+                  control={emailForm.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-bold">Role</FormLabel>
+                      <FormDescription style={{ marginTop: '.2rem' }}>
+                        Function or job of the AI within interactions
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          placeholder="Assistant"
+                          value={role}
+                          onChange={(e) => setRole(e.target.value)}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </FormProvider>
 
-          <FormProvider {...emailForm}>
-            <form className="space-y-8">
-              <FormField
-                control={emailForm.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-bold">Role</FormLabel>
-                    <FormDescription style={{ marginTop: '.2rem' }}>
-                      Function or job of the AI within interactions
-                    </FormDescription>
-                    <FormControl>
-                      <Input
-                        placeholder="Assistant"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </form>
-          </FormProvider>
+            <FormProvider {...emailForm}>
+              <form className="space-y-8">
+                <FormField
+                  control={emailForm.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-bold">Persona</FormLabel>
+                      <FormDescription style={{ marginTop: '.2rem' }}>
+                        The archetype your AI will embody.
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          placeholder="Barack Obama"
+                          value={persona}
+                          onChange={(e) => setPersona(e.target.value)}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </FormProvider>
 
-          <FormProvider {...emailForm}>
-            <form className="space-y-8">
-              <FormField
-                control={emailForm.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-bold">Persona</FormLabel>
-                    <FormDescription style={{ marginTop: '.2rem' }}>
-                      The archetype your AI will embody.
-                    </FormDescription>
-                    <FormControl>
-                      <Input
-                        placeholder="Barack Obama"
-                        value={persona}
-                        onChange={(e) => setPersona(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </form>
-          </FormProvider>
-
-          <FormProvider {...emailForm}>
-            <form className="space-y-8">
-              <FormField
-                control={emailForm.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-bold">Interaction Guidelines</FormLabel>
-                    <FormDescription style={{ marginTop: '.2rem' }}>
-                      Set guidelines on how your AI communicates with you
-                    </FormDescription>
-                    <FormControl>
-                      <Input
-                        placeholder="Only respond in a poetic manner"
-                        value={interactionGuidelines}
-                        onChange={(e) => setInteractionGuidelines(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </form>
-          </FormProvider>
-        </div>
+            <FormProvider {...emailForm}>
+              <form className="space-y-8">
+                <FormField
+                  control={emailForm.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-bold">Interaction Guidelines</FormLabel>
+                      <FormDescription style={{ marginTop: '.2rem'}}>
+                        Set guidelines on how your AI communicates with you
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          placeholder="Only respond in a poetic manner"
+                          value={interactionGuidelines}
+                          onChange={(e) => setInteractionGuidelines(e.target.value)}
+                          style={{marginBottom: '1.5rem' }}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </FormProvider>
+          </div>
+        </>
       )}
 
       {/* Voice Section */}
@@ -227,14 +218,14 @@ export const ProfileCreation = () => {
         onClick={() => setShowVoice(!showVoice)}
         className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
       >
-        <h2 className="text-lg font-bold text-dark-600">Select Voice</h2>
+        <h2 className="text-lg font-bold text-dark-600">Voice Selection</h2>
       </div>
       {showVoice && (
         <LibraryPage
           contextType="Lab"
           libraryType="Voices"
           h2Text=""
-          pText="Give your AI a unique voice that complements its personality and enhances the user experience."
+          pText="Choose a unique voice that complements your AI's personality and enhances the user experience."
         />
       )}
 
@@ -243,30 +234,26 @@ export const ProfileCreation = () => {
         onClick={() => setShowExtensions(!showExtensions)}
         className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
       >
-        <h2 className="text-lg font-bold text-dark-600">Add Extensions</h2>
+        <h2 className="text-lg font-bold text-dark-600">Enhance Capabilites</h2>
       </div>
       {showExtensions && (
         <LibraryPage
           contextType="Lab"
           libraryType="Extensions"
           h2Text=""
-          pText="Enhance the capabilities of your AI by adding extensions that provide additional features and functionalities."
+          pText="Enhance your AI's capabilities by adding powerful extensions and functionalities."
         />
       )}
 
-      {/* Profile Details */}
+      {/* Profile Details Section */}
       <div
-        onClick={() => setShowBasicDetails(!showBasicDetails)}
+        onClick={() => setShowProfileDetails(!showProfileDetails)}
         className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
       >
         <h2 className="text-lg font-bold text-dark-600">Profile Details</h2>
       </div>
-      {showBasicDetails && (
+      {showProfileDetails && (
         <div className="forms-container space-y-8 mt-5">
-          <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-            Provide the details that will be initially shown on your AI profile.
-          </p>
-
           <FormProvider {...usernameForm}>
             <form className="mb-8 space-y-8">
               <FormField
@@ -326,9 +313,9 @@ export const ProfileCreation = () => {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-bold">Profile photo (optional)</FormLabel>
+                    <FormLabel className="font-bold">Profile Avatar (optional)</FormLabel>
                     <FormDescription style={{ marginTop: '.2rem' }}>
-                      Upload a profile photo to represent your profile.
+                      Upload a photo to represent your profile.
                     </FormDescription>
                     <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                       <div className="text-center">
@@ -361,79 +348,71 @@ export const ProfileCreation = () => {
               />
             </form>
           </FormProvider>
-        </div>
-      )}
 
-      {/* Share Preference */}
-      <div
-        onClick={() => setShowShare(!showShare)}
-        className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
-      >
-        <h2 className="text-lg font-bold text-dark-600">Share Preference</h2>
-      </div>
-      {showShare && (
-        <FormProvider {...usernameForm}>
-          <form className="mb-8 space-y-8">
-            <FormField
-              control={usernameForm.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormDescription style={{ marginTop: '.2rem' }}>
-                    Determine the level of access and visibility for your newly created AI profile.
-                  </FormDescription>
-                  <fieldset>
-                    <div className="mt-3 space-y-6">
-                    <div className="flex items-center gap-x-3">
-                        <input
-                          id="push-global"
-                          name="global"
-                          type="radio"
-                          className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={sharePreference === 'global'}
-                          onChange={() => setSharePreference('global')}
-                        />
-                        <div className="text-sm leading-6">
-                          <label htmlFor="push-nothing" className="block text-sm font-medium leading-6 text-gray-900">Share Globally</label>
-                          <p className="text-gray-500">Allow anyone to discover and interact with your profile.</p>
+          <FormProvider {...usernameForm}>
+            <form className="mb-8 space-y-8">
+              <FormField
+                control={usernameForm.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-bold">Share Preference</FormLabel>
+                    <FormDescription style={{ marginTop: '5px' }}>
+                      Determine the level of access and visibility for your newly created AI profile.
+                    </FormDescription>
+                    <fieldset>
+                      <div className="mt-3 space-y-6">
+                        <div className="flex items-center gap-x-3">
+                          <input
+                            id="push-global"
+                            name="global"
+                            type="radio"
+                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            checked={sharePreference === 'global'}
+                            onChange={() => setSharePreference('global')}
+                          />
+                          <div className="text-sm leading-6">
+                            <label htmlFor="push-nothing" className="block text-sm font-medium leading-6 text-gray-900">Share Globally</label>
+                            <p className="text-gray-500">Allow anyone to discover and interact with your profile.</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-x-3">
+                          <input
+                            id="push-global"
+                            name="friends"
+                            type="radio"
+                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            checked={sharePreference === 'friends'}
+                            onChange={() => setSharePreference('friends')}
+                          />
+                          <div className="text-sm leading-6">
+                            <label htmlFor="push-nothing" className="block text-sm font-medium leading-6 text-gray-900">Share With Friends</label>
+                            <p className="text-gray-500">Grant access exclusively to your approved connections.</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-x-3">
+                          <input
+                            id="push-global"
+                            name="private"
+                            type="radio"
+                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            checked={sharePreference === 'private'}
+                            onChange={() => setSharePreference('private')}
+                          />
+                          <div className="text-sm leading-6">
+                            <label htmlFor="push-nothing" className="block text-sm font-medium leading-6 text-gray-900">Keep Private</label>
+                            <p className="text-gray-500">Reserve access solely for yourself.</p>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-x-3">
-                        <input
-                          id="push-global"
-                          name="friends"
-                          type="radio"
-                          className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={sharePreference === 'friends'}
-                          onChange={() => setSharePreference('friends')}
-                        />
-                        <div className="text-sm leading-6">
-                          <label htmlFor="push-nothing" className="block text-sm font-medium leading-6 text-gray-900">Share With Friends</label>
-                          <p className="text-gray-500">Grant access exclusively to your approved connections.</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-x-3">
-                        <input
-                          id="push-global"
-                          name="private"
-                          type="radio"
-                          className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={sharePreference === 'private'}
-                          onChange={() => setSharePreference('private')}
-                        />
-                        <div className="text-sm leading-6">
-                          <label htmlFor="push-nothing" className="block text-sm font-medium leading-6 text-gray-900">Keep Private</label>
-                          <p className="text-gray-500">Reserve access solely for yourself.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </fieldset>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </FormProvider>
+                    </fieldset>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </form>
+          </FormProvider>
+        </div>
       )}
 
       <Separator className="my-4" />

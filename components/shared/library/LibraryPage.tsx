@@ -57,7 +57,7 @@ export const LibraryPage = ({ contextType, libraryType, h2Text, pText}: Profiles
     <div>
       <div className="section">
         <h2 className="h2-bold text-dark-600" style={{ marginTop: '20px' }}>{h2Text}</h2>
-        <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>{pText}</p>
+        <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px', marginLeft: '5px'}}>{pText}</p>
         <Separator className="my-4" />
       </div>
       <section className="sm:mt-12">
