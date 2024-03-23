@@ -93,12 +93,12 @@ export async function updateCredits(userId: string, creditFee: number) {
 }
 
 // UPDATE PLAN
-export async function updatePlan(userId: string, newPlan: string) {
+export async function updatePlan(buyerId: string, newPlan: string) {
   try {
     await connectToDatabase();
 
     const updatedUser = await User.findOneAndUpdate(
-      { _id: userId  },
+      { _id: buyerId  },
       { $set: { plan: newPlan } },
       { new: true }
     );
