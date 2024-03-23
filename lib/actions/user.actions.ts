@@ -93,15 +93,17 @@ export async function updateCredits(userId: string, creditFee: number) {
 }
 
 // UPDATE PLAN
-export async function updatePlan(buyerId: string, newPlan: string) {
+export async function updatePlan(buyerID: string, newPlan: string) {
   try {
     await connectToDatabase();
 
     const updatedUser = await User.findOneAndUpdate(
-      { clerkId: "user_2e47JRphQkGcLeHt7osmSsmmvBn"  },
+      { _id: buyerID  },
       { $set: { plan: newPlan } },
       { new: true }
     );
+
+    console.log(updatedUser);
 
     if (!updatedUser) throw new Error("User plan update failed");
 
