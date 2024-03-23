@@ -17,7 +17,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
   const userPlan = user.plan;
 
   // Convert timeLeft from seconds to hours, minutes, and seconds
-  const userTimeLeft = user.timeLeft;
+  const userTimeLeft = user.usageLeft;
   const hours = Math.floor(userTimeLeft / 3600);
   const minutes = Math.floor((userTimeLeft % 3600) / 60);
   const seconds = userTimeLeft % 60;

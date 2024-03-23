@@ -26,7 +26,7 @@ const UserSchema = new Schema({
   lastName: {
     type: String,
   },
-  planId: {
+  plan: {
     type: String,
     default: "Trial",
   },
