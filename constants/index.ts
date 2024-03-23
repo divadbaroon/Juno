@@ -16,7 +16,7 @@ export const navLinks = [
     },
     {
       label: "Dashboard",
-      route: "/profile",
+      route: "/dashboard",
       icon: "/assets/icons/chart.svg",
     },
     {
