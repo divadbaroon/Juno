@@ -23,6 +23,7 @@
     "class-variance-authority": "^0.7.0",
     "cloudinary": "^2.0.1",
     "clsx": "^2.1.0",
+    "input-otp": "^1.2.2",
     "lucide-react": "^0.340.0",
     "mongodb": "^6.3.0",
     "mongoose": "^8.2.1",

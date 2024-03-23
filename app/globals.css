@@ -393,3 +393,7 @@
 .animate-ping-slow {
   animation: ping-slow 5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
+
+.active-plan {
+  border: 2px solid #add8e6; /* Light blue color */
+}

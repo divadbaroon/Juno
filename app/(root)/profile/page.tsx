@@ -11,10 +11,11 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
 
   // Get user by ID
   const user = await getUserById(userId);
-  console.log(user);
 
   // Get the user's current plan
   const userPlan = user.plan;
+
+  console.log(user);
 
   // Convert timeLeft from seconds to hours, minutes, and seconds
   const userTimeLeft = user.usageLeft;

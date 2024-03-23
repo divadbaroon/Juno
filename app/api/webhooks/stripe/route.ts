@@ -36,7 +36,8 @@ export async function POST(request: Request) {
 
     const newTransaction = await createTransaction(transaction);
 
-    const updatedUser = await updatePlan(transaction.buyerId, transaction.plan, transaction.credits * 60);
+    // Update the users plan and alloted usage of time
+    const updatedUser = await updatePlan(transaction.buyerId, transaction.plan, transaction.credits * 3600);
     
     return NextResponse.json({ message: "OK", transaction: newTransaction, user: updatedUser});
   }
