@@ -15,8 +15,6 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
   // Get the user's current plan
   const userPlan = user.plan;
 
-  console.log(user);
-
   // Convert timeLeft from seconds to hours, minutes, and seconds
   const userTimeLeft = user.usageLeft;
   const hours = Math.floor(userTimeLeft / 3600);

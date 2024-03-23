@@ -49,7 +49,7 @@ const Home = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>Open Architecture Design</h2>
             <p className="p-20-regular text-dark-400" style={{ fontSize: '18px', marginTop: '20px', lineHeight: '1.6' }}>
-              Juno's open architecture design empowers users to customize every aspect of their AI experience. Mix and match <Link href="/library?type=llms" className="text-primary-600 underline">large language models</Link>, <Link href="/library?type=voices" className="text-primary-600 underline">voices</Link>, and <Link href="/library?type=extensions" className="text-primary-600 underline">extensions</Link> to create truly unique AI companions. Dive into <Link href="/lab?section=llmconfig" className="text-primary-600 underline">advanced LLM configuration</Link> to fine-tune your AI's personality, knowledge, and capabilities to perfectly suit your needs.
+              Juno&apos;s open architecture design empowers users to customize every aspect of their AI experience. Mix and match <Link href="/library?type=llms" className="text-primary-600 underline">large language models</Link>, <Link href="/library?type=voices" className="text-primary-600 underline">voices</Link>, and <Link href="/library?type=extensions" className="text-primary-600 underline">extensions</Link> to create truly unique AI companions. Dive into <Link href="/lab?section=llmconfig" className="text-primary-600 underline">advanced LLM configuration</Link> to fine-tune your AI&apos;s personality, knowledge, and capabilities to perfectly suit your needs.
             </p>
         </div>
       </div>
