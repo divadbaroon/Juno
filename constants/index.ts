@@ -37,7 +37,7 @@ export const navLinks = [
       name: "Trial",
       icon: "/assets/icons/free-plan.svg",
       price: 0,
-      usage: "15 minutes",
+      usage: "15",
       inclusions: [
         
         {
@@ -59,7 +59,7 @@ export const navLinks = [
       name: "Standard",
       icon: "/assets/icons/free-plan.svg",
       price: 10,
-      usage: "2 hours",
+      usage: "2",
       inclusions: [
         {
           label: "API Keys provided",
@@ -80,7 +80,7 @@ export const navLinks = [
       name: "Premium",
       icon: "/assets/icons/free-plan.svg",
       price: 25,
-      usage: "6 hours",
+      usage: "6",
       inclusions: [
         {
           label: "API Keys provided",
