@@ -98,7 +98,7 @@ export async function updatePlan(buyerId: string, newPlan: string) {
     await connectToDatabase();
 
     const updatedUser = await User.findOneAndUpdate(
-      { clerkID: "user_2e47JRphQkGcLeHt7osmSsmmvBn"  },
+      { clerkId: "user_2e47JRphQkGcLeHt7osmSsmmvBn"  },
       { $set: { plan: newPlan } },
       { new: true }
     );
