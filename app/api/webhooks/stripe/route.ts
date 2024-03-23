@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { createTransaction } from "@/lib/actions/transaction.action";
+import { updatePlan } from "@/lib/actions/user.actions";
 import { NextResponse } from "next/server";
 import stripe from "stripe";
 
@@ -34,8 +35,10 @@ export async function POST(request: Request) {
     };
 
     const newTransaction = await createTransaction(transaction);
+
+    const updatedUser = await updatePlan("user_2e47JRphQkGcLeHt7osmSsmmvBn", "Premium");
     
-    return NextResponse.json({ message: "OK", transaction: newTransaction });
+    return NextResponse.json({ message: "OK", transaction: newTransaction, user: updatedUser});
   }
 
   return new Response("", { status: 200 });

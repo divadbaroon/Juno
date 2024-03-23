@@ -5,7 +5,6 @@ import Stripe from "stripe";
 import { handleError } from '../utils';
 import { connectToDatabase } from '../database/mongoose';
 import Transaction from '../database/models/transaction.model';
-import { updatePlan } from './user.actions';
 
 export async function checkoutCredits(transaction: CheckoutTransactionParams) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -46,8 +45,6 @@ export async function createTransaction(transaction: CreateTransactionParams) {
     const newTransaction = await Transaction.create({
       ...transaction, buyer: transaction.buyerId
     })
-
-    await updatePlan(transaction.buyerId, "Premium");
 
     return JSON.parse(JSON.stringify(newTransaction));
   } catch (error) {
