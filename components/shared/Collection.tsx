@@ -62,8 +62,7 @@ export const Collection: React.FC<{ contextType: string; type: string; totalPage
         // Adjusted spinner for visibility
         <div className="collection-empty">
           {showSpinner && (
-                    <div className="rounded-full h-20 w-20 bg-[#334155] animate-ping-slow"></div>
-
+            <div className="rounded-full h-20 w-20 bg-[#334155] animate-ping-slow"></div>
           )}
         </div>
       )}
