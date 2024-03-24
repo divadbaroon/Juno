@@ -93,22 +93,25 @@ export async function updateCredits(userId: string, creditFee: number) {
 }
 
 // UPDATE PLAN
-export async function updatePlan(buyerID: string, newPlan: string, newAllotedUsage: number) {
+export async function updatePlan(buyerID: string, newPlan: string) {
   try {
     await connectToDatabase();
 
+    // Calculate the new allotted usage based on the plan
+    let newAllotedUsage = 0;
+    if (newPlan === 'Trial') {
+      newAllotedUsage = 15 * 60; // 15 minutes in seconds
+    } else if (newPlan === 'Standard') {
+      newAllotedUsage = 2 * 60 * 60; // 2 hours in seconds
+    } else if (newPlan === 'Premium') {
+      newAllotedUsage = 6 * 60 * 60; // 6 hours in seconds
+    }
+
     const updatedUser = await User.findOneAndUpdate(
       { _id: buyerID },
-      {
-        $set: {
-          plan: newPlan,
-          usageLeft: newAllotedUsage
-        }
-      },
+      { $set: { plan: newPlan, usageLeft: newAllotedUsage } },
       { new: true }
     );
-
-    console.log(updatedUser);
 
     if (!updatedUser) throw new Error("User plan update failed");
 

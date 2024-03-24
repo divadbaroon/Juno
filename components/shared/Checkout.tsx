@@ -1,11 +1,8 @@
 "use client";
-
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect } from "react";
-
 import { useToast } from "@/components/ui/use-toast";
 import { checkoutCredits } from "@/lib/actions/transaction.action";
-
 import { Button } from "../ui/button";
 
 const Checkout = ({
@@ -36,7 +33,6 @@ const Checkout = ({
         className: "success-toast",
       });
     }
-
     if (query.get("canceled")) {
       toast({
         title: "Order canceled!",
@@ -47,7 +43,9 @@ const Checkout = ({
     }
   }, []);
 
-  const onCheckout = async () => {
+  const onCheckout = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     const transaction = {
       plan,
       amount,
@@ -59,7 +57,7 @@ const Checkout = ({
   };
 
   return (
-    <form action={onCheckout} method="POST">
+    <form onSubmit={onCheckout}>
       <section>
         <Button
           type="submit"
