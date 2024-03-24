@@ -86,16 +86,16 @@ const QuickStart = () => {
               <strong>1. Convenient Access:</strong> With the Juno Chrome Extension, your AI companion is just a click away. No need to switch between apps or websites – Juno is always ready to assist you, right where you are.
             </p>
             <p className="p-20-regular text-dark-400 mt-2">
-              <strong>2. Contextual Assistance:</strong> Juno's browser integration enables your AI to provide contextual assistance based on the websites you visit and the content you interact with. Whether you're researching a topic, writing an essay, or browsing social media, your AI can offer relevant insights and suggestions.
+              <strong>2. Contextual Assistance:</strong> Juno&apos;s browser integration enables your AI to provide contextual assistance based on the websites you visit and the content you interact with. Whether you&apos;re researching a topic, writing an essay, or browsing social media, your AI can offer relevant insights and suggestions.
             </p>
             <p className="p-20-regular text-dark-400 mt-2">
-              <strong>3. Seamless Sync:</strong> The Juno Chrome Extension seamlessly syncs with your account, ensuring that your AI preferences, custom profiles, and chat history are always up to date, no matter which device you're using.
+              <strong>3. Seamless Sync:</strong> The Juno Chrome Extension seamlessly syncs with your account, ensuring that your AI preferences, custom profiles, and chat history are always up to date, no matter which device you&apos;re using.
             </p>
             <p className="p-20-regular text-dark-400 mt-2">
               <strong>4. Enhanced Productivity:</strong> With Juno integrated into your browser, you can streamline your workflow and boost your productivity. Your AI can help you with tasks like data analysis, content creation, and more, all without leaving your browser.
             </p>
             <p className="p-20-regular text-dark-400 mt-2">
-              <strong>5. Customizable Hotkeys:</strong> Tailor your interaction experience by setting up custom hotkeys for quick access to Juno's features. Whether you prefer keyboard shortcuts or voice commands, Juno adapts to your workflow seamlessly.
+              <strong>5. Customizable Hotkeys:</strong> Tailor your interaction experience by setting up custom hotkeys for quick access to Juno&apos;s features. Whether you prefer keyboard shortcuts or voice commands, Juno adapts to your workflow seamlessly.
             </p>
           </div>
           )}
