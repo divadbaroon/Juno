@@ -261,7 +261,7 @@ export const ProfileCreation = () => {
                     <FormItem>
                       <FormLabel className="font-bold">Temperature</FormLabel>
                       <FormDescription style={{ marginTop: '.1rem' }}>
-                        Control the level of creativity and randomness of the LLM's outputs, balancing novelty and consistency.
+                        Control the level of creativity and randomness of the LLM&apos;s outputs, balancing novelty and consistency.
                       </FormDescription>
                       <FormControl>
                         <Slider defaultValue={[33]} max={100} step={1} />
