@@ -28,8 +28,12 @@ const DisplayCard: React.FC<DisplayCardProps> = ({ type, title, creator, descrip
           )}
           <p className="card__description">{description}</p>
         </CardContent>
-        <CardFooter className="flex justify-center items-center space-x-6">
-          {type === 'Voices' && <Button className="w-auto px-8" variant="outline">Sample</Button>}
+        <CardFooter className="flex justify-center items-center space-x-12">
+          {type === 'Voices' ? (
+            <Button className="w-auto px-8" variant="outline">Sample</Button>
+          ) : (
+            <Button className="w-auto px-8" variant="outline">Details</Button>
+          )}
           <Button className="w-auto px-8" onClick={onSelect}>
             {isSelected ? 'Deselect' : 'Select'}
           </Button>

@@ -14,7 +14,7 @@ function ProfileForm() {
       <div className="space-y-1">
         <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '-35px' }}>The Library</h4>
         <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-          Explore our curated collection of pre-made AI profiles, voices, language models, and extensions 
+          A collection of premade and ready-to-use AI profiles, voices, language models, and extensions 
         </p>
       </div>
       <Separator className="my-4" />
@@ -34,7 +34,7 @@ function ProfileForm() {
           contextType="Library"
           libraryType="Profiles" 
           h2Text="Profiles" 
-          pText="Browse through a collection of AI profiles, each serving a unique experience, purpose, and feel to your AI interactions."
+          pText="Browse through a variety of pre-built profiles, each powered by a fully configured Large Language Model, life-like voice, and unique capabilities. Select a profile that resonates with you, you can always refine it later to perfectly match your needs."
           />}
       {activeSection === 'extension' && <LibraryPage
           contextType="Library"
@@ -46,7 +46,7 @@ function ProfileForm() {
           contextType="Library"
           libraryType="Voices" 
           h2Text="Voices" 
-          pText="Personalize how your AI sounds by selecting from our wide-range of life-like voices. From warm and friendly to formal and authoritative, choose the voice that best fits your style and enhances your AI's communication."
+          pText="Personalize how your AI sounds by selecting from a wide-range of life-like voices. From warm and friendly to formal and authoritative, choose the voice that best fits your style and enhances your AI's communication."
       />}
       {activeSection === 'llm' && <LibraryPage 
           contextType="Library"
@@ -54,7 +54,6 @@ function ProfileForm() {
           h2Text="Large-Language Models" 
           pText="Select the Large Language Model that provides your profile's underlying intelligence. Different LLMs have different strengths and weaknesses, such as reasoning, coding abilities, speed, and expertise on certain topics. Choose the one that best aligns with your preferences and requirements."
           />}
-
     </div>
   )
 }

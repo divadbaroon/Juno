@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import MediaUploader from "@/components/shared/MediaUploader"
 
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button"; 
@@ -8,6 +9,16 @@ export const About = () => {
     const [showProfileExample, setShowProfileExample] = useState(false);
     const [showVoiceExample, setShowVoiceExample] = useState(false);
     const [showExtensionsExample, setShowExtensionsExample] = useState(false);
+
+    
+    // State for the selected image
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    // Function to handle image value change
+    const handleImageValueChange = (value: string) => {
+      console.log("Selected image value:", value);}
+
+    
     return (
       <div className="about-section">
         {/* Overview Section */}
@@ -16,6 +27,7 @@ export const About = () => {
           <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
             The lab is your dedicated space for AI customization. Here, you can mold and refine your AI to meet your exact specifications. Dive into the realm of personalized artificial intelligence and transform your ideas into reality.
           </p>
+          
           <Separator className="my-4" />
         </div>
         

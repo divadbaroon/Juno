@@ -35,9 +35,7 @@ const fetchDataByType = async (libraryType: string): Promise<Data[]> => {
   }
 };
 
-export const LibraryPage = ({ contextType, libraryType, h2Text, pText}: ProfilesProps) => {
-  const totalPages = 0; // Placeholder for total pages, TODO
-  const page = 1; // Placeholder for current page, TODO
+export const LibraryPage = ({ contextType, libraryType, h2Text, pText }: ProfilesProps) => {
   const [data, setData] = useState<Data[]>([]);
 
   useEffect(() => {
@@ -56,12 +54,12 @@ export const LibraryPage = ({ contextType, libraryType, h2Text, pText}: Profiles
   return (
     <div>
       <div className="section">
-        <h2 className="h2-bold text-dark-600" style={{ marginTop: '20px' }}>{h2Text}</h2>
+        <h2 className="h2-bold text-dark-600" style={{ marginTop: contextType === 'Library' ? '25px' : '15px' }}>{h2Text}</h2>
         <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px', marginLeft: '5px'}}>{pText}</p>
         <Separator className="my-4" />
       </div>
       <section className="sm:mt-12">
-        <Collection contextType={contextType} type={libraryType} hasSearch={true} totalPages={totalPages} page={page} items={data} />
+        <Collection contextType={contextType} type={libraryType} hasSearch={true} totalPages={0} page={1} items={data} />
       </section>
     </div>
   );

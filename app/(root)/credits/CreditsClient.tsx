@@ -42,8 +42,13 @@ const CreditsClient = ({ user, userPlan, plans }: CreditsClientProps) => {
     if (activationCode.length === 9) {
       const plan = await validateActivationCode(parseInt(activationCode, 10));
       if (plan !== null) {
-        updatePlan(user._id, plan);
-        console.log("Activation code is valid! Plan:", plan);
+        // Check if the user already has the plan activated
+        if (plan === userPlan) {
+          console.log("You already have this plan activated.");
+        } else {
+          updatePlan(user._id, plan);
+          console.log("Activation code is valid! Plan:", plan);
+        }
       } else {
         console.log("Activation code is invalid or has no uses left.");
       }

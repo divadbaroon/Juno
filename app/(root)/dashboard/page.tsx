@@ -1,3 +1,4 @@
+
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
@@ -42,7 +43,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
           </div>
         </div>
       </section>
-      <Separator className="my-4 mb-8" />
+      <Separator className="my-4" />
       <Header title="My Collection" />
       <p className="p-20-regular text-dark-400" style={{ marginTop: '15px' }}>
         A collection of profiles, voices, extensions, and LLMs that you have either saved or created.
@@ -62,5 +63,6 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
     </>
   );
 };
+
 
 export default Profile;

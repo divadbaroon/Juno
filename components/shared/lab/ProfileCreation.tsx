@@ -18,6 +18,9 @@ import { Input } from "@/components/ui/input";
 import { createProfileAction } from "../../../lib/actions/createProfile";
 import { Separator } from "@/components/ui/separator";
 
+import { ProfileAvatar } from "@/components/shared/ProfileAvatarProps";;
+
+
 // Define your form schemas
 const formSchema = z.object({
   username: z.string().min(2, { message: "Username must be at least 2 characters." }),
@@ -29,7 +32,8 @@ const emailFormSchema = z.object({
 
 export const ProfileCreation = () => {
   // State hooks to show sections
-  const [showLanguageModel, setShowLanguageModel] = useState(false);
+  const [showModelSelection, setShowModelSelection] = useState(false);
+  const [showModelConfiguration, setShowModelConfiguration] = useState(false);
   const [showVoice, setShowVoice] = useState(false);
   const [showExtensions, setShowExtensions] = useState(false);
   const [showProfileDetails, setShowProfileDetails] = useState(false);
@@ -86,32 +90,44 @@ export const ProfileCreation = () => {
         Profile Creation
       </h2>
       <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-        Craft your perfect AI companion from the ground up, tailoring every detail to your preferences.
+        Create your ideal AI from the ground up, tailoring every detail to your exact preferences.
       </p>
       <Separator className="my-4" />
 
+       {/* AI Model Selection Section */}
+       <div
+        onClick={() => setShowModelSelection(!showModelSelection)}
+        className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
+      >
+        <h2 className="text-lg font-bold text-dark-600">AI Model Selection</h2>
+      </div>
+      {showModelSelection && (
+        <LibraryPage
+          contextType="Lab"
+          libraryType="LLMs"
+          h2Text=""
+          pText="Select the language model that will power your AI's natural language understanding and generation."
+        />
+      )}
+
       {/* Language Model Section */}
       <div
-        onClick={() => setShowLanguageModel(!showLanguageModel)}
+        onClick={() => setShowModelConfiguration(!showModelConfiguration)}
         className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
       >
         <h2 className="text-lg font-bold text-dark-600">AI Model Configuration</h2>
       </div>
-      {showLanguageModel && (
+      {showModelConfiguration && (
         <>
-          <LibraryPage
-            contextType="Lab"
-            libraryType="LLMs"
-            h2Text=""
-            pText="Select the language model that will power your AI's natural language understanding and generation."
-          />
           <div className="forms-container space-y-8 mt-5">
-            <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
+            <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px', marginLeft: '5px', marginBottom: '-15px' }}>
               Fine-tune your selected LLM to align with your AI&apos;s intended behavior and identity.
             </p>
+            <Separator className="my-2" />
+
             <FormProvider {...emailForm}>
-              <form className="space-y-8">
-                <FormField
+              <form className="space-y-8" style={{marginLeft: '5px', marginTop: '20px' }}>
+                <FormField 
                   control={emailForm.control}
                   name="email"
                   render={({ field }) => (
@@ -135,7 +151,7 @@ export const ProfileCreation = () => {
             </FormProvider>
 
             <FormProvider {...emailForm}>
-              <form className="space-y-8">
+              <form className="space-y-8" style={{marginLeft: '5px' }}>
                 <FormField
                   control={emailForm.control}
                   name="email"
@@ -160,7 +176,7 @@ export const ProfileCreation = () => {
             </FormProvider>
 
             <FormProvider {...emailForm}>
-              <form className="space-y-8">
+              <form className="space-y-8" style={{marginLeft: '5px' }}>
                 <FormField
                   control={emailForm.control}
                   name="email"
@@ -172,7 +188,7 @@ export const ProfileCreation = () => {
                       </FormDescription>
                       <FormControl>
                         <Input
-                          placeholder="Barack Obama"
+                          placeholder="Doctor"
                           value={persona}
                           onChange={(e) => setPersona(e.target.value)}
                         />
@@ -185,7 +201,7 @@ export const ProfileCreation = () => {
             </FormProvider>
 
             <FormProvider {...emailForm}>
-              <form className="space-y-8">
+              <form className="space-y-8" style={{marginLeft: '5px', marginBottom: '30px' }}>
                 <FormField
                   control={emailForm.control}
                   name="email"
@@ -253,7 +269,7 @@ export const ProfileCreation = () => {
         <h2 className="text-lg font-bold text-dark-600">Profile Details</h2>
       </div>
       {showProfileDetails && (
-        <div className="forms-container space-y-8 mt-5">
+        <div className="forms-container space-y-8 mt-5" style={{marginLeft: '5px'}}>
           <FormProvider {...usernameForm}>
             <form className="mb-8 space-y-8">
               <FormField
@@ -313,35 +329,7 @@ export const ProfileCreation = () => {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-bold">Profile Avatar (optional)</FormLabel>
-                    <FormDescription style={{ marginTop: '.2rem' }}>
-                      Upload a photo to represent your profile.
-                    </FormDescription>
-                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                      <div className="text-center">
-                        <svg className="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                          <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
-                        </svg>
-                        <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                          <label htmlFor="file-upload" className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                            <span>Upload a file</span>
-                            <input
-                              id="file-upload"
-                              name="profile-photo"
-                              type="file"
-                              className="sr-only"
-                              onChange={(e) => {
-                                if (e.target.files && e.target.files.length > 0) {
-                                  setPhoto(e.target.files[0]);
-                                }
-                              }}
-                            />
-                          </label>
-                          <p className="pl-1">or drag and drop</p>
-                        </div>
-                        <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-                      </div>
-                    </div>
+                    <ProfileAvatar photo={photo} onPhotoChange={setPhoto} />
                     <FormMessage />
                   </FormItem>
                 )}
