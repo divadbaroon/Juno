@@ -34,7 +34,9 @@ function ProfileForm() {
           contextType="Library"
           libraryType="Profiles" 
           h2Text="Profiles" 
-          pText="Browse through a variety of pre-built profiles, each powered by a fully configured Large Language Model, life-like voice, and unique capabilities. Select a profile that resonates with you, you can always refine it later to perfectly match your needs."
+          pText="Profiles
+
+          Explore pre-configured profiles, powered by Large Language Models, lifelike voices, and unique capabilities. Select a profile that resonates, and refine it to match your needs."
           />}
       {activeSection === 'extension' && <LibraryPage
           contextType="Library"
@@ -46,13 +48,13 @@ function ProfileForm() {
           contextType="Library"
           libraryType="Voices" 
           h2Text="Voices" 
-          pText="Personalize how your AI sounds by selecting from a wide-range of life-like voices. From warm and friendly to formal and authoritative, choose the voice that best fits your style and enhances your AI's communication."
+          pText="Personalize your AI's voice from a wide range of lifelike options, enhancing communication with styles from warm and friendly to formal and authoritative."
       />}
       {activeSection === 'llm' && <LibraryPage 
           contextType="Library"
           libraryType="LLMs" 
           h2Text="Large-Language Models" 
-          pText="Select the Large Language Model that provides your profile's underlying intelligence. Different LLMs have different strengths and weaknesses, such as reasoning, coding abilities, speed, and expertise on certain topics. Choose the one that best aligns with your preferences and requirements."
+          pText="Choose the Large Language Model powering your profile's intelligence, aligning with your preferences for reasoning, coding, speed, and expertise.."
           />}
     </div>
   )

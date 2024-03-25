@@ -20,6 +20,7 @@ import { Separator } from "@/components/ui/separator";
 
 import { ProfileAvatar } from "@/components/shared/ProfileAvatarProps";;
 
+import { Slider } from "@/components/ui/slider"
 
 // Define your form schemas
 const formSchema = z.object({
@@ -132,13 +133,38 @@ export const ProfileCreation = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
+                      <FormLabel className="font-bold">Seed</FormLabel>
+                      <FormDescription style={{ marginTop: '.1rem' }}>
+                      Initial text setting the context and direction for the LLM's responses.
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          placeholder="I am a creative writing assistant here to help you with storytelling and worldbuilding."
+                          value={personality}
+                          onChange={(e) => setPersonality(e.target.value)}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </FormProvider>
+
+            <FormProvider {...emailForm}>
+              <form className="space-y-8" style={{marginLeft: '5px', marginTop: '20px' }}>
+                <FormField 
+                  control={emailForm.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
                       <FormLabel className="font-bold">Personality</FormLabel>
-                      <FormDescription style={{ marginTop: '.2rem' }}>
+                      <FormDescription style={{ marginTop: '.1rem' }}>
                         Define the personality traits of your AI.
                       </FormDescription>
                       <FormControl>
                         <Input
-                          placeholder="Friendly"
+                          placeholder="Imaginative, encouraging, patient"
                           value={personality}
                           onChange={(e) => setPersonality(e.target.value)}
                         />
@@ -158,12 +184,12 @@ export const ProfileCreation = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="font-bold">Role</FormLabel>
-                      <FormDescription style={{ marginTop: '.2rem' }}>
+                      <FormDescription style={{ marginTop: '.1rem' }}>
                         Function or job of the AI within interactions
                       </FormDescription>
                       <FormControl>
                         <Input
-                          placeholder="Assistant"
+                          placeholder="Writing companion and creative collaborator"
                           value={role}
                           onChange={(e) => setRole(e.target.value)}
                         />
@@ -183,12 +209,12 @@ export const ProfileCreation = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="font-bold">Persona</FormLabel>
-                      <FormDescription style={{ marginTop: '.2rem' }}>
+                      <FormDescription style={{ marginTop: '.1rem' }}>
                         The archetype your AI will embody.
                       </FormDescription>
                       <FormControl>
                         <Input
-                          placeholder="Doctor"
+                          placeholder="A supportive mentor guiding you through the writing process"
                           value={persona}
                           onChange={(e) => setPersona(e.target.value)}
                         />
@@ -201,23 +227,44 @@ export const ProfileCreation = () => {
             </FormProvider>
 
             <FormProvider {...emailForm}>
-              <form className="space-y-8" style={{marginLeft: '5px', marginBottom: '30px' }}>
+              <form className="space-y-8" style={{marginLeft: '5px'}}>
                 <FormField
                   control={emailForm.control}
                   name="email"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="font-bold">Interaction Guidelines</FormLabel>
-                      <FormDescription style={{ marginTop: '.2rem'}}>
+                      <FormDescription style={{ marginTop: '.1rem'}}>
                         Set guidelines on how your AI communicates with you
                       </FormDescription>
                       <FormControl>
                         <Input
-                          placeholder="Only respond in a poetic manner"
+                          placeholder="Provide constructive feedback, ask thought-provoking questions, and offer creative suggestions."
                           value={interactionGuidelines}
                           onChange={(e) => setInteractionGuidelines(e.target.value)}
                           style={{marginBottom: '1.5rem' }}
                         />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </FormProvider>
+
+            <FormProvider {...emailForm}>
+              <form className="space-y-8" style={{marginLeft: '5px', marginBottom: '30px'  }}>
+                <FormField
+                  control={emailForm.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-bold">Temperature</FormLabel>
+                      <FormDescription style={{ marginTop: '.1rem' }}>
+                        Control the level of creativity and randomness of the LLM's outputs, balancing novelty and consistency.
+                      </FormDescription>
+                      <FormControl>
+                        <Slider defaultValue={[33]} max={100} step={1} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -278,7 +325,7 @@ export const ProfileCreation = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-bold">Name</FormLabel>
-                    <FormDescription style={{ marginTop: '.2rem' }}>
+                    <FormDescription style={{ marginTop: '.1rem' }}>
                       The name of your profile.
                     </FormDescription>
                     <FormControl>
@@ -303,7 +350,7 @@ export const ProfileCreation = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-bold">Description</FormLabel>
-                    <FormDescription style={{ marginTop: '.2rem' }}>
+                    <FormDescription style={{ marginTop: '.1rem' }}>
                       Describe your profile.
                     </FormDescription>
                     <div className="mt-2">

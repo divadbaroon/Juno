@@ -45,7 +45,7 @@ export const VoiceCreation = () => {
         Voice Creation
       </h2>
       <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-        Venture into the Voice Creation suite and harness the power to clone any voice in minutes, giving your AI a unique vocal identity that perfectly complements its personality.
+      Harness the Voice Creation suite to clone any voice, giving your AI a unique vocal identity complementing its personality.
       </p>
       <Separator className="my-4" />
 
