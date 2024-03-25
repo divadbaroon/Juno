@@ -53,7 +53,7 @@ function ProfileForm() {
       {activeSection === 'llm' && <LibraryPage 
           contextType="Library"
           libraryType="LLMs" 
-          h2Text="Large-Language Models" 
+          h2Text="Large Language Models" 
           pText="Choose the Large Language Model powering your profile's intelligence, aligning with your preferences for reasoning, coding, speed, and expertise.."
           />}
     </div>

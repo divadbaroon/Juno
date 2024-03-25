@@ -135,7 +135,7 @@ export const ProfileCreation = () => {
                     <FormItem>
                       <FormLabel className="font-bold">Seed</FormLabel>
                       <FormDescription style={{ marginTop: '.1rem' }}>
-                      Initial text setting the context and direction for the LLM's responses.
+                      Initial text setting the context and direction for the LLM&apos;s responses.
                       </FormDescription>
                       <FormControl>
                         <Input
@@ -210,7 +210,7 @@ export const ProfileCreation = () => {
                     <FormItem>
                       <FormLabel className="font-bold">Persona</FormLabel>
                       <FormDescription style={{ marginTop: '.1rem' }}>
-                        The archetype your AI will embody.
+                        The archetype or character the AI will embody.
                       </FormDescription>
                       <FormControl>
                         <Input
@@ -253,7 +253,7 @@ export const ProfileCreation = () => {
             </FormProvider>
 
             <FormProvider {...emailForm}>
-              <form className="space-y-8" style={{marginLeft: '5px', marginBottom: '30px'  }}>
+              <form className="space-y-8" style={{marginLeft: '5px', marginBottom: '35px'  }}>
                 <FormField
                   control={emailForm.control}
                   name="email"
