@@ -397,3 +397,28 @@
 .active-plan {
   border: 2px solid #add8e6; /* Light blue color */
 }
+
+.h2-bold.text-dark-600 {
+  color: #1a1a1a;
+}
+
+.p-20-regular.text-dark-400 {
+  color: #636363;
+}
+
+.text-lg.font-bold.text-dark-600 {
+  color: #342a45;
+}
+
+.navbar-icon {
+  stroke: #373737;
+
+}
+
+.navbar-icon-active {
+  stroke: #ffffff;
+}
+
+.icon-color {
+  stroke: #ffffff;
+}

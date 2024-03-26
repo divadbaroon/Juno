@@ -54,7 +54,7 @@ export const Collection: React.FC<{ contextType: string; type: string; totalPage
         <ul className="collection-list" style={{ maxHeight: contextType === 'Library' ? '750px' : '500px', overflowY: 'auto' }}>
           {items.map(({ _id, name, creator, description }) => (
             <li key={_id}>
-              <DisplayCard type={type} title={name} creator={creator} description={description} isSelected={selectedCard === _id} onSelect={() => handleCardSelect(_id)} />
+              <DisplayCard contextType={contextType} type={type} title={name} creator={creator} description={description} isSelected={selectedCard === _id} onSelect={() => handleCardSelect(_id)} />
             </li>
           ))}
         </ul>

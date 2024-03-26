@@ -45,7 +45,7 @@ export const VoiceCreation = () => {
         Voice Creation
       </h2>
       <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-      Harness the Voice Creation suite to clone any voice, giving your AI a unique vocal identity complementing its personality.
+        Quickly create unique voices by cloning from audio samples.
       </p>
       <Separator className="my-4" />
 
@@ -54,7 +54,7 @@ export const VoiceCreation = () => {
         onClick={() => setShowTrainingData(!showTrainingData)}
         className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
       >
-        <h2 className="text-lg font-bold text-dark-600">Voice Sample</h2>
+        <h2 className="text-lg font-bold text-dark-600">Voice Cloning</h2>
       </div>
       {showTrainingData && (
         <div className="forms-container space-y-8 mt-5">

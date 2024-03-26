@@ -150,6 +150,8 @@ declare type CreateUserParams = {
     extensions: string[];
     sharePreference: string;
     photo: File | null;
+    seed: string;
+    temperature: number;
   };
 
   declare type UpdateProfileParams = Partial<CreateProfileParams>;
