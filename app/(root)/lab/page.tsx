@@ -13,11 +13,15 @@ function ProfileForm() {
 
   return (
     <div className="root-container">
-      <div className="space-y-1">
-        <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '-35px' }}>The Lab</h4>
-        <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-          Craft custom AI profiles, voices, and extensions tailored to your unique preferences and imagination.
-        </p>
+      <div className="about-section">
+        <div className="space-y-6">
+          <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '-40px' }}>
+            The Lab
+          </h4>
+          <p className="p-20-regular text-dark-400" style={{ marginTop: '15px' }}>
+            Craft custom AI profiles, voices, and extensions tailored to your unique preferences and imagination.
+          </p>
+        </div>
       </div>
       <Separator className="my-4" />
       <div className="flex h-5 items-center space-x-4 text-sm">
