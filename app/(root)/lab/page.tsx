@@ -31,6 +31,8 @@ function ProfileForm() {
         <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('voice')}>Voice Creation</div>
         <Separator orientation="vertical" />
         <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('extension')}>Extension Creation</div>
+        <Separator orientation="vertical" />
+
       </div>
       <Separator className="my-4" />
 

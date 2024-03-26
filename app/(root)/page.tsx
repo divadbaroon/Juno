@@ -40,7 +40,7 @@ const Home = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>Create in the Lab</h2>
           <p className="p-20-regular text-dark-400" style={{ fontSize: '18px', marginTop: '20px', lineHeight: '1.6' }}>
-            Visit the <Link href="/lab" className="text-primary-600 underline">Lab</Link> to craft your own custom AI profiles, voices, and extensions tailored to your exact preferences. The possibilities are endless in the Lab.
+            Visit the <Link href="/lab" className="text-primary-600 underline">Lab</Link> to craft your own custom AI components tailored to your exact preferences. The possibilities are endless in the Lab.
           </p>
         </div>
         <Separator className="my-8" />
@@ -49,7 +49,7 @@ const Home = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>Modular Design</h2>
             <p className="p-20-regular text-dark-400" style={{ fontSize: '18px', marginTop: '20px', lineHeight: '1.6' }}>
-              Juno&apos;s modular design allows users to customize every aspect of their AI experience. Mix and match <Link href="/library?type=llms" className="text-primary-600 underline">large language models</Link>, <Link href="/library?type=voices" className="text-primary-600 underline">voices</Link>, and <Link href="/library?type=extensions" className="text-primary-600 underline">extensions</Link> to create truly personalized AI. 
+              Juno&apos;s modular design allows users to customize every aspect of their AI experience. Mix and match large language models, voices, and extensions to create truly personalized AI. 
             </p>
         </div>
       </div>

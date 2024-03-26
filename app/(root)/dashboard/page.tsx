@@ -37,7 +37,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
             Dashboard
           </h4>
           <p className="p-20-regular text-dark-400" style={{ marginTop: '15px' }}>
-            Your profile usage and information
+            Monitor your account usage, manage your plan, or explore your curated collection of AI components.
           </p>
         </div>
       </div>
@@ -56,7 +56,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
           </div>
         </div>
       </section>
-      <Separator className="my-4" />
+      <Separator className="my-8" />
       <div className="about-section">
         <div className="space-y-6">
           <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '20px' }}>
@@ -69,6 +69,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
       </div>
       <Separator className="my-4" />
       <div className="flex h-5 items-center space-x-4 text-sm">
+        <Separator orientation="vertical" />
         <div className="p-20-regular text-dark-400 cursor-pointer">Profiles</div>
         <Separator orientation="vertical" />
         <div className="p-20-regular text-dark-400 cursor-pointer">Extensions</div>

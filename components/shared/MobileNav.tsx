@@ -17,7 +17,7 @@ const MobileNav = () => {
         <Image
           src="/assets/icons/junologo2.svg"
           alt="logo"
-          width={125}
+          width={115}
           height={25}
         />
       </Link>
