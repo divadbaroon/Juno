@@ -17,6 +17,16 @@ const Home = () => {
         </div>
         <Separator className="my-4" />
 
+        {/* What is Juno Section */}
+        <div className="section">
+          <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>What is Juno?</h2>
+            <p className="p-20-regular text-dark-400" style={{ fontSize: '18px', marginTop: '20px', lineHeight: '1.6' }}>
+              Juno orchestrates the most cutting-edge AI solutions into a streamlined experience. Juno utilizes a modular architecture to allow users to mix and match large language models, prompts, voices, and extensions to create and tailor AI for any scenario or use case.
+            </p>
+        </div>                 
+        <Separator className="my-8" />
+
+
         {/* Getting Started Section */}
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>Getting Started</h2>
@@ -26,7 +36,6 @@ const Home = () => {
         </div>
         <Separator className="my-8" />
 
-        
         {/* Explore Section */}
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>Explore the Library</h2>
@@ -47,9 +56,9 @@ const Home = () => {
 
         {/* Open Architecture Section */}
         <div className="section">
-          <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>Modular Design</h2>
+          <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>Seamlessly Interact</h2>
             <p className="p-20-regular text-dark-400" style={{ fontSize: '18px', marginTop: '20px', lineHeight: '1.6' }}>
-              Juno&apos;s modular design allows users to customize every aspect of their AI experience. Mix and match large language models, voices, and extensions to create truly personalized AI. 
+              Use the Juno Chrome Extension to easily interact with your personalized AI, using a simple keybind.
             </p>
         </div>
       </div>
