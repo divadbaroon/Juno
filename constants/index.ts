@@ -98,48 +98,6 @@ export const navLinks = [
     }
   ];
   
-  export const transformationTypes = {
-    restore: {
-      type: "restore",
-      title: "Library",
-      subTitle: "Browse throuh a collection of curated profiles with custom personialities, voices, and capabilities.",
-      config: { restore: true },
-      icon: "image.svg",
-    },
-    removeBackground: {
-      type: "removeBackground",
-      title: "Background Remove",
-      subTitle: "Removes the background of the image using AI",
-      config: { removeBackground: true },
-      icon: "camera.svg",
-    },
-    fill: {
-      type: "fill",
-      title: "Create your ideal AI ",
-      subTitle: "Take less than 3 minutes to create your ideal AI",
-      config: { fillBackground: true },
-      icon: "stars.svg",
-    },
-    remove: {
-      type: "remove",
-      title: "Object Remove",
-      subTitle: "Identify and eliminate objects from images",
-      config: {
-        remove: { prompt: "", removeShadow: true, multiple: true },
-      },
-      icon: "scan.svg",
-    },
-    recolor: {
-      type: "recolor",
-      title: "Object Recolor",
-      subTitle: "Identify and recolor objects from the image",
-      config: {
-        recolor: { prompt: "", to: "", multiple: true },
-      },
-      icon: "filter.svg",
-    },
-  };
-  
   export const aspectRatioOptions = {
     "1:1": {
       aspectRatio: "1:1",
