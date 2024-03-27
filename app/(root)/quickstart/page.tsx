@@ -35,7 +35,7 @@ const QuickStart = () => {
           <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '-40px' }}>
           Quick Start
           </h4>
-          <p className="p-20-regular text-dark-400" style={{ marginTop: '15px' }}>
+          <p className="p-20-regular text-dark-400" style={{ marginTop: '15px', marginLeft: '3px'  }}>
             A step-by-step guide on how to quickly customize and interact with your own personalized AI.
           </p>
         </div>
@@ -44,21 +44,21 @@ const QuickStart = () => {
 
       {renderSection(
         "Create",
-        "Create your AI from the ground up, utilizing the most cutting-edge AI solutions publicly available at each step.",
+        "Create your AI from the ground up, utilizing the most cutting-edge AI solutions for each component.",
         <>
           {renderStep("1. Select a Profile", "profileCreation",
             <LibraryPage
               contextType="QuickStart"
               libraryType="Profiles"
               h2Text=""
-              pText="Begin by choosing from a variety of pre-built profiles, each featuring a fully configured Large Language Model, distinct voice, and unique capabilities. Select a profile that resonates with you, you can always refine it later to perfectly match your needs."/>
+              pText="To get started, select a profile to provide your foundation. Profiles are pre-configured AI, made up of a large language model, instructions for the language model, a unique voice, and distinct capabilites."/>
           )}
           {renderStep("2. Adjust the Voice", "voice",
             <LibraryPage
               contextType="QuickStart"
               libraryType="Voices"
               h2Text=""
-              pText="Browse through Juno's collection of lifelike voices. If one resonates with you, select it to update your profile immediately; otherwise, feel free to retain the existing voice."
+              pText="Browse through a collection of life-like voices. If you find one you like, select it to update your profile; otherwise, move on and retain your profile's existing voice."
             />
           )}
           {renderStep("3. Adjust the AI Model", "languageModel",
@@ -66,7 +66,7 @@ const QuickStart = () => {
               contextType="QuickStart"
               libraryType="LLMs"
               h2Text=""
-              pText="Explore a selection of cutting-edge Large Language Models, the core intelligence of your AI. Choose one that enhances your profile's capabilities, and it will seamlessly update; otherwise, retain your current model."
+              pText="Browse through a collection of Large Language Models, the core intelligence of your AI. If you find one you like, select it to update your profile; otherwise, move on and retain your profile's existing LLM."
             />
           )}
           {renderStep("4. Enhance Capabilites", "extensions",
@@ -74,7 +74,7 @@ const QuickStart = () => {
               contextType="QuickStart"
               libraryType="Extensions"
               h2Text=""
-              pText="Browse through a collection of extensions, which are additional capabilites that can be added to your profile. Select as many extensions as you would like, or move on and keep your profile's current extensions."
+              pText="Browse through a collection of extensions, which are additional capabilites that can be added to your profile. Add as many extensions as you would like, or move on and keep your profile's current extensions."
             />
           )}
         </>

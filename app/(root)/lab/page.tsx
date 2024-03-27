@@ -18,8 +18,8 @@ function ProfileForm() {
           <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '-40px' }}>
             The Lab
           </h4>
-          <p className="p-20-regular text-dark-400" style={{ marginTop: '15px' }}>
-            Craft custom AI profiles, voices, and extensions tailored to your unique preferences and imagination.
+          <p className="p-20-regular text-dark-400" style={{ marginTop: '15px', marginLeft: '3px' }}>
+            Create custom AI components to perfectly meet your unique needs and preferences.
           </p>
         </div>
       </div>

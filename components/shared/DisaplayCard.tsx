@@ -28,7 +28,7 @@ const DisplayCard: React.FC<DisplayCardProps> = ({ contextType, type, title, cre
         )}
         <p className="card__description">{description}</p>
       </CardContent>
-      <CardFooter className="flex justify-center items-center space-x-12">
+      <CardFooter className="flex justify-center items-center space-x-10">
         {type === 'Voices' ? (
           <Button className="w-auto px-8" variant="outline">
             Sample
@@ -39,10 +39,12 @@ const DisplayCard: React.FC<DisplayCardProps> = ({ contextType, type, title, cre
           </Button>
         )}
         <Button className="w-auto px-8" onClick={onSelect}>
-          {contextType === 'Library' ? (
-            isSelected ? 'Remove' : 'Add'
-          ) : (
-            isSelected ? 'Deselect' : 'Select'
+          {contextType === 'QuickStart' && type === 'Extensions' ? (
+              isSelected ? 'Unadd' : 'Add'
+            ) : contextType === 'Library' ? (
+              isSelected ? 'Remove' : 'Save'
+            ) : (
+              isSelected ? 'Deselect' : 'Select'
           )}
         </Button>
       </CardFooter>

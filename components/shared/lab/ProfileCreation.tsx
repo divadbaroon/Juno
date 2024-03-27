@@ -95,7 +95,7 @@ export const ProfileCreation = () => {
         Profile Creation
       </h2>
       <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-        Create your ideal AI from the ground up, tailoring every detail to your exact preferences.
+        Design your ideal AI from the ground up, tailoring every detail to your exact preferences.
       </p>
       <Separator className="my-4" />
 
