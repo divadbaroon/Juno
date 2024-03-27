@@ -91,7 +91,7 @@ export const ProfileCreation = () => {
 
   return (
     <div className="root-container">
-      <h2 className="h2-bold text-dark-600" style={{ marginTop: '-30px' }}>
+      <h2 className="h2-bold text-dark-600" style={{ marginTop: '-10px' }}>
         Profile Creation
       </h2>
       <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
