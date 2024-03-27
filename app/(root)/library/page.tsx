@@ -39,9 +39,7 @@ function ProfileForm() {
           contextType="Library"
           libraryType="Profiles" 
           h2Text="Profiles" 
-          pText="Profiles
-
-          Explore pre-configured profiles, powered by Large Language Models, lifelike voices, and unique capabilities. Select a profile that resonates, and refine it to match your needs."
+          pText="Explore pre-configured profiles, powered by Large Language Models, lifelike voices, and unique capabilities. Select a profile that resonates, and refine it to match your needs."
           />}
       {activeSection === 'extension' && <LibraryPage
           contextType="Library"

@@ -21,7 +21,7 @@ const Home = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>What is Juno?</h2>
             <p className="p-20-regular text-dark-400" style={{ fontSize: '18px', marginTop: '20px', lineHeight: '1.6', marginLeft: '3px'  }}>
-              Juno streamlines the creation of customized AI by allowing users to mix and match cutting-edge AI components such as large language models, prompts, voices, and extensions. With its modular architecture, Juno enables users to tailor AI for any scenario or use case.
+              Juno is a platform that streamlines the creation of customized AI by allowing users to mix and match cutting-edge AI components such as large language models, prompts, voices, and extensions. With its modular architecture, Juno enables users to tailor AI for any scenario or use case.
             </p>
         </div>                 
         <Separator className="my-8" />

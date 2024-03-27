@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -5,7 +7,9 @@ import { Pagination, PaginationContent, PaginationNext, PaginationPrevious } fro
 import { Search } from './Search';
 import { Separator } from "@/components/ui/separator";
 import { formUrlQuery } from '@/lib/utils';
-import DisplayCard from './DisaplayCard'; // Corrected the import
+import DisplayCard from './DisaplayCard';
+import { ToastAction } from "@/components/ui/toast"
+import { useToast } from "@/components/ui/use-toast";
 
 interface Data {
   _id: string;
@@ -21,7 +25,8 @@ export const Collection: React.FC<{ contextType: string; type: string; totalPage
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
-  const [showSpinner, setShowSpinner] = useState(false); // New state variable
+  const [showSpinner, setShowSpinner] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     // Delay the display of the spinner by 2 seconds
@@ -40,7 +45,25 @@ export const Collection: React.FC<{ contextType: string; type: string; totalPage
   };
 
   const handleCardSelect = (cardId: string) => {
+    const isSelected = selectedCard === cardId;
     setSelectedCard((prevSelectedCard) => (prevSelectedCard === cardId ? null : cardId));
+
+    if (!isSelected && contextType === 'Library') {
+      const selectedItem = items.find((item) => item._id === cardId);
+      if (selectedItem) {
+        toast({
+          title: `${selectedItem.name} has been saved`,
+          description: (
+            <span>
+              See your saved component in your{' '}
+              <a href="/dashboard" className="underline">
+                dashboard
+              </a>
+            </span>
+          )
+        });
+      }
+    }
   };
 
   return (
@@ -54,7 +77,13 @@ export const Collection: React.FC<{ contextType: string; type: string; totalPage
         <ul className="collection-list" style={{ maxHeight: contextType === 'Library' ? '750px' : '500px', overflowY: 'auto' }}>
           {items.map(({ _id, name, creator, description }) => (
             <li key={_id}>
-              <DisplayCard contextType={contextType} type={type} title={name} creator={creator} description={description} isSelected={selectedCard === _id} onSelect={() => handleCardSelect(_id)} />
+              <DisplayCard 
+              contextType={contextType} 
+              type={type} title={name}
+              creator={creator} 
+              description={description} 
+              isSelected={selectedCard === _id} 
+              onSelect={() => handleCardSelect(_id)} />
             </li>
           ))}
         </ul>

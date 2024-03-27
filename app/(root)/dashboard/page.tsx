@@ -60,7 +60,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
       <div className="about-section">
         <div className="space-y-6">
           <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '20px' }}>
-            Collection
+            My Collection
           </h4>
           <p className="p-20-regular text-dark-400" style={{ marginTop: '15px' }}>
             A collection of profiles, voices, extensions, and LLMs that you have either saved or created.

@@ -13,30 +13,30 @@ import {
 } from "@/components/ui/input-otp";
 import { validateActivationCode } from "@/lib/actions/checkActivationCode.action";
 import { updatePlan } from "@/lib/actions/user.actions";
-
+import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/components/ui/use-toast";
 
 interface CreditsClientProps {
     user: {
       _id: string;
-      // Add other user properties as needed
     };
     userPlan: string;
     plans: Array<{
-      _id: number; // Add the '_id' property
+      _id: number; 
       name: string;
       price: number;
-      usage: string; // Update the 'usage' property type to 'string'
+      usage: string; 
       icon: string;
       inclusions: Array<{
         label: string;
         isIncluded: boolean;
       }>;
-      // Add other plan properties as needed
     }>;
   }
 
 const CreditsClient = ({ user, userPlan, plans }: CreditsClientProps) => {
   const [activationCode, setActivationCode] = useState("");
+  const { toast } = useToast();
 
   const handleActivationCodeSubmit = async () => {
     if (activationCode.length === 9) {
@@ -44,14 +44,28 @@ const CreditsClient = ({ user, userPlan, plans }: CreditsClientProps) => {
       if (plan !== null) {
         // Check if the user already has the plan activated
         if (plan === userPlan) {
-          console.log("You already have this plan activated.");
+          toast({
+            title: "Plan Already Active",
+            description: "You already have this plan activated.",
+          });
         } else {
           updatePlan(user._id, plan);
-          console.log("Activation code is valid! Plan:", plan);
+          toast({
+            title: "Activation Successful!",
+            description: `You successfully upgraded your plan to ${plan}`,
+          });
         }
       } else {
-        console.log("Activation code is invalid or has no uses left.");
+        toast({
+          title: "Invalid Activation Code",
+          description: "The activation code is invalid or has no uses left.",
+        });
       }
+    } else {
+      toast({
+        title: "Incomplete Activation Code",
+        description: "Please enter a complete activation code.",
+      });
     }
   };
 
@@ -117,33 +131,37 @@ const CreditsClient = ({ user, userPlan, plans }: CreditsClientProps) => {
         <p className="p-16-regular mt-4 mb-4">
           Unlock premium features by entering a valid activation code.
         </p>
-        <InputOTP
-          maxLength={9}
-          value={activationCode}
-          onChange={(value) => setActivationCode(value)}
-        >
-          <InputOTPGroup>
-            <InputOTPSlot index={0} />
-            <InputOTPSlot index={1} />
-            <InputOTPSlot index={2} />
-          </InputOTPGroup>
-          <InputOTPSeparator />
-          <InputOTPGroup>
-            <InputOTPSlot index={3} />
-            <InputOTPSlot index={4} />
-            <InputOTPSlot index={5} />
-          </InputOTPGroup>
-          <InputOTPSeparator />
-          <InputOTPGroup>
-            <InputOTPSlot index={6} />
-            <InputOTPSlot index={7} />
-            <InputOTPSlot index={8} />
-          </InputOTPGroup>
-        </InputOTP>
-        <Button onClick={handleActivationCodeSubmit} className="mt-4">
+        <Separator className="my-6" />
+        <div className="flex items-center space-x-8 -ml-[30px]">
+          <InputOTP
+            maxLength={9}
+            value={activationCode}
+            onChange={(value) => setActivationCode(value)}
+            className="flex-1"
+          >
+            <InputOTPGroup>
+              <InputOTPSlot index={0} />
+              <InputOTPSlot index={1} />
+              <InputOTPSlot index={2} />
+            </InputOTPGroup>
+            <InputOTPSeparator />
+            <InputOTPGroup>
+              <InputOTPSlot index={3} />
+              <InputOTPSlot index={4} />
+              <InputOTPSlot index={5} />
+            </InputOTPGroup>
+            <InputOTPSeparator />
+            <InputOTPGroup>
+              <InputOTPSlot index={6} />
+              <InputOTPSlot index={7} />
+              <InputOTPSlot index={8} />
+            </InputOTPGroup>
+          </InputOTP>
+          <Button onClick={handleActivationCodeSubmit}>
             Activate
-        </Button>      
-    </div>
+          </Button>
+        </div>
+      </div>
     </>
   );
 };

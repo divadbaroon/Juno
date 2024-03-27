@@ -55,7 +55,9 @@ export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ photo, onPhotoChan
 
   return (
     <>
-      <FormLabel className="font-bold">Profile Avatar (optional)</FormLabel>
+      <FormLabel className="font-bold" style={{ color: '#636363' }}>
+          Profile Avatar (Optional)
+      </FormLabel>
       <FormDescription style={{ marginTop: '.2rem' }}>
         Upload a photo to represent your profile.
       </FormDescription>

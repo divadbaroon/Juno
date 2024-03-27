@@ -136,7 +136,9 @@ export const ProfileCreation = () => {
                   name="seed"
                   render={() => (
                     <FormItem>
-                      <FormLabel className="font-bold">Seed</FormLabel>
+                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                      Seed
+                      </FormLabel>                      
                       <FormDescription style={{ marginTop: '.1rem' }}>
                         Initial text setting the context and direction for the LLM&apos;s responses.
                       </FormDescription>
@@ -159,7 +161,9 @@ export const ProfileCreation = () => {
                   name="personality"
                   render={() => (
                     <FormItem>
-                      <FormLabel className="font-bold">Personality</FormLabel>
+                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                        Personality
+                        </FormLabel>
                       <FormDescription style={{ marginTop: '.1rem' }}>
                         Define the personality traits of your AI.
                       </FormDescription>
@@ -182,7 +186,9 @@ export const ProfileCreation = () => {
                   name="role"
                   render={() => (
                     <FormItem>
-                      <FormLabel className="font-bold">Role</FormLabel>
+                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                        Role
+                        </FormLabel>
                       <FormDescription style={{ marginTop: '.1rem' }}>
                         Function or job of the AI within interactions
                       </FormDescription>
@@ -205,7 +211,9 @@ export const ProfileCreation = () => {
                   name="persona"
                   render={() => (
                     <FormItem>
-                      <FormLabel className="font-bold">Persona</FormLabel>
+                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                        Persona
+                      </FormLabel>
                       <FormDescription style={{ marginTop: '.1rem' }}>
                         The archetype or character the AI will embody.
                       </FormDescription>
@@ -228,7 +236,9 @@ export const ProfileCreation = () => {
                   name="interactionGuidelines"
                   render={() => (
                     <FormItem>
-                      <FormLabel className="font-bold">Interaction Guidelines</FormLabel>
+                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                        Interaction Guidelines
+                        </FormLabel>
                       <FormDescription style={{ marginTop: '.1rem'}}>
                         Set guidelines on how your AI communicates with you
                       </FormDescription>
@@ -252,7 +262,9 @@ export const ProfileCreation = () => {
                   name="temperature"
                   render={() => (
                     <FormItem>
-                      <FormLabel className="font-bold">Temperature</FormLabel>
+                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                        Temperature
+                      </FormLabel>
                       <FormDescription style={{ marginTop: '.1rem' }}>
                         Control the level of creativity and randomness of the LLM&apos;s outputs, balancing novelty and consistency.
                       </FormDescription>
@@ -314,6 +326,10 @@ export const ProfileCreation = () => {
       </div>
       {showProfileDetails && (
         <div className="forms-container space-y-8 mt-5" style={{marginLeft: '5px'}}>
+        <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px', marginLeft: '5px', marginBottom: '-14px'}}>
+          The key information identifying and representing your profile.
+        </p>
+        <Separator className="my-4" />
           <FormProvider {...nameForm}>
             <form className="mb-8 space-y-8">
               <FormField
@@ -321,7 +337,9 @@ export const ProfileCreation = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-bold">Name</FormLabel>
+                    <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                      Name
+                      </FormLabel>
                     <FormDescription style={{ marginTop: '.1rem' }}>
                       The name of your profile.
                     </FormDescription>
@@ -344,7 +362,9 @@ export const ProfileCreation = () => {
                 name="description"
                 render={() => (
                   <FormItem>
-                    <FormLabel className="font-bold">Description</FormLabel>
+                    <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                      Description
+                    </FormLabel>
                     <FormDescription style={{ marginTop: '.1rem' }}>
                       Describe your profile.
                     </FormDescription>
@@ -382,7 +402,9 @@ export const ProfileCreation = () => {
               name="sharePreference"
               render={() => (
                 <FormItem>
-                  <FormLabel className="font-bold">Share Preference</FormLabel>
+                  <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                    Share Preference
+                  </FormLabel>
                   <FormDescription style={{ marginTop: '5px' }}>
                     Determine the level of access and visibility for your newly created AI profile.
                   </FormDescription>
