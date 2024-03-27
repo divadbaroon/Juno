@@ -249,7 +249,7 @@
   }
 
   .credits-btn {
-    @apply w-full rounded-full bg-purple-100 bg-cover text-purple-500 hover:text-purple-500;
+    @apply w-full rounded-full bg-purple-100 bg-cover text-[#342a45] hover:text-[#342a45];
   }
 
   /* Profile Page */
@@ -407,7 +407,7 @@
 }
 
 .active-plan {
-  border: 2px solid #add8e6; /* Light blue color */
+  outline: 2px solid #ffffff;
 }
 
 .h2-bold.text-dark-600 {
@@ -433,4 +433,36 @@
 
 .icon-color {
   stroke: #ffffff;
+}
+
+/* Default style for all screen sizes */
+.root-container {
+  margin-top: 12px; /* Set a default margin-top */
+}
+
+/* Mobile view */
+@media (max-width: 767px) {
+  .root-container {
+    margin-top: 12px; 
+  }
+}
+
+/* Tablet view (or any intermediate resolution you want to target) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .root-container {
+    margin-top: -20; 
+  }
+}
+
+/* Desktop view */
+@media (min-width: 1024px) {
+  .root-container {
+    margin-top: -20px; 
+  }
+}
+
+.sheet-content-logo {
+  margin: -50px;
+  margin-left: -20px;
+  margin-bottom: -70px;
 }

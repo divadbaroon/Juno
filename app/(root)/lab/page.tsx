@@ -15,7 +15,7 @@ function ProfileForm() {
     <div className="root-container">
       <div className="about-section">
         <div className="space-y-6">
-          <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '-40px' }}>
+          <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px'}}>
             The Lab
           </h4>
           <p className="p-20-regular text-dark-400" style={{ marginTop: '15px', marginLeft: '3px' }}>

@@ -7,17 +7,19 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "../ui/button"
+import { Separator } from "@/components/ui/separator";
+
 
 const MobileNav = () => {
   const pathname = usePathname();
 
   return (
     <header className="header">
-      <Link href="/" className="flex items-center gap-2 md:py-2" style={{ marginTop: '4px', marginBottom: '0px', marginLeft: '-33px' }}>
+      <Link href="/" className="flex items-center gap-2 md:py-2" style={{ marginTop: '2px', marginBottom: '0px', marginLeft: '-27px' }}>
         <Image
           src="/assets/icons/junologo2.svg"
           alt="logo"
-          width={115}
+          width={110}
           height={25}
         />
       </Link>
@@ -36,16 +38,20 @@ const MobileNav = () => {
                 className="cursor-pointer"
               />
             </SheetTrigger>
+            
             <SheetContent className="sheet-content sm:w-64">
               <>
                 <Image 
-                  src="/assets/images/juno-logo.svg"
+                  src="/assets/icons/junologo2.svg"
                   alt="logo"
-                  width={152}
+                  width={250}
                   height={23}
+                  className="sheet-content-logo"
                 />
 
               <ul className="header-nav_elements">
+              <Separator className="my-2" />
+
               {navLinks.map((link) => {
                 const isActive = link.route === pathname
 
