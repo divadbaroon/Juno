@@ -3,9 +3,9 @@ import confetti from 'canvas-confetti';
 
 const ShowConfetti: React.FC = () => {
   useEffect(() => {
-    const duration = 5 * 1000;
+    const duration = 2 * 1000;
     const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+    const defaults = { startVelocity: 30, spread: 720, ticks: 60, zIndex: 0 };
 
     const randomInRange = (min: number, max: number) => {
       return Math.random() * (max - min) + min;
@@ -23,13 +23,13 @@ const ShowConfetti: React.FC = () => {
       confetti({
         ...defaults,
         particleCount,
-        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+        origin: { x: randomInRange(0.2, 0.4), y: Math.random() - 0.2 },
       });
 
       confetti({
         ...defaults,
         particleCount,
-        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+        origin: { x: randomInRange(0.5, 0.7), y: Math.random() - 0.2 },
       });
     }, 250);
 

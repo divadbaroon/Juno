@@ -5,9 +5,9 @@ export interface IProfile extends Document {
   description: string;
   photo?: string;
   llm: string;
+  identity: string;
+  context: string;
   personality: string;
-  role: string;
-  persona: string;
   interactionGuidelines: string;
   voice: string;
   extensions: string[];

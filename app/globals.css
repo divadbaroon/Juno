@@ -466,3 +466,17 @@
   margin-left: -20px;
   margin-bottom: -70px;
 }
+
+/* For mobile devices */
+@media (max-width: 767px) {
+  h4.h2-bold.text-dark-600.custom-font-size {
+    font-size: 45px;
+  }
+}
+
+/* For desktop devices */
+@media (min-width: 768px) {
+  h4.h2-bold.text-dark-600.custom-font-size {
+    font-size: 55px;
+  }
+}

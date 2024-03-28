@@ -44,11 +44,10 @@ export const ProfileCreation = () => {
   const [description, setDescription] = useState("");
   const [llm, setLLM] = useState("");
   const [personality, setPersonality] = useState("");
-  const [role, setRole] = useState("");
-  const [persona, setPersona] = useState("");
+  const [identity, setIdentity] = useState("");
   const [interactionGuidelines, setInteractionGuidelines] = useState("");
-  const [seed, setSeed] = useState(""); // Added state for seed
-  const [temperature, setTemperature] = useState(33); // Added state for temperature
+  const [context, setContext] = useState(""); 
+  const [temperature, setTemperature] = useState(33); 
   const [voice, setVoice] = useState("");
   const [sharePreference, setSharePreference] = useState("");
   const [extensions, setExtensions] = useState([]);
@@ -60,10 +59,9 @@ export const ProfileCreation = () => {
       description,
       llm: llm || "GPT-3",
       personality,
-      role,
-      persona,
+      identity,
       interactionGuidelines,
-      seed,
+      context,
       temperature,
       voice: voice || "Standard",
       sharePreference,
@@ -131,22 +129,47 @@ export const ProfileCreation = () => {
             <Separator className="my-2" />
 
             <FormProvider {...emailForm}>
-              <form className="space-y-8" style={{marginLeft: '5px', marginTop: '20px' }}>
+              <form className="space-y-8" style={{marginTop: '18px', marginLeft: '5px' }}>
                 <FormField
-                  name="seed"
+                  name="identity"
                   render={() => (
                     <FormItem>
                       <FormLabel className="font-bold" style={{ color: '#636363' }}>
-                      Seed
-                      </FormLabel>                      
+                        Core Identity
+                        </FormLabel>
                       <FormDescription style={{ marginTop: '.1rem' }}>
-                        Initial text setting the context and direction for the LLM&apos;s responses.
+                        Define the core persona, character, or entity your AI will embody.
                       </FormDescription>
                       <FormControl>
                         <Input
-                          placeholder="I am a creative writing assistant here to help you with storytelling and worldbuilding."
-                          value={seed}
-                          onChange={(e) => setSeed(e.target.value)}
+                          placeholder="A highly experienced and caring physician named Dr. Emma Wilson"
+                          value={identity}
+                          onChange={(e) => setIdentity(e.target.value)}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </FormProvider>
+
+            <FormProvider {...emailForm}>
+              <form className="space-y-8" style={{marginLeft: '5px', marginTop: '20px' }}>
+                <FormField
+                  name="context"
+                  render={() => (
+                    <FormItem>
+                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                      Context & Background
+                      </FormLabel>                      
+                      <FormDescription style={{ marginTop: '.1rem' }}>
+                        The initial prompts and information provided to set the scene and environment for the AI.                      
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          placeholder="You are a general practitioner at City Hospital. Your role is to diagnose and treat patients, provide advice on health and wellness, and demonstrate ethical and compassionate bedside manner."
+                          value={context}
+                          onChange={(e) => setContext(e.target.value)}
                         />
                       </FormControl>
                     </FormItem>
@@ -162,66 +185,16 @@ export const ProfileCreation = () => {
                   render={() => (
                     <FormItem>
                       <FormLabel className="font-bold" style={{ color: '#636363' }}>
-                        Personality
+                        Personality Traits
                         </FormLabel>
                       <FormDescription style={{ marginTop: '.1rem' }}>
                         Define the personality traits of your AI.
                       </FormDescription>
                       <FormControl>
                         <Input
-                          placeholder="Imaginative, encouraging, patient"
+                          placeholder="Calm, empathetic, excellent listener, able to explain complex medical concepts clearly, direct but caring, maintains boundaries."
                           value={personality}
                           onChange={(e) => setPersonality(e.target.value)}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </form>
-            </FormProvider>
-
-            <FormProvider {...emailForm}>
-              <form className="space-y-8" style={{marginLeft: '5px' }}>
-                <FormField
-                  name="role"
-                  render={() => (
-                    <FormItem>
-                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
-                        Role
-                        </FormLabel>
-                      <FormDescription style={{ marginTop: '.1rem' }}>
-                        Function or job of the AI within interactions
-                      </FormDescription>
-                      <FormControl>
-                        <Input
-                          placeholder="Writing companion and creative collaborator"
-                          value={role}
-                          onChange={(e) => setRole(e.target.value)}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </form>
-            </FormProvider>
-
-            <FormProvider {...emailForm}>
-              <form className="space-y-8" style={{marginLeft: '5px' }}>
-                <FormField
-                  name="persona"
-                  render={() => (
-                    <FormItem>
-                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
-                        Persona
-                      </FormLabel>
-                      <FormDescription style={{ marginTop: '.1rem' }}>
-                        The archetype or character the AI will embody.
-                      </FormDescription>
-                      <FormControl>
-                        <Input
-                          placeholder="A supportive mentor guiding you through the writing process"
-                          value={persona}
-                          onChange={(e) => setPersona(e.target.value)}
                         />
                       </FormControl>
                     </FormItem>
@@ -237,14 +210,14 @@ export const ProfileCreation = () => {
                   render={() => (
                     <FormItem>
                       <FormLabel className="font-bold" style={{ color: '#636363' }}>
-                        Interaction Guidelines
+                        Interaction Style
                         </FormLabel>
                       <FormDescription style={{ marginTop: '.1rem'}}>
                         Set guidelines on how your AI communicates with you
                       </FormDescription>
                       <FormControl>
                         <Input
-                          placeholder="Provide constructive feedback, ask thought-provoking questions, and offer creative suggestions."
+                          placeholder="Speak professionally but avoid overly complex medical jargon. Ask pertinent follow-up questions. Validate the patient's concerns. Provide explanations patiently."
                           value={interactionGuidelines}
                           onChange={(e) => setInteractionGuidelines(e.target.value)}
                           style={{marginBottom: '1.5rem' }}
@@ -263,7 +236,7 @@ export const ProfileCreation = () => {
                   render={() => (
                     <FormItem>
                       <FormLabel className="font-bold" style={{ color: '#636363' }}>
-                        Temperature
+                        Output Controls
                       </FormLabel>
                       <FormDescription style={{ marginTop: '.1rem' }}>
                         Control the level of creativity and randomness of the LLM&apos;s outputs, balancing novelty and consistency.
@@ -329,9 +302,9 @@ export const ProfileCreation = () => {
         <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px', marginLeft: '5px', marginBottom: '-14px'}}>
           The key information identifying and representing your profile.
         </p>
-        <Separator className="my-4" />
+        <Separator className="my-4"/>
           <FormProvider {...nameForm}>
-            <form className="mb-8 space-y-8">
+            <form className="mb-8 space-y-8"  style={{marginTop: '18px', marginLeft: '5px' }}>
               <FormField
                 control={nameForm.control}
                 name="name"

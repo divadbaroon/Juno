@@ -143,14 +143,13 @@ declare type CreateUserParams = {
     avatar?: string;
     llm: string;
     personality: string;
-    role: string;
-    persona: string;
+    identity: string;
     interactionGuidelines: string;
     voice: string;
     extensions: string[];
     sharePreference: string;
     photo: File | null;
-    seed: string;
+    context: string;
     temperature: number;
   };
 
