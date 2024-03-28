@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Checkout from "@/components/shared/Checkout";
+import ShowConfetti from "@/components/shared/ShowConfetti";
 import {
   InputOTP,
   InputOTPGroup,
@@ -36,13 +37,13 @@ interface CreditsClientProps {
 
 const CreditsClient = ({ user, userPlan, plans }: CreditsClientProps) => {
   const [activationCode, setActivationCode] = useState("");
+  const [showConfetti, setShowConfetti] = useState(false); 
   const { toast } = useToast();
 
   const handleActivationCodeSubmit = async () => {
     if (activationCode.length === 9) {
       const plan = await validateActivationCode(parseInt(activationCode, 10));
       if (plan !== null) {
-        // Check if the user already has the plan activated
         if (plan === userPlan) {
           toast({
             title: "Plan Already Active",
@@ -54,6 +55,7 @@ const CreditsClient = ({ user, userPlan, plans }: CreditsClientProps) => {
             title: "Activation Successful!",
             description: `You successfully upgraded your plan to ${plan}`,
           });
+          setShowConfetti(true);
         }
       } else {
         toast({
@@ -162,6 +164,7 @@ const CreditsClient = ({ user, userPlan, plans }: CreditsClientProps) => {
           </Button>
         </div>
       </div>
+      {showConfetti && <ShowConfetti />}
     </>
   );
 };
