@@ -1,6 +1,8 @@
 "use client";
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { redirect } from 'next/navigation';
+import { useUser } from '@clerk/clerk-react';
+import { getUserById } from "@/lib/actions/user.actions";
 import { Separator } from "@/components/ui/separator"
 
 import { LibraryPage } from "@/components/shared/library/LibraryPage"
@@ -8,6 +10,36 @@ import { LibraryPage } from "@/components/shared/library/LibraryPage"
 function ProfileForm() {
   // The actively selected Tab
   const [activeSection, setActiveSection] = useState('profile');
+  const { user, isSignedIn, isLoaded } = useUser();
+  const [userDetails, setUserDetails] = useState<any>(null);
+
+  useEffect(() => {
+    if (!isLoaded) return; // Wait for Clerk to fully initialize
+
+    if (!isSignedIn) {
+      redirect('/sign-in'); // Use Next.js's redirect for client-side redirection
+      return;
+    }
+
+    const fetchUserDetails = async () => {
+      try {
+        // Assuming you have a user ID to fetch additional details
+        if (user) {
+          const details = await getUserById(user.id);
+          setUserDetails(details);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user details:", error);
+        // Optionally handle errors, like redirecting to an error page
+      }
+    };
+
+    fetchUserDetails();
+  }, [isSignedIn, isLoaded, user]);
+
+  if (!userDetails) {
+    return; // Placeholder while loading
+  }
 
   return (
     <div className="root-container">
@@ -40,24 +72,28 @@ function ProfileForm() {
           libraryType="Profiles" 
           h2Text="Profiles" 
           pText="Explore pre-configured profiles, powered by Large Language Models, lifelike voices, and unique capabilities. Select a profile that resonates, and refine it to match your needs."
+          user={userDetails}
           />}
       {activeSection === 'extension' && <LibraryPage
           contextType="Library"
           libraryType="Extensions" 
           h2Text="Extensions" 
           pText="Use extensions to add capabilites and enhancements to your AI. Add as many extensions as you need to create the perfect AI for your needs."
+          user={userDetails}
       />}
       {activeSection === 'voice' && <LibraryPage
           contextType="Library"
           libraryType="Voices" 
           h2Text="Voices" 
           pText="Personalize your AI's voice from a wide range of lifelike options, enhancing communication with styles from warm and friendly to formal and authoritative."
+          user={userDetails}
       />}
       {activeSection === 'llm' && <LibraryPage 
           contextType="Library"
           libraryType="LLMs" 
           h2Text="Large Language Models" 
           pText="Choose the Large Language Model powering your profile's intelligence, aligning with your preferences for reasoning, coding, speed, and expertise."
+          user={userDetails}
           />}
     </div>
   )

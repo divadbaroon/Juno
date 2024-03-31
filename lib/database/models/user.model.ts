@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, Types } from "mongoose";
 
 const UserSchema = new Schema({
   clerkId: {
@@ -37,6 +37,11 @@ const UserSchema = new Schema({
   lastUsed: {
     type: Date,
   }, 
+  userCollection: {
+    llms: Array,
+    voices: Array,
+    extensions: Array,
+  },
 });
 
 const User = models?.User || model("User", UserSchema);

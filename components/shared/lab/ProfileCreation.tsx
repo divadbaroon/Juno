@@ -1,5 +1,8 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useUser } from '@clerk/clerk-react';
+import { getUserById } from "@/lib/actions/user.actions";
+import { redirect } from 'next/navigation';
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -31,27 +34,73 @@ const emailFormSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
 });
 
-export const ProfileCreation = () => {
-  // State hooks to show sections
-  const [showModelSelection, setShowModelSelection] = useState(false);
-  const [showModelConfiguration, setShowModelConfiguration] = useState(false);
-  const [showVoice, setShowVoice] = useState(false);
-  const [showExtensions, setShowExtensions] = useState(false);
-  const [showProfileDetails, setShowProfileDetails] = useState(false);
 
-  // State hooks to store form data
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [llm, setLLM] = useState("");
-  const [personality, setPersonality] = useState("");
-  const [identity, setIdentity] = useState("");
-  const [interactionGuidelines, setInteractionGuidelines] = useState("");
-  const [context, setContext] = useState(""); 
-  const [temperature, setTemperature] = useState(33); 
-  const [voice, setVoice] = useState("");
-  const [sharePreference, setSharePreference] = useState("");
-  const [extensions, setExtensions] = useState([]);
-  const [photo, setPhoto] = useState<File | null>(null);
+export const ProfileCreation = () => {
+  const [activeSection, setActiveSection] = useState('profile');
+  const { user, isSignedIn, isLoaded } = useUser();
+  const [userDetails, setUserDetails] = useState<any>(null);
+
+    // State hooks to show sections
+    const [showModelSelection, setShowModelSelection] = useState(false);
+    const [showModelConfiguration, setShowModelConfiguration] = useState(false);
+    const [showVoice, setShowVoice] = useState(false);
+    const [showExtensions, setShowExtensions] = useState(false);
+    const [showProfileDetails, setShowProfileDetails] = useState(false);
+  
+    // State hooks to store form data
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [llm, setLLM] = useState("");
+    const [personality, setPersonality] = useState("");
+    const [identity, setIdentity] = useState("");
+    const [interactionGuidelines, setInteractionGuidelines] = useState("");
+    const [context, setContext] = useState(""); 
+    const [temperature, setTemperature] = useState(33); 
+    const [voice, setVoice] = useState("");
+    const [sharePreference, setSharePreference] = useState("");
+    const [extensions, setExtensions] = useState([]);
+    const [photo, setPhoto] = useState<File | null>(null);
+
+      // Form hooks
+  const nameForm = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: { name: "" },
+  });
+
+  const emailForm = useForm({
+    resolver: zodResolver(emailFormSchema),
+    defaultValues: { email: "" },
+  });
+
+
+
+  useEffect(() => {
+    if (!isLoaded) return; // Wait for Clerk to fully initialize
+
+    if (!isSignedIn) {
+      redirect('/sign-in'); // Use Next.js's redirect for client-side redirection
+      return;
+    }
+
+    const fetchUserDetails = async () => {
+      try {
+        // Assuming you have a user ID to fetch additional details
+        if (user) {
+          const details = await getUserById(user.id);
+          setUserDetails(details);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user details:", error);
+        // Optionally handle errors, like redirecting to an error page
+      }
+    };
+
+    fetchUserDetails();
+  }, [isSignedIn, isLoaded, user]);
+
+  if (!userDetails) {
+    return; // Placeholder while loading
+  }
 
   const handleCreateProfile = async () => {
     const profileData: CreateProfileParams = {
@@ -76,17 +125,6 @@ export const ProfileCreation = () => {
     }
   };
 
-  // Form hooks
-  const nameForm = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: { name: "" },
-  });
-
-  const emailForm = useForm({
-    resolver: zodResolver(emailFormSchema),
-    defaultValues: { email: "" },
-  });
-
   return (
     <div className="root-container">
       <h2 className="h2-bold text-dark-600" style={{ marginTop: '-10px' }}>
@@ -110,6 +148,7 @@ export const ProfileCreation = () => {
           libraryType="LLMs"
           h2Text=""
           pText="Select the language model that will power your AI's natural language understanding and generation."
+          user={userDetails}
         />
       )}
 
@@ -271,6 +310,7 @@ export const ProfileCreation = () => {
           libraryType="Voices"
           h2Text=""
           pText="Choose a unique voice that complements your AI's personality and enhances the user experience."
+          user={userDetails}
         />
       )}
 
@@ -287,6 +327,7 @@ export const ProfileCreation = () => {
           libraryType="Extensions"
           h2Text=""
           pText="Enhance your AI's capabilities by adding powerful extensions and functionalities."
+          user={userDetails}
         />
       )}
 

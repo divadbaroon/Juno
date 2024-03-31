@@ -120,3 +120,51 @@ export async function updatePlan(buyerID: string, newPlan: string) {
     handleError(error);
   }
 }
+
+// UPDATE COLLECTION
+export async function updateUserCollection(clerkId: string, userCollection: UpdateUserCollection) {
+  try {
+    await connectToDatabase();
+    const updatedUser = await User.findOneAndUpdate(
+      { clerkId },
+      {
+        $addToSet: {
+          "userCollection.llms": { $each: userCollection.llms },
+          "userCollection.voices": { $each: userCollection.voices },
+          "userCollection.extensions": { $each: userCollection.extensions },
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) throw new Error("User collection update failed");
+    return JSON.parse(JSON.stringify(updatedUser));
+  } catch (error) {
+    console.error('Error updating user collection:', error);
+    handleError(error);
+  }
+}
+
+// REMOVE FROM COLLECTION
+export async function removeFromUserCollection(clerkId: string, userCollection: UpdateUserCollection) {
+  try {
+    await connectToDatabase();
+    const updatedUser = await User.findOneAndUpdate(
+      { clerkId },
+      {
+        $pull: {
+          "userCollection.llms": { $in: userCollection.llms },
+          "userCollection.voices": { $in: userCollection.voices },
+          "userCollection.extensions": { $in: userCollection.extensions },
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) throw new Error("User collection update failed");
+    return JSON.parse(JSON.stringify(updatedUser));
+  } catch (error) {
+    console.error('Error removing from user collection:', error);
+    handleError(error);
+  }
+}

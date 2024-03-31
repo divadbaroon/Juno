@@ -1,11 +1,44 @@
 "use client";
 
-import React, { useState, ReactNode } from 'react';
+import React, { useState, ReactNode, useEffect } from 'react';
+import { redirect } from 'next/navigation';
+import { useUser } from '@clerk/clerk-react';
+import { getUserById } from "@/lib/actions/user.actions";
 import { LibraryPage } from "@/components/shared/library/LibraryPage";
 import { Separator } from "@/components/ui/separator";
 
 const QuickStart = () => {
   const [openStep, setOpenStep] = useState<string | null>(null);
+  const { user, isSignedIn, isLoaded } = useUser();
+  const [userDetails, setUserDetails] = useState<any>(null);
+
+  useEffect(() => {
+    if (!isLoaded) return; // Wait for Clerk to fully initialize
+
+    if (!isSignedIn) {
+      redirect('/sign-in'); // Use Next.js's redirect for client-side redirection
+      return;
+    }
+
+    const fetchUserDetails = async () => {
+      try {
+        // Assuming you have a user ID to fetch additional details
+        if (user) {
+          const details = await getUserById(user.id);
+          setUserDetails(details);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user details:", error);
+        // Optionally handle errors, like redirecting to an error page
+      }
+    };
+
+    fetchUserDetails();
+  }, [isSignedIn, isLoaded, user]);
+
+  if (!userDetails) {
+    return; // Placeholder while loading
+  }
 
   const renderSection = (title: string, description: string, steps: ReactNode) => (
     <div className="section">
@@ -51,7 +84,9 @@ const QuickStart = () => {
               contextType="QuickStart"
               libraryType="Profiles"
               h2Text=""
-              pText="To get started, select a profile to provide your foundation. Profiles are pre-configured AI, made up of a large language model, instructions for the language model, a unique voice, and distinct capabilites."/>
+              pText="To get started, select a profile to provide your foundation. Profiles are pre-configured AI, made up of a large language model, instructions for the language model, a unique voice, and distinct capabilites."
+              user={userDetails}
+              />
           )}
           {renderStep("2. Adjust the Voice", "voice",
             <LibraryPage
@@ -59,6 +94,7 @@ const QuickStart = () => {
               libraryType="Voices"
               h2Text=""
               pText="Browse through a collection of life-like voices. If you find one you like, select it to update your profile; otherwise, move on and retain your profile's existing voice."
+              user={userDetails}
             />
           )}
           {renderStep("3. Adjust the AI Model", "languageModel",
@@ -67,6 +103,7 @@ const QuickStart = () => {
               libraryType="LLMs"
               h2Text=""
               pText="Browse through a collection of Large Language Models, the core intelligence of your AI. If you find one you like, select it to update your profile; otherwise, move on and retain your profile's existing LLM."
+              user={userDetails}
             />
           )}
           {renderStep("4. Enhance Capabilites", "extensions",
@@ -75,6 +112,7 @@ const QuickStart = () => {
               libraryType="Extensions"
               h2Text=""
               pText="Browse through a collection of extensions, which are additional capabilites that can be added to your profile. Add as many extensions as you would like, or move on and keep your profile's current extensions."
+              user={userDetails}
             />
           )}
         </>

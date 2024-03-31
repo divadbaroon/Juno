@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface DisplayCardProps {
+  clerkId: string; // Clerk ID of the user viewing the card
   contextType: string;
   type: string;
   title: string;
@@ -11,11 +20,43 @@ interface DisplayCardProps {
   photo?: string;
   isSelected: boolean;
   onSelect: () => void;
+  userCollection: {
+    llms: string[];
+    voices: string[];
+    extensions: string[];
+  };
+  isInCollection: boolean;
+  additionalInfo: string;
 }
 
-const DisplayCard: React.FC<DisplayCardProps> = ({ contextType, type, title, creator, description, photo, isSelected, onSelect }) => {
+const DisplayCard: React.FC<DisplayCardProps> = ({
+  clerkId,
+  contextType,
+  type,
+  title,
+  creator,
+  description,
+  photo,
+  isSelected,
+  onSelect,
+  userCollection,
+  isInCollection,
+  additionalInfo,
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const borderClass = isSelected && contextType === 'QuickStart' ? 'border-4 border-indigo-200 border-t-indigo-500' : '';
+
   return (
-    <Card className={`${isSelected ? 'border-4 border-indigo-200 border-t-indigo-500' : ''}`}>
+    <Card className={`${borderClass}`}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{creator}</CardDescription>
@@ -34,20 +75,33 @@ const DisplayCard: React.FC<DisplayCardProps> = ({ contextType, type, title, cre
             Sample
           </Button>
         ) : (
-          <Button className="w-auto px-8" variant="outline">
+          <Button className="w-auto px-8" variant="outline" onClick={openModal}>
             Details
           </Button>
         )}
         <Button className="w-auto px-8" onClick={onSelect}>
           {contextType === 'QuickStart' && type === 'Extensions' ? (
-              isSelected ? 'Unadd' : 'Add'
-            ) : contextType === 'Library' ? (
-              isSelected ? 'Remove' : 'Save'
-            ) : (
-              isSelected ? 'Deselect' : 'Select'
+            isSelected ? 'Unadd' : 'Add'
+          ) : contextType === 'Dashboard' ? (
+            isInCollection ? 'Remove' : 'Save'
+          ) : contextType === 'Library' ? (
+            isInCollection ? 'Remove' : 'Save'
+          ) : (
+            isSelected ? 'Deselect' : 'Select'
           )}
         </Button>
       </CardFooter>
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>{title}</DialogTitle>
+            <DialogDescription>{additionalInfo}</DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button onClick={closeModal}>Close</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 };

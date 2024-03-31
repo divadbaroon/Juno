@@ -16,6 +16,12 @@ declare type CreateUserParams = {
     username: string;
     photo: string;
   };
+
+  declare type UpdateUserCollection = {
+    llms: string[];
+    voices: string[];
+    extensions: string[];
+  };
   
   // ====== IMAGE PARAMS
   declare type AddImageParams = {
