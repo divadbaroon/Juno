@@ -26,7 +26,7 @@ interface DisplayCardProps {
     extensions: string[];
   };
   isInCollection: boolean;
-  additionalInfo: string;
+  additionalInfo?: string; 
 }
 
 const DisplayCard: React.FC<DisplayCardProps> = ({
