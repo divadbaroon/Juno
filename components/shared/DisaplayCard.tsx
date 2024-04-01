@@ -17,6 +17,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 
+import { Separator } from "@/components/ui/separator";
+
 interface DisplayCardProps {
   clerkId: string; // Clerk ID of the user viewing the card
   contextType: string;
@@ -34,7 +36,8 @@ interface DisplayCardProps {
   };
   isInCollection: boolean;
   additionalInfo?: string;
-  onReload: () => void; // Add the onReload prop
+  onReload: () => void;
+  models: string[];
 }
 
 const DisplayCard: React.FC<DisplayCardProps> = ({
@@ -50,9 +53,17 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
   userCollection,
   isInCollection,
   additionalInfo,
-  onReload, // Add onReload to the destructured props
+  onReload,
+  models,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // State hooks to show sections
+  const [showDetails, setShowDetails] = useState(false);
+  const [showExampleUsage, setShowExampleUsage] = useState(false);
+  const [showSetupInstructions, setShowSetupInstructions] = useState(false);
+  const [showCode, setShowCode] = useState(false);
+  const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -115,11 +126,108 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
         </Button>
       </CardFooter>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>{title}</DialogTitle>
-            <DialogDescription>{additionalInfo}</DialogDescription>
-          </DialogHeader>
+        <DialogContent className="sm:max-w-[800px]">
+          <div className="flex">
+            <div className="w-1/2 pr-4">
+            <Card className="collection-card">
+              <CardHeader>
+                <CardTitle>{title}</CardTitle>
+                <CardDescription>{creator}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {photo && (
+                  <div className="card__photo">
+                    <img src={photo} alt={title} className="card__photo-image" />
+                  </div>
+                )}
+                <p className="card__description">{description}</p>
+              </CardContent>
+            </Card>
+            </div>
+            <div className="w-1/2 pl-4">
+              <div className="mb-4">
+                <h3
+                  className="text-lg font-bold mb-2 cursor-pointer"
+                  onClick={() => setShowDetails(!showDetails)}
+                >Card Details
+                </h3>
+                <Separator className="my-0" />
+
+                {showDetails && (
+                  <div className="border border-gray-300 rounded p-2">
+                    <ul className="list-disc pl-4">
+                      {models.map((model, index) => (
+                        <li key={index}>{model}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+              <div className="mb-4">
+                <h3
+                  className="text-lg font-bold mb-2 cursor-pointer"
+                  onClick={() => setShowExampleUsage(!showExampleUsage)}
+                >
+                  Example Usage
+                </h3>
+                <Separator className="my-0" />
+
+                {showExampleUsage && (
+                  <div className="border border-gray-300 rounded p-2">
+                    {/* Dropdown content with example usage */}
+                    <p>Example usage content goes here.</p>
+                  </div>
+                )}
+              </div>
+              <div className="mb-4">
+                <h3
+                  className="text-lg font-bold mb-2 cursor-pointer"
+                  onClick={() => setShowSetupInstructions(!showSetupInstructions)}
+                >
+                  Setup Instructions
+                </h3>
+                <Separator className="my-0" />
+
+                {showSetupInstructions && (
+                  <div className="border border-gray-300 rounded p-2">
+                    {/* Step-by-step setup instructions */}
+                    <p>There is no setup for this extension.</p>
+                  </div>
+                )}
+              </div>
+              <div className="mb-4">
+                <h3
+                  className="text-lg font-bold mb-2 cursor-pointer"
+                  onClick={() => setShowCode(!showCode)}
+                >
+                  Code
+                </h3>
+                <Separator className="my-0" />
+
+                {showCode && (
+                  <div className="border border-gray-300 rounded p-2">
+                    {/* Code snippets or examples */}
+                    <p>Code snippets or examples go here.</p>
+                  </div>
+                )}
+              </div>
+              <div>
+                <h3
+                  className="text-lg font-bold mb-2 cursor-pointer"
+                  onClick={() => setShowAdditionalInfo(!showAdditionalInfo)}
+                >
+                  Preferences
+                </h3>
+                <Separator className="my-0" />
+                {showAdditionalInfo && (
+                  <div className="border border-gray-300 rounded p-2">
+                    {/* Any other relevant information */}
+                    <p>Additional information goes here.</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
           <DialogFooter>
             <Button onClick={closeModal}>Close</Button>
           </DialogFooter>

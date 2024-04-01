@@ -177,6 +177,7 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
                 userCollection={userDetails.userCollection}
                 isInCollection={contextType === 'Dashboard' || isCardInCollection(_id)}
                 onReload={onReload}
+                models={['Model 1', 'Model 2', 'Model 3']}
               />
             </li>
           ))}
