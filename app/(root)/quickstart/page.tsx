@@ -11,6 +11,7 @@ const QuickStart = () => {
   const [openStep, setOpenStep] = useState<string | null>(null);
   const { user, isSignedIn, isLoaded } = useUser();
   const [userDetails, setUserDetails] = useState<any>(null);
+  const [reloadCounter, setReloadCounter] = useState(0);
 
   useEffect(() => {
     if (!isLoaded) return; // Wait for Clerk to fully initialize
@@ -34,7 +35,12 @@ const QuickStart = () => {
     };
 
     fetchUserDetails();
-  }, [isSignedIn, isLoaded, user]);
+  }, [isSignedIn, isLoaded, user, reloadCounter]);
+
+  const handleReload = () => {
+    setReloadCounter((prev) => prev + 1); // Function to trigger re-fetching
+  };
+
 
   if (!userDetails) {
     return; // Placeholder while loading
@@ -86,6 +92,7 @@ const QuickStart = () => {
               h2Text=""
               pText="To get started, select a profile to provide your foundation. Profiles are pre-configured AI, made up of a large language model, instructions for the language model, a unique voice, and distinct capabilites."
               user={userDetails}
+              onReload={handleReload}
               />
           )}
           {renderStep("2. Adjust the Voice", "voice",
@@ -95,6 +102,7 @@ const QuickStart = () => {
               h2Text=""
               pText="Browse through a collection of life-like voices. If you find one you like, select it to update your profile; otherwise, move on and retain your profile's existing voice."
               user={userDetails}
+              onReload={handleReload}
             />
           )}
           {renderStep("3. Adjust the AI Model", "languageModel",
@@ -104,6 +112,7 @@ const QuickStart = () => {
               h2Text=""
               pText="Browse through a collection of Large Language Models, the core intelligence of your AI. If you find one you like, select it to update your profile; otherwise, move on and retain your profile's existing LLM."
               user={userDetails}
+              onReload={handleReload}
             />
           )}
           {renderStep("4. Enhance Capabilites", "extensions",
@@ -113,6 +122,7 @@ const QuickStart = () => {
               h2Text=""
               pText="Browse through a collection of extensions, which are additional capabilites that can be added to your profile. Add as many extensions as you would like, or move on and keep your profile's current extensions."
               user={userDetails}
+              onReload={handleReload}
             />
           )}
         </>

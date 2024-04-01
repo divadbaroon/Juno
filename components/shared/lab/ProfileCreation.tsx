@@ -39,6 +39,7 @@ export const ProfileCreation = () => {
   const [activeSection, setActiveSection] = useState('profile');
   const { user, isSignedIn, isLoaded } = useUser();
   const [userDetails, setUserDetails] = useState<any>(null);
+  const [reloadCounter, setReloadCounter] = useState(0);
 
     // State hooks to show sections
     const [showModelSelection, setShowModelSelection] = useState(false);
@@ -96,7 +97,11 @@ export const ProfileCreation = () => {
     };
 
     fetchUserDetails();
-  }, [isSignedIn, isLoaded, user]);
+  }, [isSignedIn, isLoaded, user, reloadCounter]); 
+
+  const handleReload = () => {
+    setReloadCounter((prev) => prev + 1); // Function to trigger re-fetching
+  };
 
   if (!userDetails) {
     return; // Placeholder while loading
@@ -149,6 +154,7 @@ export const ProfileCreation = () => {
           h2Text=""
           pText="Select the language model that will power your AI's natural language understanding and generation."
           user={userDetails}
+          onReload={handleReload}
         />
       )}
 
@@ -311,6 +317,7 @@ export const ProfileCreation = () => {
           h2Text=""
           pText="Choose a unique voice that complements your AI's personality and enhances the user experience."
           user={userDetails}
+          onReload={handleReload}
         />
       )}
 
@@ -328,6 +335,7 @@ export const ProfileCreation = () => {
           h2Text=""
           pText="Enhance your AI's capabilities by adding powerful extensions and functionalities."
           user={userDetails}
+          onReload={handleReload}
         />
       )}
 
