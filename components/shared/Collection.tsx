@@ -40,7 +40,7 @@ interface Data {
   updatedAt: string;
 }
 
-export const Collection: React.FC<{ userDetails: User, contextType: string; type: string; totalPages?: number; page: number; hasSearch?: boolean; items: Data[]; }> = ({ userDetails, hasSearch = false, totalPages = 1, contextType, type, page, items }) => {
+export const Collection: React.FC<{ userDetails: User, contextType: string; type: string; totalPages?: number; page: number; hasSearch?: boolean; items: Data[]; onReload: () => void; }> = ({ userDetails, hasSearch = false, totalPages = 1, contextType, type, page, items, onReload }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
@@ -99,6 +99,7 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
                 </span>
               )
             });
+            onReload();
           } catch (error) {
             console.error('Failed to remove from user collection:', error);
           }
@@ -121,6 +122,7 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
                   </span>
                 )
               });
+              onReload();
             } catch (error) {
               console.error('Failed to remove from user collection:', error);
             }
@@ -142,6 +144,7 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
                   </span>
                 )
               });
+              onReload();
             } catch (error) {
               console.error('Failed to update user collection:', error);
             }
@@ -173,6 +176,7 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
                 onSelect={() => handleCardSelect(_id)}
                 userCollection={userDetails.userCollection}
                 isInCollection={contextType === 'Dashboard' || isCardInCollection(_id)}
+                onReload={onReload}
               />
             </li>
           ))}

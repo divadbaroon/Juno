@@ -12,6 +12,8 @@ function ProfileForm() {
   const [activeSection, setActiveSection] = useState('profile');
   const { user, isSignedIn, isLoaded } = useUser();
   const [userDetails, setUserDetails] = useState<any>(null);
+  const [reloadCounter, setReloadCounter] = useState(0); // Trigger for re-fetching
+
 
   useEffect(() => {
     if (!isLoaded) return; // Wait for Clerk to fully initialize
@@ -35,7 +37,11 @@ function ProfileForm() {
     };
 
     fetchUserDetails();
-  }, [isSignedIn, isLoaded, user]);
+  }, [isSignedIn, isLoaded, user, reloadCounter]); // Add reloadCounter as a dependency
+
+  const handleReload = () => {
+    setReloadCounter((prev) => prev + 1); // Function to trigger re-fetching
+  };
 
   if (!userDetails) {
     return; // Placeholder while loading
@@ -73,6 +79,7 @@ function ProfileForm() {
           h2Text="Profiles" 
           pText="Explore pre-configured profiles, powered by Large Language Models, lifelike voices, and unique capabilities. Select a profile that resonates, and refine it to match your needs."
           user={userDetails}
+          onReload={handleReload}
           />}
       {activeSection === 'extension' && <LibraryPage
           contextType="Library"
@@ -80,6 +87,7 @@ function ProfileForm() {
           h2Text="Extensions" 
           pText="Use extensions to add capabilites and enhancements to your AI. Add as many extensions as you need to create the perfect AI for your needs."
           user={userDetails}
+          onReload={handleReload}
       />}
       {activeSection === 'voice' && <LibraryPage
           contextType="Library"
@@ -87,6 +95,7 @@ function ProfileForm() {
           h2Text="Voices" 
           pText="Personalize your AI's voice from a wide range of lifelike options, enhancing communication with styles from warm and friendly to formal and authoritative."
           user={userDetails}
+          onReload={handleReload}
       />}
       {activeSection === 'llm' && <LibraryPage 
           contextType="Library"
@@ -94,6 +103,7 @@ function ProfileForm() {
           h2Text="Large Language Models" 
           pText="Choose the Large Language Model powering your profile's intelligence, aligning with your preferences for reasoning, coding, speed, and expertise."
           user={userDetails}
+          onReload={handleReload}
           />}
     </div>
   )

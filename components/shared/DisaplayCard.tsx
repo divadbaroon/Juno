@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -8,7 +15,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
 interface DisplayCardProps {
   clerkId: string; // Clerk ID of the user viewing the card
@@ -26,7 +33,8 @@ interface DisplayCardProps {
     extensions: string[];
   };
   isInCollection: boolean;
-  additionalInfo?: string; 
+  additionalInfo?: string;
+  onReload: () => void; // Add the onReload prop
 }
 
 const DisplayCard: React.FC<DisplayCardProps> = ({
@@ -42,6 +50,7 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
   userCollection,
   isInCollection,
   additionalInfo,
+  onReload, // Add onReload to the destructured props
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -53,7 +62,15 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
     setIsModalOpen(false);
   };
 
-  const borderClass = isSelected && contextType === 'QuickStart' ? 'border-4 border-indigo-200 border-t-indigo-500' : '';
+  const borderClass =
+    isSelected && contextType === 'QuickStart'
+      ? 'border-4 border-indigo-200 border-t-indigo-500'
+      : '';
+
+  const handleSelect = () => {
+    onSelect();
+    onReload(); // Call onReload after onSelect is called
+  };
 
   return (
     <Card className={`${borderClass}`}>
@@ -79,16 +96,22 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
             Details
           </Button>
         )}
-        <Button className="w-auto px-8" onClick={onSelect}>
-          {contextType === 'QuickStart' && type === 'Extensions' ? (
-            isSelected ? 'Unadd' : 'Add'
-          ) : contextType === 'Dashboard' ? (
-            isInCollection ? 'Remove' : 'Save'
-          ) : contextType === 'Library' ? (
-            isInCollection ? 'Remove' : 'Save'
-          ) : (
-            isSelected ? 'Deselect' : 'Select'
-          )}
+        <Button className="w-auto px-8" onClick={handleSelect}>
+          {contextType === 'QuickStart' && type === 'Extensions'
+            ? isSelected
+              ? 'Unadd'
+              : 'Add'
+            : contextType === 'Dashboard'
+            ? isInCollection
+              ? 'Remove'
+              : 'Save'
+            : contextType === 'Library'
+            ? isInCollection
+              ? 'Remove'
+              : 'Save'
+            : isSelected
+            ? 'Deselect'
+            : 'Select'}
         </Button>
       </CardFooter>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>

@@ -29,6 +29,7 @@ interface ProfilesProps {
   libraryType: string;
   h2Text: string;
   pText: string;
+  onReload: () => void;
 }
 
 interface Data {
@@ -63,20 +64,21 @@ const fetchDataByType = async (user: UserDetails, libraryType: string): Promise<
   }
 };
 
-export const LibraryPage = ({ user, contextType, libraryType, h2Text, pText }: ProfilesProps) => {
+export const LibraryPage = ({ user, contextType, libraryType, h2Text, pText, onReload }: ProfilesProps) => {
   const [data, setData] = useState<Data[]>([]);
 
+  const fetchData = async () => {
+    try {
+      const fetchedData = await fetchDataByType(user, libraryType);
+      setData(fetchedData);
+    } catch (error) {
+      console.error('Failed to fetch data:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchedData = await fetchDataByType(user, libraryType);
-        setData(fetchedData);
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      }
-    };
     fetchData();
-  }, [libraryType]);
+  }, [libraryType, user]);
 
   return (
     <div>
@@ -94,6 +96,7 @@ export const LibraryPage = ({ user, contextType, libraryType, h2Text, pText }: P
           totalPages={0}
           page={1}
           items={data}
+          onReload={onReload}
         />
       </section>
     </div>
