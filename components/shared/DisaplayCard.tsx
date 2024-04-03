@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -11,13 +11,9 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
-  DialogHeader,
-  DialogTitle,
 } from '@/components/ui/dialog';
-
-import { Separator } from "@/components/ui/separator";
+import DetailsSection from '@/components/shared/DetailsSection';
 
 interface DisplayCardProps {
   clerkId: string; // Clerk ID of the user viewing the card
@@ -25,6 +21,7 @@ interface DisplayCardProps {
   type: string;
   title: string;
   creator: string;
+  blobURL?: string;
   description: string;
   photo?: string;
   isSelected: boolean;
@@ -46,6 +43,7 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
   type,
   title,
   creator,
+  blobURL,
   description,
   photo,
   isSelected,
@@ -57,13 +55,7 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
   models,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // State hooks to show sections
-  const [showDetails, setShowDetails] = useState(false);
-  const [showExampleUsage, setShowExampleUsage] = useState(false);
-  const [showSetupInstructions, setShowSetupInstructions] = useState(false);
-  const [showCode, setShowCode] = useState(false);
-  const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -83,6 +75,21 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
     onReload(); // Call onReload after onSelect is called
   };
 
+  const playAudioSample = () => {
+  if (blobURL) {
+    // Stop the currently playing audio, if any
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+
+    // Create a new audio element and play the selected audio
+    const audio = new Audio(blobURL);
+    audioRef.current = audio;
+    audio.play().catch(error => console.error("Error playing the audio:", error));
+  }
+};
+
   return (
     <Card className={`${borderClass}`}>
       <CardHeader>
@@ -99,9 +106,9 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
       </CardContent>
       <CardFooter className="flex justify-center items-center space-x-10">
         {type === 'Voices' ? (
-          <Button className="w-auto px-8" variant="outline">
-            Sample
-          </Button>
+          <Button className="w-auto px-8" variant="outline" onClick={playAudioSample}>
+          Sample
+        </Button>
         ) : (
           <Button className="w-auto px-8" variant="outline" onClick={openModal}>
             Details
@@ -129,103 +136,23 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
         <DialogContent className="sm:max-w-[800px]">
           <div className="flex">
             <div className="w-1/2 pr-4">
-            <Card className="collection-card">
-              <CardHeader>
-                <CardTitle>{title}</CardTitle>
-                <CardDescription>{creator}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {photo && (
-                  <div className="card__photo">
-                    <img src={photo} alt={title} className="card__photo-image" />
-                  </div>
-                )}
-                <p className="card__description">{description}</p>
-              </CardContent>
-            </Card>
+              <Card className="collection-card">
+                <CardHeader>
+                  <CardTitle>{title}</CardTitle>
+                  <CardDescription>{creator}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {photo && (
+                    <div className="card__photo">
+                      <img src={photo} alt={title} className="card__photo-image" />
+                    </div>
+                  )}
+                  <p className="card__description">{description}</p>
+                </CardContent>
+              </Card>
             </div>
             <div className="w-1/2 pl-4">
-              <div className="mb-4">
-                <h3
-                  className="text-lg font-bold mb-2 cursor-pointer"
-                  onClick={() => setShowDetails(!showDetails)}
-                >Card Details
-                </h3>
-                <Separator className="my-0" />
-
-                {showDetails && (
-                  <div className="border border-gray-300 rounded p-2">
-                    <ul className="list-disc pl-4">
-                      {models.map((model, index) => (
-                        <li key={index}>{model}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-              <div className="mb-4">
-                <h3
-                  className="text-lg font-bold mb-2 cursor-pointer"
-                  onClick={() => setShowExampleUsage(!showExampleUsage)}
-                >
-                  Example Usage
-                </h3>
-                <Separator className="my-0" />
-
-                {showExampleUsage && (
-                  <div className="border border-gray-300 rounded p-2">
-                    {/* Dropdown content with example usage */}
-                    <p>Example usage content goes here.</p>
-                  </div>
-                )}
-              </div>
-              <div className="mb-4">
-                <h3
-                  className="text-lg font-bold mb-2 cursor-pointer"
-                  onClick={() => setShowSetupInstructions(!showSetupInstructions)}
-                >
-                  Setup Instructions
-                </h3>
-                <Separator className="my-0" />
-
-                {showSetupInstructions && (
-                  <div className="border border-gray-300 rounded p-2">
-                    {/* Step-by-step setup instructions */}
-                    <p>There is no setup for this extension.</p>
-                  </div>
-                )}
-              </div>
-              <div className="mb-4">
-                <h3
-                  className="text-lg font-bold mb-2 cursor-pointer"
-                  onClick={() => setShowCode(!showCode)}
-                >
-                  Code
-                </h3>
-                <Separator className="my-0" />
-
-                {showCode && (
-                  <div className="border border-gray-300 rounded p-2">
-                    {/* Code snippets or examples */}
-                    <p>Code snippets or examples go here.</p>
-                  </div>
-                )}
-              </div>
-              <div>
-                <h3
-                  className="text-lg font-bold mb-2 cursor-pointer"
-                  onClick={() => setShowAdditionalInfo(!showAdditionalInfo)}
-                >
-                  Preferences
-                </h3>
-                <Separator className="my-0" />
-                {showAdditionalInfo && (
-                  <div className="border border-gray-300 rounded p-2">
-                    {/* Any other relevant information */}
-                    <p>Additional information goes here.</p>
-                  </div>
-                )}
-              </div>
+              <DetailsSection type={type} models={models} />
             </div>
           </div>
           <DialogFooter>

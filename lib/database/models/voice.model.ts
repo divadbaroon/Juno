@@ -5,6 +5,8 @@ export interface IVoice extends Document {
   creator: string;
   description: string;
   sharePreference: string;
+  vocieId: string;
+  objectURL: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -14,6 +16,8 @@ const VoiceSchema = new Schema({
   creator: { type: String, required: true },
   description: { type: String, required: true },
   sharePreference: { type: String, required: true },
+  voiceId: { type: String, required: true },
+  objectURL: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
