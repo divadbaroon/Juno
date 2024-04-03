@@ -483,3 +483,9 @@
     font-size: 55px;
   }
 }
+
+.highlight-link {
+  color: blue; /* Or any color you prefer */
+  text-decoration: underline; /* Adds an underline to emphasize the link */
+  font-weight: bold; /* Optional: makes the link bold */
+}

@@ -5,6 +5,7 @@ export interface ILLM extends Document {
   creator: string;
   description: string;
   sharePreference: string;
+  link: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -14,6 +15,7 @@ const LLMSchema = new Schema({
   creator: { type: String, required: true },
   description: { type: String, required: true },
   sharePreference: { type: String, required: true },
+  link: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

@@ -39,6 +39,7 @@ interface Data {
   createdAt: string;
   updatedAt: string;
   objectURL?: string;
+  link?: string;
 }
 
 export const Collection: React.FC<{ userDetails: User, contextType: string; type: string; totalPages?: number; page: number; hasSearch?: boolean; items: Data[]; onReload: () => void; }> = ({ userDetails, hasSearch = false, totalPages = 1, contextType, type, page, items, onReload }) => {
@@ -164,7 +165,7 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
       <Separator className="collection-separator mb-5" />
       {items.length > 0 ? (
         <ul className="collection-list" style={{ maxHeight: contextType === 'Library' ? '750px' : '500px', overflowY: 'auto' }}>
-          {items.map(({ _id, name, creator, description, objectURL }) => (
+          {items.map(({ _id, name, creator, description, objectURL, link }) => (
             <li key={_id}>
               <DisplayCard
                 clerkId={userDetails.clerkId}
@@ -180,6 +181,7 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
                 onReload={onReload}
                 models={['Model 1', 'Model 2', 'Model 3']}
                 blobURL = {objectURL}
+                link = {link}
              />
             </li>
           ))}

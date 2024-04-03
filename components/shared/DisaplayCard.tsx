@@ -22,6 +22,7 @@ interface DisplayCardProps {
   title: string;
   creator: string;
   blobURL?: string;
+  link?: string;
   description: string;
   photo?: string;
   isSelected: boolean;
@@ -44,6 +45,7 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
   title,
   creator,
   blobURL,
+  link,
   description,
   photo,
   isSelected,
@@ -56,6 +58,9 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [cardTitle, setTitle] = useState(title);
+  const [cardDescription, setDescription] = useState(description);
+
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -73,6 +78,11 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
   const handleSelect = () => {
     onSelect();
     onReload(); // Call onReload after onSelect is called
+  };
+
+  const handleUpdateDetails = (updatedDetails: { title: string; description: string }) => {
+    setTitle(updatedDetails.title);
+    setDescription(updatedDetails.description);
   };
 
   const playAudioSample = () => {
@@ -125,7 +135,7 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
               : 'Save'
             : contextType === 'Library'
             ? isInCollection
-              ? 'Remove'
+              ? 'Saved'
               : 'Save'
             : isSelected
             ? 'Deselect'
@@ -152,8 +162,16 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
               </Card>
             </div>
             <div className="w-1/2 pl-4">
-              <DetailsSection type={type} models={models} />
-            </div>
+            <DetailsSection
+                type={type}
+                models={models}
+                title={cardTitle}
+                creator={creator}
+                description={cardDescription}
+                link={link}
+                onUpdateDetails={handleUpdateDetails}
+              />   
+             </div>          
           </div>
           <DialogFooter>
             <Button onClick={closeModal}>Close</Button>
