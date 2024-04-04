@@ -143,7 +143,7 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
             <Separator className="my-0" />
             {showSetupInstructions && (
               <div className="border border-gray-300 rounded p-2">
-                <p>There is no setup for this extension.</p>
+                <p>There are not setup instructions for this extension.</p>
               </div>
             )}
           </div>

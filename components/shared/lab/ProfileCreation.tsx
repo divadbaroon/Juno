@@ -25,6 +25,16 @@ import { ProfileAvatar } from "@/components/shared/ProfileAvatarProps";
 
 import { Slider } from "@/components/ui/slider"
 
+import AWS from 'aws-sdk';
+
+AWS.config.update({
+  accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY_ID,
+  region: process.env.NEXT_PUBLIC_AWS_REGION,
+});
+
+const s3 = new AWS.S3();
+
 // Define your form schemas
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -34,6 +44,10 @@ const emailFormSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
 });
 
+interface Data {
+  _id: string;
+  // Add other properties as needed
+}
 
 export const ProfileCreation = () => {
   const [activeSection, setActiveSection] = useState('profile');
@@ -59,8 +73,9 @@ export const ProfileCreation = () => {
     const [temperature, setTemperature] = useState(33); 
     const [voice, setVoice] = useState("");
     const [sharePreference, setSharePreference] = useState("");
-    const [extensions, setExtensions] = useState([]);
+    const [extensions, setExtensions] = useState<string[]>([]);
     const [photo, setPhoto] = useState<File | null>(null);
+    
 
       // Form hooks
   const nameForm = useForm({
@@ -108,27 +123,57 @@ export const ProfileCreation = () => {
   }
 
   const handleCreateProfile = async () => {
-    const profileData: CreateProfileParams = {
-      name,
-      description,
-      llm: llm || "GPT-3",
-      personality,
-      identity,
-      interactionGuidelines,
-      context,
-      temperature,
-      voice: voice || "Standard",
-      sharePreference,
-      extensions,
-      photo,
-    };
-
     try {
-      await createProfileAction(profileData);
+      let photoUrl = "";
+
+      // Upload photo to S3 and get the URL
+      if (photo) {
+        const fileExtension = photo.name.split('.').pop();
+        const fileName = `${name}.${fileExtension}`;
+        const uploadParams = {
+          Bucket: 'junoprofiles',
+          Key: fileName,
+          Body: photo,
+          ContentType: photo.type,
+        };
+
+        const uploadResult = await s3.upload(uploadParams).promise();
+        photoUrl = uploadResult.Location; // Get the URL of the uploaded file
+      }
+
+      const profileData: CreateProfileParams = {
+        name,
+        description,
+        llm: llm || "GPT-3",
+        personality,
+        identity,
+        interactionGuidelines,
+        voice: voice || "Standard",
+        extensions,
+        sharePreference,
+        photo: photoUrl, // Use the photoUrl obtained from S3
+        context,
+        temperature,
+      };
+
+      const results = await createProfileAction(profileData);
     } catch (error) {
-      console.error("Error creating profile");
+      console.error("Error creating profile:", error);
     }
   };
+
+  const handleLLMSelect = (selectedLLM: Data) => {
+    setLLM(selectedLLM._id);
+  };
+
+  const handleVoiceSelect = (selectedVoice: Data) => {
+    setVoice(selectedVoice._id);
+  };
+
+  const handleExtensionSelect = (selectedExtension: Data) => {
+    setExtensions((prevExtensions) => [...prevExtensions, selectedExtension._id]);
+  };
+
 
   return (
     <div className="root-container">
@@ -155,6 +200,7 @@ export const ProfileCreation = () => {
           pText="Select the language model that will power your AI's natural language understanding and generation."
           user={userDetails}
           onReload={handleReload}
+          onSelect={handleLLMSelect}
         />
       )}
 
@@ -318,6 +364,7 @@ export const ProfileCreation = () => {
           pText="Choose a unique voice that complements your AI's personality and enhances the user experience."
           user={userDetails}
           onReload={handleReload}
+          onSelect={handleVoiceSelect}
         />
       )}
 
@@ -336,6 +383,7 @@ export const ProfileCreation = () => {
           pText="Enhance your AI's capabilities by adding powerful extensions and functionalities."
           user={userDetails}
           onReload={handleReload}
+          onSelect={handleExtensionSelect}
         />
       )}
 
@@ -354,27 +402,31 @@ export const ProfileCreation = () => {
         <Separator className="my-4"/>
           <FormProvider {...nameForm}>
             <form className="mb-8 space-y-8"  style={{marginTop: '18px', marginLeft: '5px' }}>
-              <FormField
-                control={nameForm.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-bold" style={{ color: '#636363' }}>
-                      Name
-                      </FormLabel>
-                    <FormDescription style={{ marginTop: '.1rem' }}>
-                      The name of your profile.
-                    </FormDescription>
-                    <FormControl>
-                      <Input
-                        placeholder="Juno"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            <FormField
+              control={nameForm.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                    Name
+                  </FormLabel>
+                  <FormDescription style={{ marginTop: '.1rem' }}>
+                    The name of your profile.
+                  </FormDescription>
+                  <FormControl>
+                    <Input
+                      placeholder="Juno"
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        setName(e.target.value);
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             </form>
           </FormProvider>
 

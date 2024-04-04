@@ -146,7 +146,6 @@ declare type CreateUserParams = {
   declare type CreateProfileParams = {
     name: string;
     description: string;
-    avatar?: string;
     llm: string;
     personality: string;
     identity: string;
@@ -154,7 +153,7 @@ declare type CreateUserParams = {
     voice: string;
     extensions: string[];
     sharePreference: string;
-    photo: File | null;
+    photo: string;
     context: string;
     temperature: number;
   };

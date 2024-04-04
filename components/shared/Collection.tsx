@@ -42,7 +42,7 @@ interface Data {
   link?: string;
 }
 
-export const Collection: React.FC<{ userDetails: User, contextType: string; type: string; totalPages?: number; page: number; hasSearch?: boolean; items: Data[]; onReload: () => void; }> = ({ userDetails, hasSearch = false, totalPages = 1, contextType, type, page, items, onReload }) => {
+export const Collection: React.FC<{ userDetails: User, contextType: string; type: string; totalPages?: number; page: number; hasSearch?: boolean; items: Data[]; onReload: () => void; onSelect?: (selectedItem: Data) => void; }> = ({ userDetails, hasSearch = false, totalPages = 1, contextType, type, page, items, onReload, onSelect }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
@@ -83,6 +83,9 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
     if (!isSelected) {
       const selectedItem = items.find((item) => item._id === cardId);
       if (selectedItem) {
+        if (onSelect) {
+          onSelect(selectedItem);
+        }
         if (contextType === 'Dashboard') {
           try {
             const updateResult = await removeFromUserCollection(userDetails.clerkId, {
