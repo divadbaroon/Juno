@@ -64,7 +64,7 @@ export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ photo, onPhotoChan
 
   return (
     <>
-      <FormLabel className="font-bold" style={{ color: '#636363' }}>
+      <FormLabel className="font-bold" style={{ color: '#373737' }}>
         Profile Avatar (Optional)
       </FormLabel>
       <FormDescription style={{ marginTop: '.2rem' }}>

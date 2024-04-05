@@ -17,6 +17,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+
+import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
+
 import { Input } from "@/components/ui/input";
 import { createProfileAction } from "../../../lib/actions/createProfile";
 import { Separator } from "@/components/ui/separator";
@@ -50,33 +54,42 @@ interface Data {
 }
 
 export const ProfileCreation = () => {
-  const [activeSection, setActiveSection] = useState('profile');
   const { user, isSignedIn, isLoaded } = useUser();
   const [userDetails, setUserDetails] = useState<any>(null);
   const [reloadCounter, setReloadCounter] = useState(0);
 
-    // State hooks to show sections
-    const [showModelSelection, setShowModelSelection] = useState(false);
-    const [showModelConfiguration, setShowModelConfiguration] = useState(false);
-    const [showVoice, setShowVoice] = useState(false);
-    const [showExtensions, setShowExtensions] = useState(false);
-    const [showProfileDetails, setShowProfileDetails] = useState(false);
-  
-    // State hooks to store form data
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [llm, setLLM] = useState("");
-    const [personality, setPersonality] = useState("");
-    const [identity, setIdentity] = useState("");
-    const [interactionGuidelines, setInteractionGuidelines] = useState("");
-    const [context, setContext] = useState(""); 
-    const [temperature, setTemperature] = useState(33); 
-    const [voice, setVoice] = useState("");
-    const [sharePreference, setSharePreference] = useState("");
-    const [extensions, setExtensions] = useState<string[]>([]);
-    const [photo, setPhoto] = useState<File | null>(null);
-    
+  const [openSection, setOpenSection] = useState<string | null>(null);
 
+  // State hooks to show sections
+  const [showModelSelection, setShowModelSelection] = useState(false);
+  const [showModelConfiguration, setShowModelConfiguration] = useState(false);
+  const [showVoice, setShowVoice] = useState(false);
+  const [showExtensions, setShowExtensions] = useState(false);
+  const [showProfileDetails, setShowProfileDetails] = useState(false);
+
+  // State hooks to track completion of sections
+  const [isModelSelectionComplete, setIsModelSelectionComplete] = useState(false);
+  const [isModelConfigurationComplete, setIsModelConfigurationComplete] = useState(false);
+  const [isVoiceComplete, setIsVoiceComplete] = useState(false);
+  const [isExtensionsComplete, setIsExtensionsComplete] = useState(false);
+  const [isProfileDetailsComplete, setIsProfileDetailsComplete] = useState(false);
+
+  // State hooks to store form data
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [llm, setLLM] = useState("");
+  const [personality, setPersonality] = useState("");
+  const [identity, setIdentity] = useState("");
+  const [interactionGuidelines, setInteractionGuidelines] = useState("");
+  const [context, setContext] = useState("");
+  const [temperature, setTemperature] = useState(33);
+  const [voice, setVoice] = useState("");
+  const [sharePreference, setSharePreference] = useState("");
+  const [extensions, setExtensions] = useState<string[]>([]);
+  const [photo, setPhoto] = useState<File | null>(null);
+
+  const [showExample, setShowExample] = useState(false);
+    
       // Form hooks
   const nameForm = useForm({
     resolver: zodResolver(formSchema),
@@ -88,7 +101,9 @@ export const ProfileCreation = () => {
     defaultValues: { email: "" },
   });
 
-
+  const toggleSection = (sectionName: string) => {
+    setOpenSection((current) => (current === sectionName ? null : sectionName));
+  };
 
   useEffect(() => {
     if (!isLoaded) return; // Wait for Clerk to fully initialize
@@ -164,14 +179,17 @@ export const ProfileCreation = () => {
 
   const handleLLMSelect = (selectedLLM: Data) => {
     setLLM(selectedLLM._id);
+    setIsModelSelectionComplete(true);
   };
 
   const handleVoiceSelect = (selectedVoice: Data) => {
     setVoice(selectedVoice._id);
+    setIsVoiceComplete(true);
   };
 
   const handleExtensionSelect = (selectedExtension: Data) => {
     setExtensions((prevExtensions) => [...prevExtensions, selectedExtension._id]);
+    setIsExtensionsComplete(true);
   };
 
 
@@ -187,12 +205,19 @@ export const ProfileCreation = () => {
 
        {/* AI Model Selection Section */}
        <div
-        onClick={() => setShowModelSelection(!showModelSelection)}
-        className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
+        onClick={() => toggleSection('llmSelection')}
+        style={{
+          backgroundColor: openSection === 'llmSelection' ? '#f3f4f6' : (isModelSelectionComplete ? '#b3f0b3' : '#f3f4f6'), 
+          cursor: 'pointer', 
+          padding: '20px', 
+          borderRadius: '0.375rem', // Equivalent to rounded-md
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', // Equivalent to shadow
+          marginBottom: '1rem' // Equivalent to my-4
+        }}
       >
         <h2 className="text-lg font-bold text-dark-600">AI Model Selection</h2>
       </div>
-      {showModelSelection && (
+      {openSection === 'llmSelection' && (
         <LibraryPage
           contextType="Lab"
           libraryType="LLMs"
@@ -204,36 +229,46 @@ export const ProfileCreation = () => {
         />
       )}
 
-      {/* Language Model Section */}
+      {/* Language Model Configuration */}
       <div
-        onClick={() => setShowModelConfiguration(!showModelConfiguration)}
+        onClick={() => toggleSection('llmConfiguration')}
         className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
       >
         <h2 className="text-lg font-bold text-dark-600">AI Model Configuration</h2>
       </div>
-      {showModelConfiguration && (
+      {openSection === 'llmConfiguration' && (
         <>
           <div className="forms-container space-y-8 mt-5">
             <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px', marginLeft: '5px', marginBottom: '-15px' }}>
               Fine-tune your selected LLM to align with your AI&apos;s intended behavior and identity.
             </p>
+            
             <Separator className="my-2" />
 
+            <div className="flex items-center space-x-2" style={{marginTop: '18px', marginBottom: '-22px', marginLeft: '800px' }}>
+              <Switch
+                id="airplane-mode"
+                checked={showExample}
+                onCheckedChange={setShowExample}
+              />
+              <Label htmlFor="airplane-mode">See Example</Label>
+            </div>
+
             <FormProvider {...emailForm}>
-              <form className="space-y-8" style={{marginTop: '18px', marginLeft: '5px' }}>
+              <form className="space-y-8" style={{marginTop: '10px', marginLeft: '5px' }}>
                 <FormField
                   name="identity"
                   render={() => (
                     <FormItem>
-                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                      <FormLabel className="font-bold" style={{ color: '#373737' }}>
                         Core Identity
-                        </FormLabel>
+                      </FormLabel>
                       <FormDescription style={{ marginTop: '.1rem' }}>
                         Define the core persona, character, or entity your AI will embody.
                       </FormDescription>
                       <FormControl>
                         <Input
-                          placeholder="A highly experienced and caring physician named Dr. Emma Wilson"
+                          placeholder={showExample ? "A highly experienced and caring physician named Dr. Emma Wilson" : ""}
                           value={identity}
                           onChange={(e) => setIdentity(e.target.value)}
                         />
@@ -250,15 +285,15 @@ export const ProfileCreation = () => {
                   name="context"
                   render={() => (
                     <FormItem>
-                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
-                      Context & Background
+                      <FormLabel className="font-bold" style={{ color: '#373737' }}>
+                        Context & Background
                       </FormLabel>                      
                       <FormDescription style={{ marginTop: '.1rem' }}>
                         The initial prompts and information provided to set the scene and environment for the AI.                      
                       </FormDescription>
                       <FormControl>
                         <Input
-                          placeholder="You are a general practitioner at City Hospital. Your role is to diagnose and treat patients, provide advice on health and wellness, and demonstrate ethical and compassionate bedside manner."
+                          placeholder={showExample ? "You are a general practitioner at City Hospital. Your role is to diagnose and treat patients, provide advice on health and wellness, and demonstrate ethical and compassionate bedside manner." : ""}
                           value={context}
                           onChange={(e) => setContext(e.target.value)}
                         />
@@ -275,15 +310,15 @@ export const ProfileCreation = () => {
                   name="personality"
                   render={() => (
                     <FormItem>
-                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                      <FormLabel className="font-bold" style={{ color: '#373737' }}>
                         Personality Traits
-                        </FormLabel>
+                      </FormLabel>
                       <FormDescription style={{ marginTop: '.1rem' }}>
                         Define the personality traits of your AI.
                       </FormDescription>
                       <FormControl>
                         <Input
-                          placeholder="Calm, empathetic, excellent listener, able to explain complex medical concepts clearly, direct but caring, maintains boundaries."
+                          placeholder={showExample ? "Calm, empathetic, excellent listener, able to explain complex medical concepts clearly, direct but caring, maintains boundaries." : ""}
                           value={personality}
                           onChange={(e) => setPersonality(e.target.value)}
                         />
@@ -300,15 +335,15 @@ export const ProfileCreation = () => {
                   name="interactionGuidelines"
                   render={() => (
                     <FormItem>
-                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                      <FormLabel className="font-bold" style={{ color: '#373737' }}>
                         Interaction Style
-                        </FormLabel>
+                      </FormLabel>
                       <FormDescription style={{ marginTop: '.1rem'}}>
                         Set guidelines on how your AI communicates with you
                       </FormDescription>
                       <FormControl>
                         <Input
-                          placeholder="Speak professionally but avoid overly complex medical jargon. Ask pertinent follow-up questions. Validate the patient's concerns. Provide explanations patiently."
+                          placeholder={showExample ? "Speak professionally but avoid overly complex medical jargon. Ask pertinent follow-up questions. Validate the patient's concerns. Provide explanations patiently." : ""}
                           value={interactionGuidelines}
                           onChange={(e) => setInteractionGuidelines(e.target.value)}
                           style={{marginBottom: '1.5rem' }}
@@ -326,7 +361,7 @@ export const ProfileCreation = () => {
                   name="temperature"
                   render={() => (
                     <FormItem>
-                      <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                      <FormLabel className="font-bold" style={{ color: '#373737' }}>
                         Output Controls
                       </FormLabel>
                       <FormDescription style={{ marginTop: '.1rem' }}>
@@ -351,12 +386,19 @@ export const ProfileCreation = () => {
 
       {/* Voice Section */}
       <div
-        onClick={() => setShowVoice(!showVoice)}
-        className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
+        onClick={() => toggleSection('voice')}
+        style={{
+          backgroundColor: openSection === 'voice' ? '#f3f4f6' : (isVoiceComplete ? '#b3f0b3' : '#f3f4f6'), 
+          cursor: 'pointer', 
+          padding: '20px', 
+          borderRadius: '0.375rem', 
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', 
+          marginBottom: '1rem' 
+        }}
       >
         <h2 className="text-lg font-bold text-dark-600">Voice Selection</h2>
       </div>
-      {showVoice && (
+      {openSection === 'voice' && (
         <LibraryPage
           contextType="Lab"
           libraryType="Voices"
@@ -370,12 +412,19 @@ export const ProfileCreation = () => {
 
       {/* Extensions Section */}
       <div
-        onClick={() => setShowExtensions(!showExtensions)}
-        className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
+        onClick={() => toggleSection('extensions')}
+        style={{
+          backgroundColor: openSection === 'extensions' ? '#f3f4f6' : (isExtensionsComplete ? '#b3f0b3' : '#f3f4f6'), 
+          cursor: 'pointer', 
+          padding: '20px', 
+          borderRadius: '0.375rem', 
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', 
+          marginBottom: '1rem' 
+        }}     
       >
         <h2 className="text-lg font-bold text-dark-600">Enhance Capabilites</h2>
       </div>
-      {showExtensions && (
+      {openSection === 'extensions' && (
         <LibraryPage
           contextType="Lab"
           libraryType="Extensions"
@@ -389,12 +438,12 @@ export const ProfileCreation = () => {
 
       {/* Profile Details Section */}
       <div
-        onClick={() => setShowProfileDetails(!showProfileDetails)}
+          onClick={() => toggleSection('profileDetails')}
         className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
       >
         <h2 className="text-lg font-bold text-dark-600">Profile Details</h2>
       </div>
-      {showProfileDetails && (
+      {openSection === 'profileDetails' && (
         <div className="forms-container space-y-8 mt-5" style={{marginLeft: '5px'}}>
         <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px', marginLeft: '5px', marginBottom: '-14px'}}>
           The key information identifying and representing your profile.
@@ -407,7 +456,7 @@ export const ProfileCreation = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                  <FormLabel className="font-bold" style={{ color: '#373737' }}>
                     Name
                   </FormLabel>
                   <FormDescription style={{ marginTop: '.1rem' }}>
@@ -436,7 +485,7 @@ export const ProfileCreation = () => {
                 name="description"
                 render={() => (
                   <FormItem>
-                    <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                    <FormLabel className="font-bold" style={{ color: '#373737' }}>
                       Description
                     </FormLabel>
                     <FormDescription style={{ marginTop: '.1rem' }}>
@@ -476,7 +525,7 @@ export const ProfileCreation = () => {
               name="sharePreference"
               render={() => (
                 <FormItem>
-                  <FormLabel className="font-bold" style={{ color: '#636363' }}>
+                  <FormLabel className="font-bold" style={{ color: '#373737' }}>
                     Share Preference
                   </FormLabel>
                   <FormDescription style={{ marginTop: '5px' }}>

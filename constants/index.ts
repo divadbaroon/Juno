@@ -20,6 +20,11 @@ export const navLinks = [
       icon: "/assets/icons/chart.svg",
     },
     {
+      label: "My Collection",
+      route: "/myCollection",
+      icon: "/assets/icons/folder.svg",
+    },
+    {
       label: "Guide",
       route: "/guide",
       icon: "/assets/icons/guide.svg",

@@ -1,19 +1,23 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { redirect } from 'next/navigation';
 import { useUser } from '@clerk/clerk-react';
+import { redirect } from 'next/navigation';
+import { Separator } from "@/components/ui/separator";
 import { getUserById } from "@/lib/actions/user.actions";
-import { Separator } from "@/components/ui/separator"
 
-import { LibraryPage } from "@/components/shared/library/LibraryPage"
+import { LibraryPage } from "@/components/shared/library/LibraryPage";
 
-function ProfileForm() {
-  // The actively selected Tab
+interface SearchParamProps {
+  searchParams: {
+    [key: string]: string | string[] | undefined;
+  };
+}
+
+const Profile = ({ searchParams }: SearchParamProps) => {
   const [activeSection, setActiveSection] = useState('profile');
   const { user, isSignedIn, isLoaded } = useUser();
   const [userDetails, setUserDetails] = useState<any>(null);
-  const [reloadCounter, setReloadCounter] = useState(0); // Trigger for re-fetching
-
+  const [reloadCounter, setReloadCounter] = useState(0);
 
   useEffect(() => {
     if (!isLoaded) return; // Wait for Clerk to fully initialize
@@ -47,15 +51,22 @@ function ProfileForm() {
     return; // Placeholder while loading
   }
 
+  // Example of displaying user details
+  const { plan: userPlan, usageLeft: userTimeLeft } = userDetails;
+  const hours = Math.floor(userTimeLeft / 3600);
+  const minutes = Math.floor((userTimeLeft % 3600) / 60);
+  const seconds = userTimeLeft % 60;
+  const timeLeftString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
   return (
     <div className="root-container">
       <div className="about-section">
         <div className="space-y-6">
           <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '10px'}}>
-            The Library
+            My Collection
           </h4>
-          <p className="p-20-regular text-dark-400" style={{ marginTop: '15px', marginLeft: '3px'  }}>
-            A curated collection of pre-built, ready-to-use AI components.
+          <p className="p-20-regular text-dark-400" style={{ marginTop: '15px' }}>
+            A collection of AI components that you have either saved or created.
           </p>
         </div>
       </div>
@@ -74,7 +85,7 @@ function ProfileForm() {
       <Separator className="my-4" />
 
       {activeSection === 'profile' && <LibraryPage 
-          contextType="Library"
+          contextType="Dashboard"
           libraryType="Profiles" 
           h2Text="Profiles" 
           pText="Explore pre-configured profiles, powered by Large Language Models, lifelike voices, and unique capabilities. Select a profile that resonates, and refine it to match your needs."
@@ -82,24 +93,24 @@ function ProfileForm() {
           onReload={handleReload}
           />}
       {activeSection === 'extension' && <LibraryPage
-          contextType="Library"
-          libraryType="Extensions" 
+          contextType="Dashboard"
+          libraryType="CollectionExtensions" 
           h2Text="Extensions" 
           pText="Use extensions to add capabilites and enhancements to your AI. Add as many extensions as you need to create the perfect AI for your needs."
           user={userDetails}
           onReload={handleReload}
       />}
       {activeSection === 'voice' && <LibraryPage
-          contextType="Library"
-          libraryType="Voices" 
+          contextType="Dashboard"
+          libraryType="CollectionVoices" 
           h2Text="Voices" 
           pText="Personalize your AI's voice from a wide range of lifelike options, enhancing communication with styles from warm and friendly to formal and authoritative."
           user={userDetails}
           onReload={handleReload}
       />}
       {activeSection === 'llm' && <LibraryPage 
-          contextType="Library"
-          libraryType="LLMs" 
+          contextType="Dashboard"
+          libraryType="CollectionLLMs" 
           h2Text="Large Language Models" 
           pText="Choose the Large Language Model powering your AI's intelligence, aligning with your preferences for reasoning, coding, speed, and expertise."
           user={userDetails}
@@ -109,4 +120,4 @@ function ProfileForm() {
   )
 }
 
-export default ProfileForm
+export default Profile

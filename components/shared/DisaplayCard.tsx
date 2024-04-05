@@ -71,9 +71,9 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
   };
 
   const borderClass =
-    isSelected && contextType === 'QuickStart'
-      ? 'border-4 border-indigo-200 border-t-indigo-500'
-      : '';
+    isSelected && (contextType === 'QuickStart' || contextType == 'Lab')
+      ? 'selected-card'
+      : 'non-selected-card';
 
   const handleSelect = () => {
     onSelect();
