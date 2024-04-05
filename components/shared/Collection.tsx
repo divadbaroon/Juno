@@ -94,12 +94,12 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
               extensions: type === 'CollectionExtensions' ? [selectedItem._id] : [],
             });
             toast({
-              title: `${selectedItem.name} has been removed from your collection`,
+              title: `${selectedItem.name} has been removed`,
               description: (
                 <span>
                   See your updated collection in your{' '}
-                  <a href="/dashboard" className="underline">
-                    dashboard
+                  <a href="/myCollection" className="underline">
+                  collection
                   </a>
                 </span>
               )
@@ -117,12 +117,12 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
                 extensions: type === 'Extensions' ? [selectedItem._id] : [],
               });
               toast({
-                title: `${selectedItem.name} has been removed from your collection`,
+                title: `${selectedItem.name} has been removed`,
                 description: (
                   <span>
                     See your updated collection in your{' '}
-                    <a href="/dashboard" className="underline">
-                      dashboard
+                    <a href="/myCollection" className="underline">
+                    collection
                     </a>
                   </span>
                 )
@@ -139,12 +139,12 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
                 extensions: type === 'Extensions' ? [selectedItem._id] : [],
               });
               toast({
-                title: `${selectedItem.name} has been saved to your collection`,
+                title: `${selectedItem.name} has been saved`,
                 description: (
                   <span>
                     See your saved component in your{' '}
-                    <a href="/dashboard" className="underline">
-                      dashboard
+                    <a href="/myCollection" className="underline">
+                      collection
                     </a>
                   </span>
                 )
