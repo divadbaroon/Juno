@@ -89,8 +89,23 @@ export const ProfileCreation = () => {
   const [photo, setPhoto] = useState<File | null>(null);
 
   const [showExample, setShowExample] = useState(false);
+
+  const [selections, setSelections] = useState({
+    llm: null,
+    voice: null,
+    extensions: null,
+  });
+
+  const handleSelection = (category: keyof typeof selections, selectedItem: Data) => {
+    if (category === 'llm' || category === 'voice' || category === 'extensions') {
+      setSelections(prev => ({
+        ...prev,
+        [category]: selectedItem._id,
+      }));
+    } 
+  };
     
-      // Form hooks
+  // Form hooks
   const nameForm = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: { name: "" },
@@ -178,20 +193,19 @@ export const ProfileCreation = () => {
   };
 
   const handleLLMSelect = (selectedLLM: Data) => {
-    setLLM(selectedLLM._id);
+    handleSelection('llm', selectedLLM);
     setIsModelSelectionComplete(true);
   };
-
+  
   const handleVoiceSelect = (selectedVoice: Data) => {
-    setVoice(selectedVoice._id);
+    handleSelection('voice', selectedVoice);
     setIsVoiceComplete(true);
   };
-
+  
   const handleExtensionSelect = (selectedExtension: Data) => {
-    setExtensions((prevExtensions) => [...prevExtensions, selectedExtension._id]);
+    handleSelection('extensions', selectedExtension);
     setIsExtensionsComplete(true);
   };
-
 
   return (
     <div className="root-container">
@@ -226,6 +240,7 @@ export const ProfileCreation = () => {
           user={userDetails}
           onReload={handleReload}
           onSelect={handleLLMSelect}
+          selectedCardId={selections.llm}
         />
       )}
 
@@ -407,6 +422,7 @@ export const ProfileCreation = () => {
           user={userDetails}
           onReload={handleReload}
           onSelect={handleVoiceSelect}
+          selectedCardId={selections.voice}
         />
       )}
 
@@ -433,6 +449,7 @@ export const ProfileCreation = () => {
           user={userDetails}
           onReload={handleReload}
           onSelect={handleExtensionSelect}
+          selectedCardId={selections.extensions}
         />
       )}
 

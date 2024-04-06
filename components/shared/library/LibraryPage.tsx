@@ -31,6 +31,7 @@ interface ProfilesProps {
   pText: string;
   onReload: () => void;
   onSelect?: (selectedItem: Data) => void; 
+  selectedCardId?: string | string[] | null;
 }
 
 interface Data {
@@ -65,7 +66,7 @@ const fetchDataByType = async (user: UserDetails, libraryType: string): Promise<
   }
 };
 
-export const LibraryPage = ({ user, contextType, libraryType, h2Text, pText, onReload, onSelect }: ProfilesProps) => {
+export const LibraryPage = ({ user, contextType, libraryType, h2Text, pText, onReload, onSelect, selectedCardId }: ProfilesProps) => {
   const [data, setData] = useState<Data[]>([]);
 
   const fetchData = async () => {
@@ -99,6 +100,7 @@ export const LibraryPage = ({ user, contextType, libraryType, h2Text, pText, onR
           items={data}
           onReload={onReload}
           onSelect={onSelect}
+          selectedCardId={selectedCardId}
         />
       </section>
     </div>

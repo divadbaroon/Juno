@@ -11,9 +11,6 @@ interface Data {
   _id: string;
 }
 
-type StepKey = 'profileCreation' | 'voice' | 'languageModel' | 'extensions' | 'installExtension' | 'setupHotkeys' | 'startInteracting';
-
-
 /**
  * QuickStart component represents a step-by-step guide for customizing and interacting with a personalized AI.
  */
@@ -22,6 +19,16 @@ const QuickStart = () => {
   const { user, isSignedIn, isLoaded } = useUser();
   const [userDetails, setUserDetails] = useState<any>(null);
   const [reloadCounter, setReloadCounter] = useState(0);
+
+  const [selections, setSelections] = useState({
+    profile: null,
+    llm: null,
+    voice: null,
+    extensions: null,
+    installExtension: false,
+    setupHotkeys: false,
+    startInteracting: false,
+  });
 
   // State hooks to store form data
   const [profile, setProfile] = useState("");
@@ -92,6 +99,21 @@ const QuickStart = () => {
     return; // Placeholder while loading
   }
 
+  const handleSelection = (category: keyof typeof selections, selectedItem: Data) => {
+    if (category === 'profile' || category === 'llm' || category === 'voice' || category === 'extensions') {
+      setSelections(prev => ({
+        ...prev,
+        [category]: selectedItem._id,
+      }));
+  
+      // Mark the step as complete based on the category
+      if (category === 'profile') setIsProfileSelectionComplete(true);
+      if (category === 'voice') setIsVoiceSelectionComplete(true);
+      if (category === 'llm') setIsLLMSelectionComplete(true);
+      if (category === 'extensions') setIsExtensionsSelectionComplete(true);
+    }
+  };
+
   /**
    * Renders a section with a title, description, and steps.
    * @param title - The title of the section.
@@ -113,17 +135,17 @@ const QuickStart = () => {
    * @param stepKey - The unique key for the step.
    * @param content - The content to be rendered when the step is expanded.
    */
-  const renderStep = (title: string, stepKey: StepKey, content: React.ReactNode) => {
+  const renderStep = (title: string, stepKey: keyof typeof selections, content: ReactNode) => {
     const isStepComplete = {
-      profileCreation: isProfileSelectionComplete,
+      profile: isProfileSelectionComplete,
       voice: isVoiceSelectionComplete,
-      languageModel: isLLMSelectionComplete,
+      llm: isLLMSelectionComplete,
       extensions: isExtensionsSelectionComplete,
       installExtension: false,
       setupHotkeys: false,
       startInteracting: false,
     }[stepKey];
-  
+
     return (
       <>
         <div
@@ -136,11 +158,13 @@ const QuickStart = () => {
             boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
             marginBottom: '1rem',
           }}
-          className="step"
         >
           <h2 className="text-lg font-bold text-dark-600">{title}</h2>
         </div>
-        {openStep === stepKey && content}
+        {openStep === stepKey && React.cloneElement(content as React.ReactElement<any>, {
+          onSelect: (selectedItem: Data) => handleSelection(stepKey, selectedItem),
+          selectedCardId: selections[stepKey],
+        })}
       </>
     );
   };
@@ -163,7 +187,7 @@ const QuickStart = () => {
         "Create",
         "Create your AI from the ground up, utilizing the most cutting-edge AI solutions for each component.",
         <>
-          {renderStep("1. Select a Profile", "profileCreation",
+          {renderStep("1. Select a Profile", "profile",
             <LibraryPage
               contextType="QuickStart"
               libraryType="Profiles"
@@ -171,7 +195,6 @@ const QuickStart = () => {
               pText="To get started, select a profile to provide your foundation. Profiles are pre-configured AI, made up of a large language model, instructions for the language model, a unique voice, and distinct capabilites."
               user={userDetails}
               onReload={handleReload}
-              onSelect={handleProfileSelection}
             />
           )}
           {renderStep("2. Adjust the Voice", "voice",
@@ -182,10 +205,9 @@ const QuickStart = () => {
               pText="Browse through a collection of life-like voices. If you find one you like, select it to update your profile; otherwise, move on and retain your profile's existing voice."
               user={userDetails}
               onReload={handleReload}
-              onSelect={handleVoiceSelection}
             />
           )}
-          {renderStep("3. Adjust the AI Model", "languageModel",
+          {renderStep("3. Adjust the AI Model", "llm",
             <LibraryPage
               contextType="QuickStart"
               libraryType="LLMs"
@@ -193,7 +215,6 @@ const QuickStart = () => {
               pText="Browse through a collection of Large Language Models, the core intelligence of your AI. If you find one you like, select it to update your profile; otherwise, move on and retain your profile's existing LLM."
               user={userDetails}
               onReload={handleReload}
-              onSelect={handleLLMSelection}
             />
           )}
           {renderStep("4. Enhance Capabilites", "extensions",
@@ -204,7 +225,6 @@ const QuickStart = () => {
               pText="Browse through a collection of extensions, which are additional capabilites that can be added to your profile. Add as many extensions as you would like, or move on and keep your profile's current extensions."
               user={userDetails}
               onReload={handleReload}
-              onSelect={handleExtensionSelection}
             />
           )}
         </>
