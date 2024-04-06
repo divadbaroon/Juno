@@ -11,6 +11,9 @@ interface Data {
   _id: string;
 }
 
+type StepKey = 'profileCreation' | 'voice' | 'languageModel' | 'extensions' | 'installExtension' | 'setupHotkeys' | 'startInteracting';
+
+
 /**
  * QuickStart component represents a step-by-step guide for customizing and interacting with a personalized AI.
  */
@@ -98,7 +101,7 @@ const QuickStart = () => {
   const renderSection = (title: string, description: string, steps: ReactNode) => (
     <div className="section">
       <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>{title}</h2>
-      <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>{description}</p>
+      <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px', marginBottom: '15px' }}>{description}</p>
       {steps}
       <Separator className="my-4" />
     </div>
@@ -110,17 +113,37 @@ const QuickStart = () => {
    * @param stepKey - The unique key for the step.
    * @param content - The content to be rendered when the step is expanded.
    */
-  const renderStep = (title: string, stepKey: string, content: ReactNode) => (
-    <>
-      <div
-        onClick={() => setOpenStep(openStep === stepKey ? null : stepKey)}
-        className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
-      >
-        <h2 className="text-lg font-bold text-dark-600">{title}</h2>
-      </div>
-      {openStep === stepKey && content}
-    </>
-  );
+  const renderStep = (title: string, stepKey: StepKey, content: React.ReactNode) => {
+    const isStepComplete = {
+      profileCreation: isProfileSelectionComplete,
+      voice: isVoiceSelectionComplete,
+      languageModel: isLLMSelectionComplete,
+      extensions: isExtensionsSelectionComplete,
+      installExtension: false,
+      setupHotkeys: false,
+      startInteracting: false,
+    }[stepKey];
+  
+    return (
+      <>
+        <div
+          onClick={() => setOpenStep(openStep === stepKey ? null : stepKey)}
+          style={{
+            backgroundColor: openStep === stepKey ? '#f3f4f6' : (isStepComplete ? '#b3f0b3' : '#f3f4f6'),
+            cursor: 'pointer',
+            padding: '20px',
+            borderRadius: '0.375rem',
+            boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+            marginBottom: '1rem',
+          }}
+          className="step"
+        >
+          <h2 className="text-lg font-bold text-dark-600">{title}</h2>
+        </div>
+        {openStep === stepKey && content}
+      </>
+    );
+  };
 
   return (
     <div className="root-container">
