@@ -103,7 +103,7 @@ const QuickStart = () => {
     if (category === 'profile' || category === 'llm' || category === 'voice' || category === 'extensions') {
       setSelections(prev => ({
         ...prev,
-        [category]: selectedItem._id,
+        [category]: selectedItem ? selectedItem._id : null,  
       }));
   
       // Mark the step as complete based on the category
@@ -113,6 +113,12 @@ const QuickStart = () => {
       if (category === 'extensions') setIsExtensionsSelectionComplete(true);
     }
   };
+
+  
+  const isLlmSectionComplete = isLLMSelectionComplete && selections.llm !== null;
+  const isVoiceSectionComplete = isVoiceSelectionComplete && selections.voice !== null;
+  const isExtensionsSectionComplete = isExtensionsSelectionComplete && selections.extensions !== null;
+
 
   /**
    * Renders a section with a title, description, and steps.
@@ -138,9 +144,9 @@ const QuickStart = () => {
   const renderStep = (title: string, stepKey: keyof typeof selections, content: ReactNode) => {
     const isStepComplete = {
       profile: isProfileSelectionComplete,
-      voice: isVoiceSelectionComplete,
-      llm: isLLMSelectionComplete,
-      extensions: isExtensionsSelectionComplete,
+      voice: isVoiceSectionComplete,
+      llm: isLlmSectionComplete,
+      extensions: isExtensionsSectionComplete,
       installExtension: false,
       setupHotkeys: false,
       startInteracting: false,

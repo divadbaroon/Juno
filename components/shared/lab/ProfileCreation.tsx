@@ -96,13 +96,11 @@ export const ProfileCreation = () => {
     extensions: null,
   });
 
-  const handleSelection = (category: keyof typeof selections, selectedItem: Data) => {
-    if (category === 'llm' || category === 'voice' || category === 'extensions') {
-      setSelections(prev => ({
-        ...prev,
-        [category]: selectedItem._id,
-      }));
-    } 
+  const handleSelection = (category: keyof typeof selections, selectedItem: Data | null) => {
+    setSelections(prev => ({
+      ...prev,
+      [category]: selectedItem ? selectedItem._id : null,  
+    }));
   };
     
   // Form hooks
@@ -207,6 +205,10 @@ export const ProfileCreation = () => {
     setIsExtensionsComplete(true);
   };
 
+  const isLlmSectionComplete = isModelSelectionComplete && selections.llm !== null;
+  const isVoiceSectionComplete = isVoiceComplete && selections.voice !== null;
+  const isExtensionsSectionComplete = isExtensionsComplete && selections.extensions !== null;
+
   return (
     <div className="root-container">
       <h2 className="h2-bold text-dark-600" style={{ marginTop: '-10px' }}>
@@ -221,7 +223,7 @@ export const ProfileCreation = () => {
        <div
         onClick={() => toggleSection('llmSelection')}
         style={{
-          backgroundColor: openSection === 'llmSelection' ? '#f3f4f6' : (isModelSelectionComplete ? '#b3f0b3' : '#f3f4f6'), 
+          backgroundColor: openSection === 'llmSelection' ? '#f3f4f6' : (isLlmSectionComplete ? '#b3f0b3' : '#f3f4f6'), 
           cursor: 'pointer', 
           padding: '20px', 
           borderRadius: '0.375rem', // Equivalent to rounded-md
@@ -403,7 +405,7 @@ export const ProfileCreation = () => {
       <div
         onClick={() => toggleSection('voice')}
         style={{
-          backgroundColor: openSection === 'voice' ? '#f3f4f6' : (isVoiceComplete ? '#b3f0b3' : '#f3f4f6'), 
+          backgroundColor: openSection === 'voice' ? '#f3f4f6' : (isVoiceSectionComplete ? '#b3f0b3' : '#f3f4f6'), 
           cursor: 'pointer', 
           padding: '20px', 
           borderRadius: '0.375rem', 
@@ -430,7 +432,7 @@ export const ProfileCreation = () => {
       <div
         onClick={() => toggleSection('extensions')}
         style={{
-          backgroundColor: openSection === 'extensions' ? '#f3f4f6' : (isExtensionsComplete ? '#b3f0b3' : '#f3f4f6'), 
+          backgroundColor: openSection === 'extensions' ? '#f3f4f6' : (isExtensionsSectionComplete ? '#b3f0b3' : '#f3f4f6'), 
           cursor: 'pointer', 
           padding: '20px', 
           borderRadius: '0.375rem', 

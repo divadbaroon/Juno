@@ -114,7 +114,7 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
         )}
         <p className="card__description">{description}</p>
       </CardContent>
-      <CardFooter className="flex justify-center items-center space-x-10">
+      <CardFooter className="card-footer flex justify-center items-center space-x-10">
         {type === 'Voices' ? (
           <Button className="w-auto px-8" variant="outline" onClick={playAudioSample}>
           Sample

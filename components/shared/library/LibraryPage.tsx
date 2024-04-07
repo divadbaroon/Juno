@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Collection } from "@/components/shared/Collection";
+import { Collection } from "@/components/shared/cardCollection/Collection";
 import { Separator } from "@/components/ui/separator";
 import { getAllLLMs } from "@/lib/actions/fetchLLMData.actions";
 import { getAllVoices } from "@/lib/actions/fetchVoiceData.action";

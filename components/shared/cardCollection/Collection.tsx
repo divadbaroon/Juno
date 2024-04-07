@@ -4,10 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Pagination, PaginationContent, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
-import { Search } from './Search';
+import { Search } from '../Search';
 import { Separator } from "@/components/ui/separator";
 import { formUrlQuery } from '@/lib/utils';
-import DisplayCard from './DisaplayCard';
+import DisplayCard from './DisplayCard';
 import { useToast } from "@/components/ui/use-toast";
 
 import { updateUserCollection, removeFromUserCollection } from '@/lib/actions/user.actions';
@@ -42,7 +42,7 @@ interface Data {
   link?: string;
 }
 
-export const Collection: React.FC<{ userDetails: User, contextType: string; type: string; totalPages?: number; page: number; hasSearch?: boolean; items: Data[]; onReload: () => void; onSelect?: (selectedItem: Data) => void; selectedCardId?: string | string[] | null;}> = ({ userDetails, hasSearch = false, totalPages = 1, contextType, type, page, items, onReload, onSelect, selectedCardId }) => {
+export const Collection: React.FC<{ userDetails: User, contextType: string; type: string; totalPages?: number; page: number; hasSearch?: boolean; items: Data[]; onReload: () => void; onSelect?: (selectedItem: Data | null) => void; selectedCardId?: string | string[] | null;}> = ({ userDetails, hasSearch = false, totalPages = 1, contextType, type, page, items, onReload, onSelect, selectedCardId }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
@@ -80,8 +80,15 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
     const isSelected = selectedCard === cardId;
     setSelectedCard((prevSelectedCard) => (prevSelectedCard === cardId ? null : cardId));
 
+    const selectedItem = items.find((item) => item._id === cardId);
+
+    // Deselection case
+    if (isSelected) {
+      if (onSelect) onSelect(null); 
+      return; 
+    }
+
     if (!isSelected) {
-      const selectedItem = items.find((item) => item._id === cardId);
       if (selectedItem) {
         if (onSelect) {
           onSelect(selectedItem);
