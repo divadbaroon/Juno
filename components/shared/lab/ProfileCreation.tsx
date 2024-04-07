@@ -7,6 +7,8 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
+import Image from "next/image";
+
 import { LibraryPage } from "@/components/shared/library/LibraryPage";
 import { Button } from "@/components/ui/button";
 import {
@@ -142,6 +144,24 @@ export const ProfileCreation = () => {
     fetchUserDetails();
   }, [isSignedIn, isLoaded, user, reloadCounter]); 
 
+  useEffect(() => {
+    setIsModelConfigurationComplete(
+      identity.trim() !== "" &&
+      context.trim() !== "" &&
+      personality.trim() !== "" &&
+      interactionGuidelines.trim() !== ""&&
+      temperature !== 33
+    );
+  }, [identity, context, personality, interactionGuidelines, temperature]);
+
+  useEffect(() => {
+    setIsProfileDetailsComplete(
+      name.trim() !== "" &&
+      description.trim() !== "" &&
+      sharePreference !== ""
+    );
+  }, [name, description, photo, sharePreference]);
+
   const handleReload = () => {
     setReloadCounter((prev) => prev + 1); // Function to trigger re-fetching
   };
@@ -172,19 +192,19 @@ export const ProfileCreation = () => {
       const profileData: CreateProfileParams = {
         name,
         description,
-        llm: llm || "GPT-3",
+        llm,
         personality,
         identity,
         interactionGuidelines,
-        voice: voice || "Standard",
+        voice,
         extensions,
         sharePreference,
-        photo: photoUrl, // Use the photoUrl obtained from S3
+        photo: photoUrl, 
         context,
         temperature,
       };
 
-      const results = await createProfileAction(profileData);
+      await createProfileAction(profileData);
     } catch (error) {
       console.error("Error creating profile:", error);
     }
@@ -208,6 +228,8 @@ export const ProfileCreation = () => {
   const isLlmSectionComplete = isModelSelectionComplete && selections.llm !== null;
   const isVoiceSectionComplete = isVoiceComplete && selections.voice !== null;
   const isExtensionsSectionComplete = isExtensionsComplete && selections.extensions !== null;
+  const isProfileDetailsSectionComplete = isProfileDetailsComplete;
+  const isLlmConfigurationSectionComplete = isModelConfigurationComplete;
 
   return (
     <div className="root-container">
@@ -217,21 +239,42 @@ export const ProfileCreation = () => {
       <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
         Design your ideal AI from the ground up, tailoring every detail to your exact preferences.
       </p>
-      <Separator className="my-4" />
+      <Separator className="my-4" /> 
 
        {/* AI Model Selection Section */}
        <div
         onClick={() => toggleSection('llmSelection')}
         style={{
-          backgroundColor: openSection === 'llmSelection' ? '#f3f4f6' : (isLlmSectionComplete ? '#b3f0b3' : '#f3f4f6'), 
-          cursor: 'pointer', 
-          padding: '20px', 
-          borderRadius: '0.375rem', // Equivalent to rounded-md
-          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', // Equivalent to shadow
-          marginBottom: '1rem' // Equivalent to my-4
+          backgroundColor: '#f3f4f6',
+          cursor: 'pointer',
+          padding: '20px',
+          borderRadius: '0.375rem',
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+          marginBottom: '1rem',
+          position: 'relative',
         }}
       >
         <h2 className="text-lg font-bold text-dark-600">AI Model Selection</h2>
+        {isLlmSectionComplete && (
+            <div
+              style={{
+                position: 'absolute',
+                top: '50%',
+                right: '20px',
+                transform: 'translateY(-50%)',
+                width: '95px',
+                height: '95px',
+              }}
+            >
+              <Image
+                src="/assets/icons/checkMark.svg"
+                alt="credit coins"
+                layout="fill"
+                objectFit="contain"
+                className="cursor-pointer"
+              />
+            </div>
+          )}
       </div>
       {openSection === 'llmSelection' && (
         <LibraryPage
@@ -249,9 +292,37 @@ export const ProfileCreation = () => {
       {/* Language Model Configuration */}
       <div
         onClick={() => toggleSection('llmConfiguration')}
-        className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
+        style={{
+          backgroundColor: '#f3f4f6',
+          cursor: 'pointer',
+          padding: '20px',
+          borderRadius: '0.375rem',
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+          marginBottom: '1rem',
+          position: 'relative',
+        }}
       >
         <h2 className="text-lg font-bold text-dark-600">AI Model Configuration</h2>
+        {isLlmConfigurationSectionComplete && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '50%',
+              right: '20px',
+              transform: 'translateY(-50%)',
+              width: '95px',
+              height: '95px',
+            }}
+          >
+            <Image
+              src="/assets/icons/checkMark.svg"
+              alt="credit coins"
+              layout="fill"
+              objectFit="contain"
+              className="cursor-pointer"
+            />
+          </div>
+        )}
       </div>
       {openSection === 'llmConfiguration' && (
         <>
@@ -405,15 +476,36 @@ export const ProfileCreation = () => {
       <div
         onClick={() => toggleSection('voice')}
         style={{
-          backgroundColor: openSection === 'voice' ? '#f3f4f6' : (isVoiceSectionComplete ? '#b3f0b3' : '#f3f4f6'), 
-          cursor: 'pointer', 
-          padding: '20px', 
-          borderRadius: '0.375rem', 
-          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', 
-          marginBottom: '1rem' 
+          backgroundColor: '#f3f4f6',
+          cursor: 'pointer',
+          padding: '20px',
+          borderRadius: '0.375rem',
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+          marginBottom: '1rem',
+          position: 'relative',
         }}
       >
         <h2 className="text-lg font-bold text-dark-600">Voice Selection</h2>
+        {isVoiceSectionComplete && (
+            <div
+              style={{
+                position: 'absolute',
+                top: '50%',
+                right: '20px',
+                transform: 'translateY(-50%)',
+                width: '95px',
+                height: '95px',
+              }}
+            >
+              <Image
+                src="/assets/icons/checkMark.svg"
+                alt="credit coins"
+                layout="fill"
+                objectFit="contain"
+                className="cursor-pointer"
+              />
+            </div>
+            )}
       </div>
       {openSection === 'voice' && (
         <LibraryPage
@@ -432,15 +524,36 @@ export const ProfileCreation = () => {
       <div
         onClick={() => toggleSection('extensions')}
         style={{
-          backgroundColor: openSection === 'extensions' ? '#f3f4f6' : (isExtensionsSectionComplete ? '#b3f0b3' : '#f3f4f6'), 
-          cursor: 'pointer', 
-          padding: '20px', 
-          borderRadius: '0.375rem', 
-          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', 
-          marginBottom: '1rem' 
+          backgroundColor: '#f3f4f6',
+          cursor: 'pointer',
+          padding: '20px',
+          borderRadius: '0.375rem',
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+          marginBottom: '1rem',
+          position: 'relative',
         }}     
       >
         <h2 className="text-lg font-bold text-dark-600">Enhance Capabilites</h2>
+        {isExtensionsSectionComplete && (
+            <div
+              style={{
+                position: 'absolute',
+                top: '50%',
+                right: '20px',
+                transform: 'translateY(-50%)',
+                width: '95px',
+                height: '95px',
+              }}
+            >
+              <Image
+                src="/assets/icons/checkMark.svg"
+                alt="credit coins"
+                layout="fill"
+                objectFit="contain"
+                className="cursor-pointer"
+              />
+            </div>
+            )}
       </div>
       {openSection === 'extensions' && (
         <LibraryPage
@@ -457,10 +570,38 @@ export const ProfileCreation = () => {
 
       {/* Profile Details Section */}
       <div
-          onClick={() => toggleSection('profileDetails')}
-        className="cursor-pointer p-5 bg-gray-100 rounded-md shadow my-4"
+        onClick={() => toggleSection('profileDetails')}
+        style={{
+          backgroundColor: '#f3f4f6',
+          cursor: 'pointer',
+          padding: '20px',
+          borderRadius: '0.375rem',
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+          marginBottom: '1rem',
+          position: 'relative',
+        }}
       >
         <h2 className="text-lg font-bold text-dark-600">Profile Details</h2>
+        {isProfileDetailsSectionComplete && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            right: '20px',
+            transform: 'translateY(-50%)',
+            width: '95px',
+            height: '95px',
+          }}
+        >
+          <Image
+            src="/assets/icons/checkMark.svg"
+            alt="credit coins"
+            layout="fill"
+            objectFit="contain"
+            className="cursor-pointer"
+          />
+        </div>
+      )}
       </div>
       {openSection === 'profileDetails' && (
         <div className="forms-container space-y-8 mt-5" style={{marginLeft: '5px'}}>
@@ -478,12 +619,12 @@ export const ProfileCreation = () => {
                   <FormLabel className="font-bold" style={{ color: '#373737' }}>
                     Name
                   </FormLabel>
-                  <FormDescription style={{ marginTop: '.1rem' }}>
+                  <FormDescription style={{ marginTop: '.1rem'}}>
                     The name of your profile.
                   </FormDescription>
                   <FormControl>
                     <Input
-                      placeholder="Juno"
+                      placeholder=""
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);

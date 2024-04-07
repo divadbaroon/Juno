@@ -7,6 +7,8 @@ import { getUserById } from "@/lib/actions/user.actions";
 import { LibraryPage } from "@/components/shared/library/LibraryPage";
 import { Separator } from "@/components/ui/separator";
 
+import Image from "next/image";
+
 interface Data {
   _id: string;
 }
@@ -157,15 +159,36 @@ const QuickStart = () => {
         <div
           onClick={() => setOpenStep(openStep === stepKey ? null : stepKey)}
           style={{
-            backgroundColor: openStep === stepKey ? '#f3f4f6' : (isStepComplete ? '#b3f0b3' : '#f3f4f6'),
+            backgroundColor: '#f3f4f6',
             cursor: 'pointer',
             padding: '20px',
             borderRadius: '0.375rem',
             boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
             marginBottom: '1rem',
+            position: 'relative',
           }}
         >
           <h2 className="text-lg font-bold text-dark-600">{title}</h2>
+          {isStepComplete && (
+            <div
+              style={{
+                position: 'absolute',
+                top: '50%',
+                right: '20px',
+                transform: 'translateY(-50%)',
+                width: '95px',
+                height: '95px',
+              }}
+            >
+              <Image
+                src="/assets/icons/checkMark.svg"
+                alt="credit coins"
+                layout="fill"
+                objectFit="contain"
+                className="cursor-pointer"
+              />
+            </div>
+          )}
         </div>
         {openStep === stepKey && React.cloneElement(content as React.ReactElement<any>, {
           onSelect: (selectedItem: Data) => handleSelection(stepKey, selectedItem),
