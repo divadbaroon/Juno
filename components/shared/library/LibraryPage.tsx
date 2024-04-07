@@ -30,7 +30,7 @@ interface ProfilesProps {
   h2Text: string;
   pText: string;
   onReload: () => void;
-  onSelect?: (selectedItem: Data) => void; 
+  onSelect?: (selectedItem: Data | null) => void; 
   selectedCardId?: string | string[] | null;
 }
 

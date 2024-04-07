@@ -190,17 +190,17 @@ export const ProfileCreation = () => {
     }
   };
 
-  const handleLLMSelect = (selectedLLM: Data) => {
+  const handleLLMSelect = (selectedLLM: Data | null) => {
     handleSelection('llm', selectedLLM);
     setIsModelSelectionComplete(true);
   };
   
-  const handleVoiceSelect = (selectedVoice: Data) => {
+  const handleVoiceSelect = (selectedVoice: Data | null) => {
     handleSelection('voice', selectedVoice);
     setIsVoiceComplete(true);
   };
   
-  const handleExtensionSelect = (selectedExtension: Data) => {
+  const handleExtensionSelect = (selectedExtension: Data | null) => {
     handleSelection('extensions', selectedExtension);
     setIsExtensionsComplete(true);
   };

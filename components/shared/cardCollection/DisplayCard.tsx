@@ -13,7 +13,7 @@ import {
   DialogContent,
   DialogFooter,
 } from '@/components/ui/dialog';
-import DetailsSection from '@/components/shared/DetailsSection';
+import DetailsSection from '@/components/shared/cardCollection/DetailsSection';
 
 interface DisplayCardProps {
   clerkId: string; // Clerk ID of the user viewing the card
