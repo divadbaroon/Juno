@@ -49,7 +49,26 @@ interface Data {
 const fetchDataByType = async (user: UserDetails, libraryType: string): Promise<Data[]> => {
   switch (libraryType) {
     case "Profiles":
-      return await getAllProfiles();
+      const profiles = await getAllProfiles();
+      const orderedProfiles = [
+        ...profiles.filter((profile: Data) => profile.name === "Vanessa"),
+        ...profiles.filter((profile: Data)=> profile.name === "Margret"),
+        ...profiles.filter((profile: Data) => profile.name === "Dylan"),
+        ...profiles.filter((profile: Data) => profile.name === "David Attenborough"),
+        ...profiles.filter((profile: Data) => profile.name === "Morgan Freeman"),
+        ...profiles.filter((profile: Data) => profile.name === "Barack Obama"),
+        ...profiles.filter((profile: Data) => profile.name === "Albert"),
+        ...profiles.filter((profile: Data) => profile.name === "Isaac"),
+        ...profiles.filter((profile: Data) => profile.name === "Sarah"),
+        ...profiles.filter((profile: Data) => profile.name === "Sky"),
+        ...profiles.filter((profile: Data) => profile.name === "Star"),
+        ...profiles.filter((profile: Data) => profile.name === "Arc"),
+        ...profiles.filter((profile: Data) => profile.name === "Clara"),
+        ...profiles.filter((profile: Data) => profile.name === "Eden"),
+        ...profiles.filter((profile: Data) => profile.name === "Matthew"),
+        ...profiles.filter((profile: Data) => !["Vanessa", "Margret", "Dylan", "David Attenborough", "Morgan Freeman", "Barack Obama", "Albert", "Isaac", "Sarah", "Sky", "Star", "Arc", "Clara", "Eden", "Matthew"].includes(profile.name))
+      ];
+      return orderedProfiles;
     case "LLMs":
       return await getAllLLMs();
     case "Voices":
@@ -57,8 +76,8 @@ const fetchDataByType = async (user: UserDetails, libraryType: string): Promise<
     case "Extensions":
       return await getAllExtensions();
     case "CollectionProfiles":
-      const profiles = await getAllProfiles();
-      return profiles.filter((profile: Data) => user.userCollection.profiles.includes(profile._id));
+      const allProfiles = await getAllProfiles();
+      return allProfiles.filter((profile: Data) => user.userCollection.profiles.includes(profile._id));
     case "CollectionLLMs":
       const llms = await getAllLLMs();
       return llms.filter((llm: Data) => user.userCollection.llms.includes(llm._id));

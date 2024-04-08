@@ -22,7 +22,7 @@ export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ photo, onPhotoChan
   
     if (croppedArea && photo) {
       const canvas = document.createElement('canvas');
-      const scaleFactor = 1; // Adjust based on your needs
+      const scaleFactor = 1; 
       canvas.width = croppedArea.width * scaleFactor;
       canvas.height = croppedArea.height * scaleFactor;
       const ctx = canvas.getContext('2d');
@@ -134,7 +134,7 @@ export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ photo, onPhotoChan
       {photo && (
         <div className="flex justify-end">
           <button
-            type="button" // Change this to type="button" to prevent it from submitting a form
+            type="button" 
             className="mt-4 mr-4 px-4 py-2 bg-indigo-600 text-white rounded"
             onClick={handleSaveCroppedImage}
           >

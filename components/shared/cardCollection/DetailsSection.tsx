@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Separator } from "@/components/ui/separator";
 import { useForm, FormProvider } from "react-hook-form";
@@ -14,6 +14,21 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import { getLLMById } from '@/lib/actions/fetchLLMbyId.action';
+import { getVoiceById } from '@/lib/actions/fetchVoiceById.action';
+import { getExtensionsById } from '@/lib/actions/fetchExtensionById.action';
+
+interface FormValues {
+  title: string;
+  description: string;
+  identity: string;
+  context: string;
+  personality: string;
+  interactionGuidelines: string;
+  temperature: number;
+  creator: string;
+}
+
 interface DetailsSectionProps {
   models: string[];
   type: string;
@@ -25,6 +40,25 @@ interface DetailsSectionProps {
   allItems: any;
 }
 
+interface LLMData {
+  name: string;
+  description: string;
+  creator: string;
+  link: string;
+}
+
+interface VoiceData {
+  name: string;
+  description: string;
+  creator: string;
+}
+
+interface ExtensionData {
+  name: string;
+  description: string;
+  creator: string;
+}
+
 const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, creator, description, link, onUpdateDetails, allItems}) => {
   const [showDetails, setShowDetails] = useState(false);
   const [showExampleUsage, setShowExampleUsage] = useState(false);
@@ -32,10 +66,54 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
   const [showCode, setShowCode] = useState(false);
   const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
   const [showMoreInformation, setShowMoreInformation] = useState(false);
+  const [llmData, setLLMData] = useState<LLMData | null>(null);
+  const [voiceData, setVoiceData] = useState<VoiceData | null>(null);
+  const [extensionData, setExtensionData] = useState<ExtensionData | null>(null);
 
-  // Form hooks
-  const methods = useForm({
-    defaultValues: { title, description },
+  useEffect(() => {
+    const fetchLLMData = async () => {
+      try {
+        const data = await getLLMById(allItems.llm);
+        setLLMData(data);
+      } catch (error) {
+        console.error('Failed to fetch extension data:', error);
+      }
+    };
+
+    const fetchVoiceData = async () => {
+      try {
+        const data = await getVoiceById(allItems.voice);
+        setVoiceData(data);
+      } catch (error) {
+        console.error('Failed to fetch voice data:', error);
+      }
+    };
+
+    const fetchExtensionData = async () => {
+      try {
+        const data = await getExtensionsById(allItems.extensions[0]);
+        setExtensionData(data);
+      } catch (error) {
+        console.error('Failed to fetch extension data:', error);
+      }
+    };
+
+    fetchLLMData();
+    fetchVoiceData();
+    fetchExtensionData()
+  }, [allItems.llm, allItems.voice, allItems.extensions]);
+
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      title,
+      description,
+      identity: allItems.identity,
+      context: allItems.context,
+      personality: allItems.personality,
+      interactionGuidelines: allItems.interactionGuidelines,
+      temperature: allItems.temperature,
+      creator
+    },
   });
 
   const onSubmit = (data: { title: string; description: string }) => {
@@ -83,7 +161,7 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
                         Description
                       </FormLabel>
                       <div className="mt-1">
-                      <textarea
+                        <textarea
                           {...field}
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2" 
                         />
@@ -103,7 +181,7 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
                         Author
                       </FormLabel>
                       <FormControl>
-                        <Input {...field} value={creator} disabled />
+                        <Input {...field} defaultValue={allItems.creator} disabled />
                       </FormControl>
                     </FormItem>
                   )}
@@ -114,10 +192,10 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
         )}
       </div>
 
-      {/* Conditionally render sections based on type */}
+     {/* Conditionally render sections based on type */}
       {type === 'Profiles' && (
         <>
-          {/* Example Usage section */}
+          {/* LLM section */}
           <div className="mb-4">
             <h3
               className="text-lg font-bold mb-2 cursor-pointer"
@@ -128,12 +206,21 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
             <Separator className="my-0" />
             {showExampleUsage && (
               <div className="border border-gray-300 rounded p-2">
-                <p>Example usage content goes here.</p>
+                {llmData ? (
+                  <>
+                    <p>Name: {llmData.name}</p>
+                    <p>Description: {llmData.description}</p>
+                    <p>Creator: {llmData.creator}</p>
+                    <p>Link: {llmData.link}</p>
+                  </>
+                ) : (
+                  <p>Loading llm data...</p>
+                )}
               </div>
             )}
           </div>
 
-          {/* Setup Instructions section */}
+          {/* LLM Configuration section */}
           <div className="mb-4">
             <h3
               className="text-lg font-bold mb-2 cursor-pointer"
@@ -144,12 +231,102 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
             <Separator className="my-0" />
             {showSetupInstructions && (
               <div className="border border-gray-300 rounded p-2">
-                <p>There are not setup instructions for this extension.</p>
+                <FormProvider {...methods}>
+                  <form className="forms-container space-y-4 mt-2" style={{ marginLeft: '5px' }}>
+                    <div className="space-y-4" style={{ marginTop: '5px', marginLeft: '5px' }}>
+                      <FormField
+                        control={methods.control}
+                        name="identity"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="font-bold" style={{ color: '#373737' }}>
+                              Core Identity
+                            </FormLabel>
+                            <FormControl>
+                              <Input {...field} defaultValue={allItems.identity} />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="space-y-4" style={{ marginLeft: '5px' }}>
+                      <FormField
+                        control={methods.control}
+                        name="context"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="font-bold" style={{ color: '#373737' }}>
+                              Context & Background
+                            </FormLabel>
+                            <FormControl>
+                              <Input {...field} defaultValue={allItems.context} />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="space-y-4" style={{ marginLeft: '5px' }}>
+                      <FormField
+                        control={methods.control}
+                        name="personality"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="font-bold" style={{ color: '#373737' }}>
+                              Personality Traits
+                            </FormLabel>
+                            <FormControl>
+                              <Input {...field} defaultValue={allItems.personality} />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="space-y-4" style={{ marginLeft: '5px' }}>
+                      <FormField
+                        control={methods.control}
+                        name="interactionGuidelines"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="font-bold" style={{ color: '#373737' }}>
+                              Interaction Style
+                            </FormLabel>
+                            <FormControl>
+                              <Input {...field} defaultValue={allItems.interactionGuidelines} />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="space-y-4" style={{ marginLeft: '5px' }}>
+                      <FormField
+                        control={methods.control}
+                        name="temperature"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="font-bold" style={{ color: '#373737' }}>
+                              Temperature (0-100)
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                step={1}
+                                min={0}
+                                max={100}
+                                {...field}
+                                defaultValue={allItems.temperature || 0}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </form>
+                </FormProvider>
               </div>
             )}
           </div>
 
-          {/* Code section */}
+          {/* Voice section */}
           <div className="mb-4">
             <h3
               className="text-lg font-bold mb-2 cursor-pointer"
@@ -160,13 +337,21 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
             <Separator className="my-0" />
             {showCode && (
               <div className="border border-gray-300 rounded p-2">
-                <p>Code snippets or examples go here.</p>
+                {voiceData ? (
+                  <>
+                    <p>Name: {voiceData.name}</p>
+                    <p>Description: {voiceData.description}</p>
+                    <p>Creator: {voiceData.creator}</p>
+                  </>
+                ) : (
+                  <p>Loading voice data...</p>
+                )}
               </div>
             )}
           </div>
 
-          {/* Preferences section */}
-          <div>
+          {/* Extensions section */}
+          <div className="mb-4">
             <h3
               className="text-lg font-bold mb-2 cursor-pointer"
               onClick={() => setShowAdditionalInfo(!showAdditionalInfo)}
@@ -176,13 +361,20 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
             <Separator className="my-0" />
             {showAdditionalInfo && (
               <div className="border border-gray-300 rounded p-2">
-                <p>Additional information goes here.</p>
+                {extensionData ? (
+                  <>
+                    <p>Name: {extensionData.name}</p>
+                    <p>Description: {extensionData.description}</p>
+                    <p>Creator: {extensionData.creator}</p>
+                  </>
+                ) : (
+                  <p>This profile has no extensions.</p>
+                )}
               </div>
             )}
           </div>
         </>
       )}
-      
       {/* Conditionally render sections based on type */}
       {type === 'Extensions' && (
         <>
@@ -213,7 +405,7 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
             <Separator className="my-0" />
             {showSetupInstructions && (
               <div className="border border-gray-300 rounded p-2">
-                <p>There are not setup instructions for this extension.</p>
+                <p>There are no setup instructions for this extension.</p>
               </div>
             )}
           </div>
@@ -269,11 +461,9 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
               </div>
             )}
           </div>
-
         </>
       )}
     </div>
-    
   );
 };
 

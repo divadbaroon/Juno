@@ -105,10 +105,11 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
     <>
     {photo && (
       <div className="card__photo">
-<img src={photo} alt={title} style={{ display: 'block', width: '290px', height: '285px', objectFit: 'cover', borderRadius: '10px 10px 0 0' }} />
+        <img src={photo} alt={title} style={{ display: 'block', width: '290px', height: '285px', objectFit: 'cover', borderRadius: '10px 10px 0 0' }} />
       </div>
     )}
     <Card className={`${borderClass}`}>
+      
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{creator}</CardDescription>
