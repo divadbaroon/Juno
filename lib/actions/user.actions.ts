@@ -129,6 +129,7 @@ export async function updateUserCollection(clerkId: string, userCollection: Upda
       { clerkId },
       {
         $addToSet: {
+          "userCollection.profiles": { $each: userCollection.profiles },
           "userCollection.llms": { $each: userCollection.llms },
           "userCollection.voices": { $each: userCollection.voices },
           "userCollection.extensions": { $each: userCollection.extensions },

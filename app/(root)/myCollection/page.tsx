@@ -86,7 +86,7 @@ const Profile = ({ searchParams }: SearchParamProps) => {
 
       {activeSection === 'profile' && <LibraryPage 
           contextType="Dashboard"
-          libraryType="Profiles" 
+          libraryType="CollectionProfiles" 
           h2Text="Profiles" 
           pText="Explore pre-configured profiles, powered by Large Language Models, lifelike voices, and unique capabilities. Select a profile that resonates, and refine it to match your needs."
           user={userDetails}

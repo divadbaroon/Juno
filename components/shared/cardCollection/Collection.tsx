@@ -24,6 +24,7 @@ interface User {
   __v: number;
   plan: string;
   userCollection: {
+    profiles: string[];
     llms: string[];
     voices: string[];
     extensions: string[];
@@ -39,6 +40,7 @@ interface Data {
   createdAt: string;
   updatedAt: string;
   objectURL?: string;
+  photo?: string;
   link?: string;
 }
 
@@ -72,7 +74,10 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
       return userDetails.userCollection.voices.includes(cardId);
     } else if (type === 'Extensions') {
       return userDetails.userCollection.extensions.includes(cardId);
+    } else if (type === 'Profiles') {
+      return userDetails.userCollection.profiles.includes(cardId);
     }
+    
     return false;
   };
 
@@ -96,6 +101,7 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
         if (contextType === 'Dashboard') {
           try {
             const updateResult = await removeFromUserCollection(userDetails.clerkId, {
+              profiles: type === 'CollectionProfiles' ? [selectedItem._id] : [],
               llms: type === 'CollectionLLMs' ? [selectedItem._id] : [],
               voices: type === 'CollectionVoices' ? [selectedItem._id] : [],
               extensions: type === 'CollectionExtensions' ? [selectedItem._id] : [],
@@ -119,6 +125,7 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
           if (isCardInCollection(cardId)) {
             try {
               const updateResult = await removeFromUserCollection(userDetails.clerkId, {
+                profiles: type === 'Profiles' ? [selectedItem._id] : [],
                 llms: type === 'LLMs' ? [selectedItem._id] : [],
                 voices: type === 'Voices' ? [selectedItem._id] : [],
                 extensions: type === 'Extensions' ? [selectedItem._id] : [],
@@ -141,6 +148,7 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
           } else {
             try {
               const updateResult = await updateUserCollection(userDetails.clerkId, {
+                profiles: type === 'Profiles' ? [selectedItem._id] : [],
                 llms: type === 'LLMs' ? [selectedItem._id] : [],
                 voices: type === 'Voices' ? [selectedItem._id] : [],
                 extensions: type === 'Extensions' ? [selectedItem._id] : [],
@@ -175,24 +183,26 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
       <Separator className="collection-separator mb-5" />
       {items.length > 0 ? (
         <ul className="collection-list" style={{ maxHeight: contextType === 'Library' ? '750px' : '500px', overflowY: 'auto' }}>
-          {items.map(({ _id, name, creator, description, objectURL, link }) => (
-            <li key={_id}>
+         {items.map((item) => ( // Here, item represents the current item object in the iteration
+            <li key={item._id}>
               <DisplayCard
                 clerkId={userDetails.clerkId}
                 contextType={contextType}
                 type={type}
-                title={name}
-                creator={creator}
-                description={description}
-                isSelected={_id === selectedCardId}
-                onSelect={() => handleCardSelect(_id)}
+                title={item.name}
+                creator={item.creator}
+                description={item.description}
+                isSelected={item._id === selectedCardId}
+                onSelect={() => handleCardSelect(item._id)}
                 userCollection={userDetails.userCollection}
-                isInCollection={contextType === 'Dashboard' || isCardInCollection(_id)}
+                isInCollection={contextType === 'Dashboard' || isCardInCollection(item._id)}
                 onReload={onReload}
                 models={['Model 1', 'Model 2', 'Model 3']}
-                blobURL = {objectURL}
-                link = {link}
-             />
+                blobURL={item.objectURL}
+                photo={item.photo}
+                link={item.link}
+                allItems={item} 
+              />
             </li>
           ))}
         </ul>

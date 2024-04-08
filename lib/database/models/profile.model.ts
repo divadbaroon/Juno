@@ -1,6 +1,7 @@
 import { Document, Schema, model, models } from "mongoose";
 
 export interface IProfile extends Document {
+  creator: string;
   name: string;
   description: string;
   llm: string;
@@ -18,6 +19,7 @@ export interface IProfile extends Document {
 }
 
 const ProfileSchema = new Schema({
+  creator: { type: String, required: true },
   name: { type: String, required: true },
   description: { type: String, required: true },
   llm: { type: String, required: true },

@@ -22,9 +22,10 @@ interface DetailsSectionProps {
   description: string;
   link?: string;
   onUpdateDetails: (updatedDetails: { title: string; description: string }) => void;
+  allItems: any;
 }
 
-const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, creator, description, link, onUpdateDetails}) => {
+const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, creator, description, link, onUpdateDetails, allItems}) => {
   const [showDetails, setShowDetails] = useState(false);
   const [showExampleUsage, setShowExampleUsage] = useState(false);
   const [showSetupInstructions, setShowSetupInstructions] = useState(false);
@@ -112,6 +113,75 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
           </FormProvider>
         )}
       </div>
+
+      {/* Conditionally render sections based on type */}
+      {type === 'Profiles' && (
+        <>
+          {/* Example Usage section */}
+          <div className="mb-4">
+            <h3
+              className="text-lg font-bold mb-2 cursor-pointer"
+              onClick={() => setShowExampleUsage(!showExampleUsage)}
+            >
+              LLM
+            </h3>
+            <Separator className="my-0" />
+            {showExampleUsage && (
+              <div className="border border-gray-300 rounded p-2">
+                <p>Example usage content goes here.</p>
+              </div>
+            )}
+          </div>
+
+          {/* Setup Instructions section */}
+          <div className="mb-4">
+            <h3
+              className="text-lg font-bold mb-2 cursor-pointer"
+              onClick={() => setShowSetupInstructions(!showSetupInstructions)}
+            >
+              LLM Configuration
+            </h3>
+            <Separator className="my-0" />
+            {showSetupInstructions && (
+              <div className="border border-gray-300 rounded p-2">
+                <p>There are not setup instructions for this extension.</p>
+              </div>
+            )}
+          </div>
+
+          {/* Code section */}
+          <div className="mb-4">
+            <h3
+              className="text-lg font-bold mb-2 cursor-pointer"
+              onClick={() => setShowCode(!showCode)}
+            >
+              Voice
+            </h3>
+            <Separator className="my-0" />
+            {showCode && (
+              <div className="border border-gray-300 rounded p-2">
+                <p>Code snippets or examples go here.</p>
+              </div>
+            )}
+          </div>
+
+          {/* Preferences section */}
+          <div>
+            <h3
+              className="text-lg font-bold mb-2 cursor-pointer"
+              onClick={() => setShowAdditionalInfo(!showAdditionalInfo)}
+            >
+              Extensions
+            </h3>
+            <Separator className="my-0" />
+            {showAdditionalInfo && (
+              <div className="border border-gray-300 rounded p-2">
+                <p>Additional information goes here.</p>
+              </div>
+            )}
+          </div>
+        </>
+      )}
       
       {/* Conditionally render sections based on type */}
       {type === 'Extensions' && (

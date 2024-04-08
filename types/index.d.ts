@@ -18,6 +18,7 @@ declare type CreateUserParams = {
   };
 
   declare type UpdateUserCollection = {
+    profiles: string[];
     llms: string[];
     voices: string[];
     extensions: string[];
@@ -156,6 +157,7 @@ declare type CreateUserParams = {
     photo: string;
     context: string;
     temperature: number;
+    creator: string;
   };
 
   declare type UpdateProfileParams = Partial<CreateProfileParams>;

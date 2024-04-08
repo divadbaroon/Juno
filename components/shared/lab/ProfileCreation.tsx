@@ -7,6 +7,8 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
+import { useToast } from "@/components/ui/use-toast";
+
 import Image from "next/image";
 
 import { LibraryPage } from "@/components/shared/library/LibraryPage";
@@ -60,7 +62,13 @@ export const ProfileCreation = () => {
   const [userDetails, setUserDetails] = useState<any>(null);
   const [reloadCounter, setReloadCounter] = useState(0);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [openSection, setOpenSection] = useState<string | null>(null);
+
+  const [isCreated, setIsCreated] = useState(false);
+
+  const { toast } = useToast();
 
   // State hooks to show sections
   const [showModelSelection, setShowModelSelection] = useState(false);
@@ -171,9 +179,16 @@ export const ProfileCreation = () => {
   }
 
   const handleCreateProfile = async () => {
-    try {
-      let photoUrl = "";
+    if (!user) {
+      redirect('/sign-in');
+      return;
+    }
 
+    try {
+      setIsLoading(true); // Set loading state to true before making the API call
+  
+      let photoUrl = "";
+  
       // Upload photo to S3 and get the URL
       if (photo) {
         const fileExtension = photo.name.split('.').pop();
@@ -184,11 +199,11 @@ export const ProfileCreation = () => {
           Body: photo,
           ContentType: photo.type,
         };
-
+  
         const uploadResult = await s3.upload(uploadParams).promise();
         photoUrl = uploadResult.Location; // Get the URL of the uploaded file
       }
-
+  
       const profileData: CreateProfileParams = {
         name,
         description,
@@ -202,27 +217,52 @@ export const ProfileCreation = () => {
         photo: photoUrl, 
         context,
         temperature,
+        creator: userDetails.username,
       };
-
+  
       await createProfileAction(profileData);
+      setIsCreated(true); // Set isCreated to true after successful creation
+
+      // close all sections 
+      setOpenSection(null);
+  
+      // Show success toast message
+      toast({
+        title: `${name} has been created!`,
+        description: (
+          <span>
+            See your created profile in your{' '}
+            <a href="/myCollection" className="underline">
+            collection
+            </a>
+          </span>
+        )
+      });
     } catch (error) {
       console.error("Error creating profile:", error);
+    } finally {
+      setIsLoading(false); // Set loading state back to false after the API call is completed
     }
   };
 
   const handleLLMSelect = (selectedLLM: Data | null) => {
     handleSelection('llm', selectedLLM);
     setIsModelSelectionComplete(true);
+    setLLM(selectedLLM ? selectedLLM._id : '');
   };
   
   const handleVoiceSelect = (selectedVoice: Data | null) => {
     handleSelection('voice', selectedVoice);
     setIsVoiceComplete(true);
+    setVoice(selectedVoice ? selectedVoice._id : '');
   };
   
   const handleExtensionSelect = (selectedExtension: Data | null) => {
     handleSelection('extensions', selectedExtension);
     setIsExtensionsComplete(true);
+    if (selectedExtension) {
+      setExtensions((prevExtensions) => [...prevExtensions, selectedExtension._id]);
+    }
   };
 
   const isLlmSectionComplete = isModelSelectionComplete && selections.llm !== null;
@@ -610,7 +650,7 @@ export const ProfileCreation = () => {
         </p>
         <Separator className="my-4"/>
           <FormProvider {...nameForm}>
-            <form className="mb-8 space-y-8"  style={{marginTop: '18px', marginLeft: '5px' }}>
+            <form className="mb-8 space-y-8" style={{marginTop: '18px', marginLeft: '5px' }}>
             <FormField
               control={nameForm.control}
               name="name"
@@ -622,7 +662,7 @@ export const ProfileCreation = () => {
                   <FormDescription style={{ marginTop: '.1rem'}}>
                     The name of your profile.
                   </FormDescription>
-                  <FormControl>
+                  <FormControl >
                     <Input
                       placeholder=""
                       {...field}
@@ -640,7 +680,7 @@ export const ProfileCreation = () => {
           </FormProvider>
 
           <FormProvider {...emailForm}>
-            <form className="mb-8 space-y-8">
+            <form className="mb-8 space-y-8" style={{marginTop: '18px', marginLeft: '5px' }}>
               <FormField
                 name="description"
                 render={() => (
@@ -755,8 +795,37 @@ export const ProfileCreation = () => {
     )}
 
     <Separator className="my-4" />
-    <Button onClick={handleCreateProfile} style={{ float: 'right', marginTop: '0em', marginRight: '2em' }}>
-      Create
+    <Button
+      onClick={handleCreateProfile}
+      style={{ float: 'right', marginTop: '0em', marginRight: '2em' }}
+      disabled={isLoading || isCreated} // Disable the button while loading or after creation
+    >
+      {isLoading ? (
+        <>
+          <svg
+            aria-hidden="true"
+            role="status"
+            className="inline w-4 h-4 me-3 text-white animate-spin"
+            viewBox="0 0 100 101"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+              fill="#E5E7EB"
+            />
+            <path
+              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+              fill="currentColor"
+            />
+          </svg>
+          Loading...
+        </>
+      ) : isCreated ? (
+        'Created!'
+      ) : (
+        'Create'
+      )}
     </Button>
     </div>
   );

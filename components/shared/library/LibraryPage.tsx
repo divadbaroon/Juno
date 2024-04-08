@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Collection } from "@/components/shared/cardCollection/Collection";
 import { Separator } from "@/components/ui/separator";
+import { getAllProfiles } from "@/lib/actions/fetchProfileData.action";
 import { getAllLLMs } from "@/lib/actions/fetchLLMData.actions";
 import { getAllVoices } from "@/lib/actions/fetchVoiceData.action";
 import { getAllExtensions } from "@/lib/actions/fetchExtensionData.action";
@@ -16,6 +17,7 @@ interface UserDetails {
   usageLeft: number;
   plan: string;
   userCollection: {
+    profiles: string[];
     llms: string[];
     voices: string[];
     extensions: string[];
@@ -46,12 +48,17 @@ interface Data {
 
 const fetchDataByType = async (user: UserDetails, libraryType: string): Promise<Data[]> => {
   switch (libraryType) {
+    case "Profiles":
+      return await getAllProfiles();
     case "LLMs":
       return await getAllLLMs();
     case "Voices":
       return await getAllVoices();
     case "Extensions":
       return await getAllExtensions();
+    case "CollectionProfiles":
+      const profiles = await getAllProfiles();
+      return profiles.filter((profile: Data) => user.userCollection.profiles.includes(profile._id));
     case "CollectionLLMs":
       const llms = await getAllLLMs();
       return llms.filter((llm: Data) => user.userCollection.llms.includes(llm._id));
@@ -68,6 +75,7 @@ const fetchDataByType = async (user: UserDetails, libraryType: string): Promise<
 
 export const LibraryPage = ({ user, contextType, libraryType, h2Text, pText, onReload, onSelect, selectedCardId }: ProfilesProps) => {
   const [data, setData] = useState<Data[]>([]);
+
 
   const fetchData = async () => {
     try {
