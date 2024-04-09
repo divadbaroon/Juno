@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Separator } from "@/components/ui/separator";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -205,18 +213,25 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
             </h3>
             <Separator className="my-0" />
             {showExampleUsage && (
-              <div className="border border-gray-300 rounded p-2">
-                {llmData ? (
-                  <>
-                    <p>Name: {llmData.name}</p>
-                    <p>Description: {llmData.description}</p>
-                    <p>Creator: {llmData.creator}</p>
-                    <p>Link: {llmData.link}</p>
-                  </>
-                ) : (
-                  <p>Loading llm data...</p>
-                )}
-              </div>
+              <Card>
+                <div className="card__content">
+                  {llmData ? (
+                    <div className="card__details">
+                      <CardHeader>
+                        <CardTitle>{llmData.name}</CardTitle>
+                        <CardDescription>{llmData.creator}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="card__description" style={{ marginTop: -10 }}>{llmData.description}</p>
+                      </CardContent>
+                    </div>
+                  ) : (
+                    <CardContent>
+                      <p>Loading llm data...</p>
+                    </CardContent>
+                  )}
+                </div>
+              </Card>
             )}
           </div>
 
@@ -336,44 +351,60 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
             </h3>
             <Separator className="my-0" />
             {showCode && (
-              <div className="border border-gray-300 rounded p-2">
-                {voiceData ? (
-                  <>
-                    <p>Name: {voiceData.name}</p>
-                    <p>Description: {voiceData.description}</p>
-                    <p>Creator: {voiceData.creator}</p>
-                  </>
-                ) : (
-                  <p>Loading voice data...</p>
-                )}
-              </div>
+              <Card>
+                <div className="card__content">
+                  {voiceData ? (
+                    <div className="card__details">
+                      <CardHeader>
+                        <CardTitle>{voiceData.name}</CardTitle>
+                        <CardDescription>{voiceData.creator}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="card__description" style={{ marginTop: -10 }}>{voiceData.description}</p>
+                      </CardContent>
+                    </div>
+                  ) : (
+                    <CardContent>
+                      <p>Loading voice data...</p>
+                    </CardContent>
+                  )}
+                </div>
+              </Card>
             )}
           </div>
 
           {/* Extensions section */}
-          <div className="mb-4">
-            <h3
-              className="text-lg font-bold mb-2 cursor-pointer"
-              onClick={() => setShowAdditionalInfo(!showAdditionalInfo)}
-            >
-              Extensions
-            </h3>
-            <Separator className="my-0" />
-            {showAdditionalInfo && (
-              <div className="border border-gray-300 rounded p-2">
+        <div className="mb-4">
+          <h3
+            className="text-lg font-bold mb-2 cursor-pointer"
+            onClick={() => setShowAdditionalInfo(!showAdditionalInfo)}
+          >
+            Extensions
+          </h3>
+          <Separator className="my-0" />
+          {showAdditionalInfo && (
+            <Card>
+              <div className="card__content">
                 {extensionData ? (
-                  <>
-                    <p>Name: {extensionData.name}</p>
-                    <p>Description: {extensionData.description}</p>
-                    <p>Creator: {extensionData.creator}</p>
-                  </>
+                  <div className="card__details">
+                    <CardHeader>
+                      <CardTitle>{extensionData.name}</CardTitle>
+                      <CardDescription>{extensionData.creator}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="card__description" style={{ marginTop: -10 }}>{extensionData.description}</p>
+                    </CardContent>
+                  </div>
                 ) : (
-                  <p>This profile has no extensions.</p>
+                  <CardContent>
+                    <p style={{ marginTop: 10, marginBottom: -10 }}>This profile has no extensions.</p>
+                  </CardContent>
                 )}
               </div>
-            )}
-          </div>
-        </>
+            </Card>
+          )}
+        </div>
+      </>
       )}
       {/* Conditionally render sections based on type */}
       {type === 'Extensions' && (
