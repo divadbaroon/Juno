@@ -496,17 +496,14 @@
   width: 290px;
   height: 280px;
   position: relative; 
-  border-radius: 0 0 10px 10px; 
-
-
+  border-radius: 10px 10px 10px 10px; 
 }
 
 .non-selected-card {
   width: 290px;
-  height: 280px;
+  height: 270px;
   position: relative; 
-  border-radius: 0 0 10px 10px; 
-
+  border-radius: 10px 10px 10px 10px; 
 }
 
 .card-footer {

@@ -110,7 +110,7 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
         <CardDescription>{creator}</CardDescription>
       </CardHeader>
       <CardContent>
-      <p className="card__description" style={{ marginTop: '-10px' }}>{description}</p>
+      <p className="card__description" style={{ marginTop: '0px' }}>{description}</p>
 
       </CardContent>
       <CardFooter className="card-footer flex justify-center items-center space-x-10">
