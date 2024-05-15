@@ -154,6 +154,7 @@ export async function removeFromUserCollection(clerkId: string, userCollection: 
       { clerkId },
       {
         $pull: {
+          "userCollection.profiles": { $each: userCollection.profiles },
           "userCollection.llms": { $in: userCollection.llms },
           "userCollection.voices": { $in: userCollection.voices },
           "userCollection.extensions": { $in: userCollection.extensions },
