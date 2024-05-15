@@ -7,7 +7,7 @@ export const PromptCreation = () => {
           Prompt Creation
         </h2>
         <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-          Craft prompts to shape your AI's behavior and personality. Use clear instructions, examples, and tone guidelines to align your AI with your goals.
+          Craft prompts to shape your AI&apos;s behavior and personality. Use clear instructions, examples, and tone guidelines to align your AI with your goals.
         </p>
         <Separator className="my-4" />
 

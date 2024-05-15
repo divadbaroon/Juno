@@ -74,7 +74,7 @@ export const VoiceCreation = () => {
         Voice Creation
       </h2>
       <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-        Choose a unique voice that complements your AI's personality and enhances the user experience.
+        Choose a unique voice that complements your AI&apos;s personality and enhances the user experience.
       </p>
       <Separator className="my-4" />
 
