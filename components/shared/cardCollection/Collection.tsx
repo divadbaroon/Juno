@@ -147,6 +147,7 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
             }
           } else {
             try {
+      
               const updateResult = await updateUserCollection(userDetails.clerkId, {
                 profiles: type === 'Profiles' ? [selectedItem._id] : [],
                 llms: type === 'LLMs' ? [selectedItem._id] : [],
@@ -182,7 +183,7 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
       </div>
       <Separator className="collection-separator mb-5" />
       {items.length > 0 ? (
-        <ul className="collection-list" style={{ maxHeight: contextType === 'Library' ? '750px' : '500px', overflowY: 'auto' }}>
+        <ul className="collection-list" style={{ maxHeight: contextType === 'Library' ? '750px' : '500px' }}>
          {items.map((item) => ( // Here, item represents the current item object in the iteration
             <li key={item._id}>
               <DisplayCard

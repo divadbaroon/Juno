@@ -28,6 +28,7 @@ interface DisplayCardProps {
   isSelected: boolean;
   onSelect: () => void;
   userCollection: {
+    profiles: string[];
     llms: string[];
     voices: string[];
     extensions: string[];

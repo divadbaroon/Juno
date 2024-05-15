@@ -38,6 +38,7 @@ const UserSchema = new Schema({
     type: Date,
   }, 
   userCollection: {
+    profiles: Array,
     llms: Array,
     voices: Array,
     extensions: Array,
