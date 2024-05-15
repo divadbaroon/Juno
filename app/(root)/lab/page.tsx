@@ -6,6 +6,8 @@ import { Separator } from "@/components/ui/separator"
 import { ProfileCreation } from "@/components/shared/lab/ProfileCreation"
 import { VoiceCreation } from "@/components/shared/lab/VoiceCreation"
 import { ExtensionCreation } from "@/components/shared/lab/ExtensionCreation"
+import { PromptCreation } from "@/components/shared/lab/PromptCreation"
+import { ScenarioCreation } from "@/components/shared/lab/ScenarioCreation"
 
 function ProfileForm() {
   // The actively selected Tab
@@ -32,6 +34,8 @@ function ProfileForm() {
         <Separator orientation="vertical" />
         <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('extension')}>Extension Creation</div>
         <Separator orientation="vertical" />
+        <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('prompt')}>Prompt Creation</div>
+        <Separator orientation="vertical" />
 
       </div>
       <Separator className="my-4" />
@@ -39,6 +43,7 @@ function ProfileForm() {
       {activeSection === 'profile' && <ProfileCreation />}
       {activeSection === 'voice' && <VoiceCreation />}
       {activeSection === 'extension' && <ExtensionCreation />}
+      {activeSection === 'prompt' && <PromptCreation />}
     </div>
   )
 }

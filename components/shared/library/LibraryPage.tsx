@@ -112,7 +112,7 @@ export const LibraryPage = ({ user, contextType, libraryType, h2Text, pText, onR
   return (
     <div>
       <div className="section">
-        <h2 className="h2-bold text-dark-600" style={{ marginTop: contextType === 'Library' ? '25px' : '15px' }}>{h2Text}</h2>
+        <h2 className="h2-bold text-dark-600" style={{ marginTop: contextType === 'Library' ? '25px' : '-5px' , marginLeft: '0px'}}>{h2Text}</h2>
         <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px', marginLeft: '5px' }}>{pText}</p>
         <Separator className="my-4" />
       </div>

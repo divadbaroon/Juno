@@ -103,11 +103,6 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
 
   return (
     <>
-    {photo && (
-      <div className="card__photo">
-        <img src={photo} alt={title} style={{ display: 'block', width: '290px', height: '285px', objectFit: 'cover', borderRadius: '10px 10px 0 0' }} />
-      </div>
-    )}
     <Card className={`${borderClass}`}>
       
       <CardHeader>
@@ -151,11 +146,6 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
           <div className="flex">
             <div className="w-1/2 pr-4">
               <Card className="collection-card">
-              {photo && (
-                    <div className="card__photo">
-                      <img src={photo} alt={title} className="card__photo-image" />
-                    </div>
-                  )}
                 <CardHeader>
                   <CardTitle>{title}</CardTitle>
                   <CardDescription>{creator}</CardDescription>

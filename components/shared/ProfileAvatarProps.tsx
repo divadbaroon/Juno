@@ -72,7 +72,7 @@ export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ photo, onPhotoChan
       </FormDescription>
       <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
         {photo ? (
-          <div className="relative" style={{ width: '300px', height: '300px' }}>
+          <div className="relative" style={{ width: '200px', height: '200px' }}>
             <Cropper
               image={URL.createObjectURL(photo)}
               crop={crop}
@@ -87,8 +87,8 @@ export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ photo, onPhotoChan
               className="absolute inset-0"
               style={{
                 border: '2px dashed #999',
-                width: '300px',
-                height: '300px',
+                width: '200px',
+                height: '200px',
                 pointerEvents: 'none',
               }}
             />

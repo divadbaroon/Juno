@@ -294,7 +294,7 @@ export const ProfileCreation = () => {
           position: 'relative',
         }}
       >
-        <h2 className="text-lg font-bold text-dark-600">AI Model Selection</h2>
+        <h2 className="text-lg font-bold text-dark-600">Language Model Selection</h2>
         {isLlmSectionComplete && (
             <div
               style={{
@@ -342,7 +342,7 @@ export const ProfileCreation = () => {
           position: 'relative',
         }}
       >
-        <h2 className="text-lg font-bold text-dark-600">AI Model Configuration</h2>
+        <h2 className="text-lg font-bold text-dark-600">Prompt Creation</h2>
         {isLlmConfigurationSectionComplete && (
           <div
             style={{
@@ -368,7 +368,7 @@ export const ProfileCreation = () => {
         <>
           <div className="forms-container space-y-8 mt-5">
             <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px', marginLeft: '5px', marginBottom: '-15px' }}>
-              Fine-tune your selected LLM to align with your AI&apos;s intended behavior and identity.
+              Create a prompt for your LLM to align with your AI&apos;s intended behavior and identity.
             </p>
             
             <Separator className="my-2" />
