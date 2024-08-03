@@ -183,7 +183,7 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
       </div>
       <Separator className="collection-separator mb-5" />
       {items.length > 0 ? (
-        <ul className="collection-list" style={{ maxHeight: contextType === 'Library' ? '750px' : '500px' }}>
+        <ul className="collection-list" style={{ maxHeight: contextType === 'Library' ? '750px' : '500px', overflowY: 'auto'  }}>
          {items.map((item) => ( // Here, item represents the current item object in the iteration
             <li key={item._id}>
               <DisplayCard
