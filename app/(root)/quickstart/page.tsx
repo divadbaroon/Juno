@@ -213,45 +213,15 @@ const QuickStart = () => {
       </div>
 
       {renderSection(
-        "Create",
-        "Create your AI from the ground up, utilizing the most cutting-edge AI solutions for each component.",
+        "Get Started",
+        "Find and select a profile that matches your interests and needs.",
         <>
-          {renderStep("1. Select a Profile", "profile",
+          {renderStep("Select a Profile", "profile",
             <LibraryPage
               contextType="QuickStart"
               libraryType="Profiles"
               h2Text=""
-              pText="To get started, select a profile to provide your foundation. Profiles are pre-configured AI, made up of a large language model, instructions for the language model, a unique voice, and distinct capabilites."
-              user={userDetails}
-              onReload={handleReload}
-            />
-          )}
-          {renderStep("2. Adjust the Voice", "voice",
-            <LibraryPage
-              contextType="QuickStart"
-              libraryType="Voices"
-              h2Text=""
-              pText="Browse through a collection of life-like voices. If you find one you like, select it to update your profile; otherwise, move on and retain your profile's existing voice."
-              user={userDetails}
-              onReload={handleReload}
-            />
-          )}
-          {renderStep("3. Adjust the AI Model", "llm",
-            <LibraryPage
-              contextType="QuickStart"
-              libraryType="LLMs"
-              h2Text=""
-              pText="Browse through a collection of Large Language Models, the core intelligence of your AI. If you find one you like, select it to update your profile; otherwise, move on and retain your profile's existing LLM."
-              user={userDetails}
-              onReload={handleReload}
-            />
-          )}
-          {renderStep("4. Enhance Capabilites", "extensions",
-            <LibraryPage
-              contextType="QuickStart"
-              libraryType="Extensions"
-              h2Text=""
-              pText="Browse through a collection of extensions, which are additional capabilites that can be added to your profile. Add as many extensions as you would like, or move on and keep your profile's current extensions."
+              pText="Profiles are pre-configured AIs designed to provide unique capabilities. Each profile combines a large language model with tailored instructions, a distinctive voice, and specific functionalities to suit your needs."
               user={userDetails}
               onReload={handleReload}
             />
@@ -261,40 +231,21 @@ const QuickStart = () => {
 
       {renderSection(
         "Integrate",
-        "Seamlessly embed Juno into your browser for effortless AI interaction.",
+        "Install the Juno Browser Extension for effortless AI interaction within your browser.",
         <>
-          {renderStep("1. Install the Juno Browser Extension", "installExtension",
+          {renderStep("Install the Juno Browser Extension", "installExtension",
             <div style={{ marginTop: '15px' }}>
-              <p className="p-20-regular text-dark-400 mt-2">
-                <strong>1. Convenient Access:</strong> With the Juno Chrome Extension, your AI companion is just a click away. No need to switch between apps or websites – Juno is always ready to assist you, right where you are.
-              </p>
-              <p className="p-20-regular text-dark-400 mt-2">
-                <strong>2. Contextual Assistance:</strong> Juno&apos;s browser integration enables your AI to provide contextual assistance based on the websites you visit and the content you interact with. Whether you&apos;re researching a topic, writing an essay, or browsing social media, your AI can offer relevant insights and suggestions.
-              </p>
-              <p className="p-20-regular text-dark-400 mt-2">
-                <strong>3. Seamless Sync:</strong> The Juno Chrome Extension seamlessly syncs with your account, ensuring that your AI preferences, custom profiles, and chat history are always up to date, no matter which device you&apos;re using.
-              </p>
-              <p className="p-20-regular text-dark-400 mt-2">
-                <strong>4. Enhanced Productivity:</strong> With Juno integrated into your browser, you can streamline your workflow and boost your productivity. Your AI can help you with tasks like data analysis, content creation, and more, all without leaving your browser.
-              </p>
-              <p className="p-20-regular text-dark-400 mt-2">
-                <strong>5. Customizable Hotkeys:</strong> Tailor your interaction experience by setting up custom hotkeys for quick access to Juno&apos;s features. Whether you prefer keyboard shortcuts or voice commands, Juno adapts to your workflow seamlessly.
-              </p>
+              <h1>Coming soon...</h1>
             </div>
-          )}
-          {renderStep("2. Set Up Hotkeys", "setupHotkeys",
-            <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-              Configure your preferred key-bindings for smooth interaction.
-            </p>
           )}
         </>
       )}
 
       {renderSection(
         "Interact",
-        "Effortlessly interact with your AI using your assigned hotkey.",
+        "Begin interacting with your chosen profile instantly and effortlessly.",
         <>
-          {renderStep("1. Start Interacting", "startInteracting",
+          {renderStep("Start Interacting", "startInteracting",
             <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
               Press the hotkey you designated in the Juno Chrome Extension and speak.
             </p>
