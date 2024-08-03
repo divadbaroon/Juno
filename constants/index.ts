@@ -5,14 +5,14 @@ export const navLinks = [
       icon: "/assets/icons/bolt.svg",
     },
     {
-      label: "Library",
-      route: "/library",
-      icon: "/assets/icons/book.svg",
-    },
-    {
       label: "Lab",
       route: "/lab",
       icon: "/assets/icons/beaker.svg",
+    },
+    {
+      label: "Library",
+      route: "/library",
+      icon: "/assets/icons/book.svg",
     },
     {
       label: "Dashboard",
