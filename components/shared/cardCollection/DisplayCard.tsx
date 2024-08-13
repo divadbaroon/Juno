@@ -114,17 +114,17 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
       <p className="card__description" style={{ marginTop: '0px' }}>{description}</p>
 
       </CardContent>
-      <CardFooter className="card-footer flex justify-center items-center space-x-10">
+      <CardFooter className="card-footer flex justify-center items-center space-x-10 -mb-.5">
         {type === 'Voices' ? (
-          <Button className="w-auto px-8" variant="outline" onClick={playAudioSample}>
+          <Button className="w-24 px-8" variant="outline" onClick={playAudioSample}>
           Sample
         </Button>
         ) : (
-          <Button className="w-auto px-8" variant="outline" onClick={openModal}>
+          <Button className="w-24 px-8" variant="outline" onClick={openModal}>
             Details
           </Button>
         )}
-        <Button className="w-auto px-8" onClick={handleSelect}>
+        <Button className="w-24 px-8" onClick={handleSelect}>
           {contextType === 'QuickStart' && type === 'Extensions'
             ? isSelected
               ? 'Unadd'
