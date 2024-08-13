@@ -71,10 +71,10 @@ export const VoiceCreation = () => {
   return (
     <div className="root-container">
       <h2 className="h2-bold text-dark-600" style={{ marginTop: '-10px' }}>
-        Voice Creation
+        Voice Cloning
       </h2>
       <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-        Choose a unique voice that complements your AI&apos;s personality and enhances the user experience.
+        Quickly clone any voice of your choice with just a 5-minute file upload. 
       </p>
       <Separator className="my-4" />
 
