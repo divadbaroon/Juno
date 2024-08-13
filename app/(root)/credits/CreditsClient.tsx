@@ -86,7 +86,7 @@ const CreditsClient = ({ user, userPlan, plans }: CreditsClientProps) => {
               <p className="h1-semibold text-dark-600">${plan.price}</p>
               <p className="p-16-regular">
                 Usage/day: {plan.usage}{" "}
-                {plan.price === 0 ? "minutes" : "hours"}
+                {plan.price > 0 ? "hours" : ""}
               </p>
             </div>
             {/* Inclusions */}
