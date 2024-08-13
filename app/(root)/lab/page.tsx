@@ -7,7 +7,6 @@ import { ProfileCreation } from "@/components/shared/lab/ProfileCreation"
 import { VoiceCreation } from "@/components/shared/lab/VoiceCreation"
 import { ExtensionCreation } from "@/components/shared/lab/ExtensionCreation"
 import { PromptCreation } from "@/components/shared/lab/PromptCreation"
-import { ScenarioCreation } from "@/components/shared/lab/ScenarioCreation"
 
 function ProfileForm() {
   // The actively selected Tab
@@ -17,7 +16,7 @@ function ProfileForm() {
     <div className="root-container">
       <div className="about-section">
         <div className="space-y-6">
-          <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px', marginTop: '10px'}}>
+          <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px'}}>
             The Lab
           </h4>
           <p className="p-20-regular text-dark-400" style={{ marginTop: '15px', marginLeft: '3px' }}>
@@ -30,11 +29,11 @@ function ProfileForm() {
         <Separator orientation="vertical" />
         <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('profile')}>Profile Creation</div>
         <Separator orientation="vertical" />
-        <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('voice')}>Voice Creation</div>
+        <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('prompt')}>Prompt Creation</div>
+        <Separator orientation="vertical" />
+        <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('voice')}>Voice Cloning</div>
         <Separator orientation="vertical" />
         <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('extension')}>Extension Creation</div>
-        <Separator orientation="vertical" />
-        <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('prompt')}>Prompt Creation</div>
         <Separator orientation="vertical" />
 
       </div>
