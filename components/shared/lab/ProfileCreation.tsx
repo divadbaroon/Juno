@@ -273,7 +273,7 @@ export const ProfileCreation = () => {
 
   return (
     <div className="root-container">
-      <h2 className="h2-bold text-dark-600" style={{ marginTop: '-10px' }}>
+      <h2 className="h2-bold text-dark-600" style={{ marginTop: '0px' }}>
         Profile Creation
       </h2>
       <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
@@ -573,7 +573,7 @@ export const ProfileCreation = () => {
           position: 'relative',
         }}     
       >
-        <h2 className="text-lg font-bold text-dark-600">Enhance Capabilites</h2>
+        <h2 className="text-lg font-bold text-dark-600">Add Extensions</h2>
         {isExtensionsSectionComplete && (
             <div
               style={{
@@ -793,6 +793,7 @@ export const ProfileCreation = () => {
         </FormProvider>
       </div>
     )}
+
 
     <Separator className="my-4" />
     <Button
