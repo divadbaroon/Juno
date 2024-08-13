@@ -33,7 +33,7 @@ export const About = () => {
         
         {/* Profile Creation Section */}
         <div className="section">
-          <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>Profile Creation</h2>
+          <h2 className=" text-dark-600" style={{ marginTop: '300px' }}>Profile Creation</h2>
           <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
             In the Profile Creation area, unleash your creativity to construct a distinct AI persona. Complete the forms to tailor attributes such as name, persona, personality, and role.
           </p>
@@ -47,11 +47,11 @@ export const About = () => {
           <Separator className="my-4" />
         </div>
         
-         {/* Voice Creation Section */}
+         {/* Voice Cloning Section */}
          <div className="section">
-          <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>Voice Creation</h2>
+          <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>Voice Cloning</h2>
           <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
-          Step into the Voice Creation suite and discover the power to clone any voice in mere minutes. Give your AI a unique vocal identity that perfectly matches its personality.
+          Step into the Voice Cloning suite and discover the power to clone any voice in mere minutes. Give your AI a unique vocal identity that perfectly matches its personality.
           </p>
           <Button className="action-button" onClick={() => setShowVoiceExample(!showVoiceExample)} 
             style={{marginTop: '15px' }}>Show Example</Button>
