@@ -490,11 +490,12 @@
   font-weight: bold; 
 }
 
+/* border-color: #c7d2fe #c7d2fe #6366f1; */
+
 .selected-card {
-  border: 4px solid;
   border-color: #c7d2fe #c7d2fe #6366f1;
   width: 290px;
-  height: 280px;
+  height: 270px;
   position: relative; 
   border-radius: 10px 10px 10px 10px; 
 }
@@ -513,4 +514,8 @@
   width: 100%;
   padding: 35px; 
   box-sizing: border-box; 
+}
+
+.dark {
+  color-scheme: dark;
 }
