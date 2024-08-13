@@ -30,7 +30,7 @@ export const navLinks = [
       icon: "/assets/icons/guide.svg",
     },
     {
-      label: "Upgrade",
+      label: "Unlock",
       route: "/credits",
       icon: "/assets/icons/unlock.svg",
     },
@@ -39,22 +39,22 @@ export const navLinks = [
   export const plans = [
     {
       _id: 1,
-      name: "Trial",
+      name: "Free",
       icon: "/assets/icons/free-plan.svg",
       price: 0,
-      usage: "15",
+      usage: "Unlimited",
       inclusions: [
         
         {
           label: "API Keys provided",
+          isIncluded: false,
+        },
+        {
+          label: "Full Access to Services", 
           isIncluded: true,
         },
         {
-          label: "Access to Entire Library", 
-          isIncluded: true,
-        },
-        {
-          label: "Full Access to Services",
+          label: "Low Latency Responses",
           isIncluded: true,
         }
       ],
@@ -71,11 +71,11 @@ export const navLinks = [
           isIncluded: true,
         },
         {
-          label: "Access to Entire Library",
+          label: "Full Access to Services",
           isIncluded: true,
         },
         {
-          label: "Full Access to Services",
+          label: "Low Latency Responses",
           isIncluded: true,
         }
       ],
@@ -92,11 +92,11 @@ export const navLinks = [
           isIncluded: true,
         },
         {
-          label: "Access to Entire Library",
+          label: "Full Access to Services",
           isIncluded: true,
         },
         {
-          label: "Full Access to Services",
+          label: "Low Latency Responses",
           isIncluded: true,
         }
       ],
