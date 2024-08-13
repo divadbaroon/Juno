@@ -75,12 +75,15 @@ const Profile = ({ searchParams }: SearchParamProps) => {
         <Separator orientation="vertical" />
         <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('profile')}>Profiles</div>
         <Separator orientation="vertical" />
-        <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('extension')}>Extensions</div>
-        <Separator orientation="vertical" />
-        <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('voice')}>Voices</div>
-        <Separator orientation="vertical" />
         <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('llm')}>LLMs</div>
         <Separator orientation="vertical" />
+        <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('extension')}>Prompts</div>
+        <Separator orientation="vertical" />
+        <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('llm')}>Voices</div>
+        <Separator orientation="vertical" />
+        <div className="p-20-regular text-dark-400 cursor-pointer" onClick={() => setActiveSection('extension')}>Extensions</div>
+        <Separator orientation="vertical" />
+
       </div>
       <Separator className="my-4" />
 
