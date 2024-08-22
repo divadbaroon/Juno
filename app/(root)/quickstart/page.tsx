@@ -206,7 +206,7 @@ const QuickStart = () => {
             Quick Start
           </h4>
           <p className="p-20-regular text-dark-400" style={{ marginTop: '15px', marginLeft: '3px' }}>
-            A step-by-step guide on how to quickly customize and interact with your own personalized AI.
+          Your Step-by-Step Guide to Personalizing and Interacting with Juno's AI Profiles
           </p>
         </div>
         <Separator className="my-4" />
