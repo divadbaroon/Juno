@@ -15,14 +15,14 @@ export const navLinks = [
       icon: "/assets/icons/book.svg",
     },
     {
-      label: "Dashboard",
-      route: "/dashboard",
-      icon: "/assets/icons/chart.svg",
-    },
-    {
       label: "My Collection",
       route: "/myCollection",
       icon: "/assets/icons/folder.svg",
+    },
+    {
+      label: "Dashboard",
+      route: "/dashboard",
+      icon: "/assets/icons/chart.svg",
     },
     {
       label: "Guide",
