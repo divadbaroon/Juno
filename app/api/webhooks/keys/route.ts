@@ -5,6 +5,7 @@ export async function GET(request: NextRequest) {
     // Retrieve Google Cloud API key from .env
     const googleSpeechAPI = process.env.GOOGLE_SPEECH_API
     const googleSpeechEndPoint = process.env.GOOGLE_SPEECH_ENDPOINT
+    const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
     // Check if the key exists
     if (!googleSpeechAPI) {
@@ -14,7 +15,8 @@ export async function GET(request: NextRequest) {
 
     const keys = {
       GoogleSpeechAPI: googleSpeechAPI,
-      GoogleSpeechEndpoint: googleSpeechEndPoint
+      GoogleSpeechEndpoint: googleSpeechEndPoint,
+      ClerkPublishableKey: clerkPublishableKey
     }
 
     return NextResponse.json(keys)
