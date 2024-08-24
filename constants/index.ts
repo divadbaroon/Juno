@@ -30,9 +30,9 @@ export const navLinks = [
       icon: "/assets/icons/guide.svg",
     },
     {
-      label: "Unlock",
-      route: "/credits",
-      icon: "/assets/icons/unlock.svg",
+      label: "Upgrade",
+      route: "/upgrade",
+      icon: "/assets/icons/upgrade.svg",
     },
   ];
   
