@@ -493,7 +493,7 @@
 /* border-color: #c7d2fe #c7d2fe #6366f1; */
 
 .selected-card {
-  border-color: #c7d2fe #c7d2fe #6366f1;
+  /* border-color: #c7d2fe #c7d2fe #6366f1; */
   width: 290px;
   height: 270px;
   position: relative; 
