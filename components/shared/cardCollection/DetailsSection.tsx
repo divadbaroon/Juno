@@ -136,7 +136,7 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
           className="text-lg font-bold mb-2 cursor-pointer"
           onClick={() => setShowDetails(!showDetails)}
         >
-          Edit Details
+          Details
         </h3>
         <Separator className="my-0" />
         {showDetails && (
