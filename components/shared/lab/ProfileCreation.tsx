@@ -43,7 +43,6 @@ AWS.config.update({
 
 const s3 = new AWS.S3();
 
-// Define your form schemas
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
 });
@@ -69,13 +68,6 @@ export const ProfileCreation = () => {
   const [isCreated, setIsCreated] = useState(false);
 
   const { toast } = useToast();
-
-  // State hooks to show sections
-  const [showModelSelection, setShowModelSelection] = useState(false);
-  const [showModelConfiguration, setShowModelConfiguration] = useState(false);
-  const [showVoice, setShowVoice] = useState(false);
-  const [showExtensions, setShowExtensions] = useState(false);
-  const [showProfileDetails, setShowProfileDetails] = useState(false);
 
   // State hooks to track completion of sections
   const [isModelSelectionComplete, setIsModelSelectionComplete] = useState(false);
@@ -145,7 +137,6 @@ export const ProfileCreation = () => {
         }
       } catch (error) {
         console.error("Failed to fetch user details:", error);
-        // Optionally handle errors, like redirecting to an error page
       }
     };
 
@@ -281,7 +272,7 @@ export const ProfileCreation = () => {
       </p>
       <Separator className="my-4" /> 
 
-       {/* AI Model Selection Section */}
+       {/* Language Model Selection Section */}
        <div
         onClick={() => toggleSection('llmSelection')}
         style={{
@@ -793,7 +784,6 @@ export const ProfileCreation = () => {
         </FormProvider>
       </div>
     )}
-
 
     <Separator className="my-4" />
     <Button
