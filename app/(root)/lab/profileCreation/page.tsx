@@ -56,7 +56,7 @@ interface Data {
   // Add other properties as needed
 }
 
-export const ProfileCreation = () => {
+function ProfileCreation () {
   const { user, isSignedIn, isLoaded } = useUser();
   const [userDetails, setUserDetails] = useState<any>(null);
   const [reloadCounter, setReloadCounter] = useState(0);
