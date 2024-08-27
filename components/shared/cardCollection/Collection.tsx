@@ -12,6 +12,8 @@ import { useToast } from "@/components/ui/use-toast";
 
 import { updateUserCollection, removeFromUserCollection } from '@/lib/actions/user.actions';
 
+import Filter from '@/components/shared/filter'
+
 interface User {
   _id: string;
   clerkId: string;
@@ -177,8 +179,8 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
 
   return (
     <>
-      <div className="collection-heading">
-        <h2 className="collection-heading__title"></h2>
+      <div className="collection-heading flex items-center space-x-4">
+        <Filter type={type}/>
         {hasSearch && <Search />}
       </div>
       <Separator className="collection-separator mb-5" />
@@ -208,7 +210,6 @@ export const Collection: React.FC<{ userDetails: User, contextType: string; type
           ))}
         </ul>
       ) : (
-        // Adjusted spinner for visibility
         <div className="collection-empty">
           {showSpinner && (
             <div className="rounded-full h-20 w-20 bg-[#334155] animate-ping-slow"></div>
