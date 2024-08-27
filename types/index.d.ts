@@ -160,5 +160,19 @@ declare type CreateUserParams = {
     creator: string;
   };
 
+  declare type CreatePromptParams = {
+    name: string;
+    description: string;
+    personality: string;
+    identity: string;
+    interactionGuidelines: string;
+    sharePreference: string;
+    context: string;
+    temperature: number;
+    creator: string;
+  };
+
+
   declare type UpdateProfileParams = Partial<CreateProfileParams>;
+  
   
