@@ -23,6 +23,52 @@ declare type CreateUserParams = {
     voices: string[];
     extensions: string[];
   };
+
+  declare type User = {
+    _id: string;
+    clerkId: string;
+    email: string;
+    username: string;
+    photo: string;
+    firstName: string | null;
+    lastName: string | null;
+    usageLeft: number;
+    plan: string;
+    userCollection: {
+      profiles: string[];
+      llms: string[];
+      voices: string[];
+      extensions: string[];
+    };
+    __v: number;
+  }
+  
+  declare type ProfilesProps = {
+    user: UserDetails;
+    contextType: string;
+    libraryType: string;
+    h2Text: string;
+    pText: string;
+    onReload: () => void;
+    onSelect?: (selectedItem: Data | null) => void; 
+    activeFilters?: { [key: string]: string };
+    selectedCardId?: string | string[] | null;
+}
+  
+  declare type Data = {
+    _id: string;
+    name: string;
+    creator: string;
+    description: string;
+    sharePreference: string;
+    createdAt: string;
+    updatedAt: string;
+    objectURL?: string;
+    photo?: string;
+    link?: string;
+    index: number;
+    tags?: string[];
+  }
   
   // ====== IMAGE PARAMS
   declare type AddImageParams = {
@@ -125,51 +171,56 @@ declare type CreateUserParams = {
     searchParams: { [key: string]: string | string[] | undefined };
   };
   
-  declare type TransformationFormProps = {
-    action: "Add" | "Update";
-    userId: string;
-    type: TransformationTypeKey;
-    creditBalance: number;
-    data?: IImage | null;
-    config?: Transformations | null;
-  };
-  
-  declare type TransformedImageProps = {
-    image: any;
+  // ====== CARD PARAMS
+  declare type DisplayCardProps = {
+    clerkId: string; 
+    contextType: string;
     type: string;
     title: string;
-    transformationConfig: Transformations | null;
-    isTransforming: boolean;
-    hasDownload?: boolean;
-    setIsTransforming?: React.Dispatch<React.SetStateAction<boolean>>;
-  };
+    creator: string;
+    blobURL?: string;
+    link?: string;
+    description: string;
+    photo?: string;
+    isSelected: boolean;
+    onSelect: () => void;
+    userCollection: {
+      profiles: string[];
+      llms: string[];
+      voices: string[];
+      extensions: string[];
+    };
+    isInCollection: boolean;
+    additionalInfo?: string;
+    onReload: () => void;
+    models: string[];
+    allItems: any;
+  }
 
   declare type CreateProfileParams = {
     name: string;
-    description: string;
     llm: string;
-    personality: string;
-    identity: string;
-    interactionGuidelines: string;
+    description: string;
     voice: string;
     extensions: string[];
     sharePreference: string;
+    prompt: string;
     photo: string;
-    context: string;
-    temperature: number;
     creator: string;
+    tags: string[];
   };
 
   declare type CreatePromptParams = {
     name: string;
-    description: string;
-    personality: string;
-    identity: string;
-    interactionGuidelines: string;
-    sharePreference: string;
-    context: string;
-    temperature: number;
     creator: string;
+    description: string;
+    sharePreference: string;
+    personality: string;
+    context: string;
+    interactionGuidelines: string;
+    background: string;
+    temperature: number;
+    tags: string[]; 
   };
 
 
