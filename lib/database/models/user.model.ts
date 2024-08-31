@@ -42,6 +42,7 @@ const UserSchema = new Schema({
     llms: Array,
     voices: Array,
     extensions: Array,
+    prompts: Array
   },
 });
 
