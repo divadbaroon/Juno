@@ -39,7 +39,7 @@ const BackgroundField: React.FC<FieldProps> = ({ value, onChange, showExample, e
       <FormItem>
         <FormLabel className="font-bold" style={{ color: '#373737' }}>Background Information</FormLabel>
         <FormDescription style={{ marginTop: '.1rem' }}>
-          Provide specific historical or situational details via text or file that inform the AI's responses.
+          Provide specific historical or situational details via text or file that inform the AI&apos;s responses.
         </FormDescription>
         <FormControl>
           <Input
@@ -114,7 +114,7 @@ const TemperatureField: React.FC<FieldProps> = ({ value, onChange, showExample }
       <FormItem>
         <FormLabel className="font-bold" style={{ color: '#373737' }}>Temperature Control</FormLabel>
         <FormDescription style={{ marginTop: '.1rem' }}>
-        Adjust the balance between predictability and creativity in the LLM's responses.
+        Adjust the balance between predictability and creativity in the LLM&apos;s responses.
         </FormDescription>
         <FormControl>
           <Slider
