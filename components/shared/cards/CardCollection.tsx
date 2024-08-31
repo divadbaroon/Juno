@@ -9,8 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { formUrlQuery } from '@/lib/utils';
 import DisplayCard from './DisplayCard';
 import { useToast } from "@/components/ui/use-toast";
-
-// import { updateUserCollection, removeFromUserCollection } from '@/lib/actions/user.actions';
+import { updateUserCollection, removeFromUserCollection } from '@/lib/actions/user.actions';
 
 import Filter from '@/components/shared/filter'
 
@@ -34,10 +33,49 @@ export const CardCollection: React.FC<{ userDetails: User, contextType: string; 
     router.push(newUrl, { scroll: false });
   };
 
-  const handleCardSelect = (cardId: string) => {
+  const isItemInCollection = (item: Data, collectionType: string): boolean => {
+    const collectionKey = collectionType.toLowerCase() as keyof typeof userDetails.userCollection;
+    return userDetails.userCollection[collectionKey]?.includes(item._id) || false;
+  };
+
+  const handleCardSelect = async (cardId: string) => {
     const isSelected = selectedCard === cardId;
     setSelectedCard((prevSelectedCard) => (prevSelectedCard === cardId ? null : cardId));
-
+  
+    if (contextType === 'Library') {
+      const selectedItem = items.find((item) => item._id === cardId);
+      if (selectedItem) {
+        try {
+          const cardType = type.toLowerCase();
+          const isInCollection = isItemInCollection(selectedItem, cardType);
+  
+          if (!isInCollection) {
+            // Add to collection
+            await updateUserCollection(userDetails.clerkId, cardType, cardId);
+            toast({
+              title: "Added to Collection",
+              description: `${selectedItem.name} has been added to your collection.`,
+            });
+          } else {
+            // Remove from collection
+            await removeFromUserCollection(userDetails.clerkId, cardType, cardId);
+            toast({
+              title: "Removed from Collection",
+              description: `${selectedItem.name} has been removed from your collection.`,
+            });
+          }
+          onReload(); // Refresh the data after updating the collection
+        } catch (error) {
+          console.error('Error updating collection:', error);
+          toast({
+            title: "Error",
+            description: "Failed to update your collection. Please try again.",
+            variant: "destructive",
+          });
+        }
+      }
+    }
+  
     // If there's a callback for selection, call it
     if (onSelect) {
       const selectedItem = items.find((item) => item._id === cardId);
@@ -54,7 +92,7 @@ export const CardCollection: React.FC<{ userDetails: User, contextType: string; 
       <Separator className="collection-separator mb-5" />
       {items.length > 0 ? (
         <ul className="collection-list" style={{ maxHeight: contextType === 'Library' ? '750px' : '500px', overflowY: 'auto'  }}>
-         {items.map((item) => ( // Here, item represents the current item object in the iteration
+         {items.map((item) => ( 
             <li key={item._id}>
               <DisplayCard
                 clerkId={userDetails.clerkId}
@@ -66,7 +104,7 @@ export const CardCollection: React.FC<{ userDetails: User, contextType: string; 
                 isSelected={item._id === selectedCardId}
                 onSelect={() => handleCardSelect(item._id)}
                 userCollection={userDetails.userCollection}
-                isInCollection={false}
+                isInCollection={isItemInCollection(item, type)}
                 onReload={onReload}
                 models={['Model 1', 'Model 2', 'Model 3']}
                 blobURL={item.objectURL}
