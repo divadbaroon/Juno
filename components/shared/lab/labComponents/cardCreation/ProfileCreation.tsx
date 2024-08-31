@@ -113,6 +113,7 @@ export const ProfileCreation: React.FC = () => {
       />
       {openSection === 'promptCreation' && (
         <PromptSelection
+        contextType="Lab"
         userDetails={userDetails}
         onReload={handleReload}
         onSelect={(selectedPrompt) => {
