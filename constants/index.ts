@@ -6,12 +6,12 @@ export const navLinks = [
     },
     {
       label: "Library",
-      route: "/library",
+      route: "/library/profiles",
       icon: "/assets/icons/book.svg",
     },
     {
       label: "Lab",
-      route: "/lab",
+      route: "/lab/profile-creation",
       icon: "/assets/icons/beaker.svg",
     },
     {
