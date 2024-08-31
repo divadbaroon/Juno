@@ -1,7 +1,7 @@
-## Juno: The all-in-one platform for streamlined AI customization and interaction
+# Juno
+## Create, customize, and interact with AI directly in your web browser. 
 
-Juno allows you to create, customize, and interact with AI directly in your web browser. Features include:
-
+Features include:
 - Quick Start guide for easy setup
 - Lab for building custom AI from scratch
 - Library of pre-made AI components
