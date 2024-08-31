@@ -209,9 +209,9 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
               className="text-lg font-bold mb-2 cursor-pointer"
               onClick={() => setShowExampleUsage(!showExampleUsage)}
             >
-              LLM
+              Large language model
             </h3>
-            <Separator className="my-0" />
+            <Separator className="my-0 mb-4" />
             {showExampleUsage && (
               <Card>
                 <div className="card__content">
@@ -241,7 +241,7 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
               className="text-lg font-bold mb-2 cursor-pointer"
               onClick={() => setShowSetupInstructions(!showSetupInstructions)}
             >
-              LLM Configuration
+              Prompt
             </h3>
             <Separator className="my-0" />
             {showSetupInstructions && (
@@ -349,7 +349,7 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
             >
               Voice
             </h3>
-            <Separator className="my-0" />
+            <Separator className="my-0 mb-4" />
             {showCode && (
               <Card>
                 <div className="card__content">
@@ -381,7 +381,7 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
           >
             Extensions
           </h3>
-          <Separator className="my-0" />
+          <Separator className="my-0 mb-4" />
           {showAdditionalInfo && (
             <Card>
               <div className="card__content">

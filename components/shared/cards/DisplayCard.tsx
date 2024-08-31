@@ -13,32 +13,7 @@ import {
   DialogContent,
   DialogFooter,
 } from '@/components/ui/dialog';
-import DetailsSection from '@/components/shared/cardCollection/DetailsSection';
-
-interface DisplayCardProps {
-  clerkId: string; // Clerk ID of the user viewing the card
-  contextType: string;
-  type: string;
-  title: string;
-  creator: string;
-  blobURL?: string;
-  link?: string;
-  description: string;
-  photo?: string;
-  isSelected: boolean;
-  onSelect: () => void;
-  userCollection: {
-    profiles: string[];
-    llms: string[];
-    voices: string[];
-    extensions: string[];
-  };
-  isInCollection: boolean;
-  additionalInfo?: string;
-  onReload: () => void;
-  models: string[];
-  allItems: any;
-}
+import DetailsSection from '@/components/shared/cards/DetailsSection';
 
 const DisplayCard: React.FC<DisplayCardProps> = ({
   clerkId,
@@ -79,7 +54,7 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
 
   const handleSelect = () => {
     onSelect();
-    onReload(); // Call onReload after onSelect is called
+    onReload(); 
   };
 
   const handleUpdateDetails = (updatedDetails: { title: string; description: string }) => {
@@ -88,19 +63,32 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
   };
 
   const playAudioSample = () => {
-  if (blobURL) {
-    // Stop the currently playing audio, if any
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
+    if (blobURL) {
+      // Stop the currently playing audio, if any
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
 
-    // Create a new audio element and play the selected audio
-    const audio = new Audio(blobURL);
-    audioRef.current = audio;
-    audio.play().catch(error => console.error("Error playing the audio:", error));
-  }
-};
+      // Create a new audio element and play the selected audio
+      const audio = new Audio(blobURL);
+      audioRef.current = audio;
+      audio.play().catch(error => console.error("Error playing the audio:", error));
+    }
+  };
+
+  const renderButtonLabel = () => {
+    if (contextType === 'QuickStart' && type === 'Extensions') {
+      return isSelected ? 'Unadd' : 'Add';
+    }
+    if (contextType === 'Dashboard') {
+      return isInCollection ? 'Remove' : 'Save';
+    }
+    if (contextType === 'Library') {
+      return isInCollection ? 'Saved' : 'Save';
+    }
+    return isSelected ? 'Deselect' : 'Select';
+  };
 
   return (
     <>
@@ -125,21 +113,7 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
           </Button>
         )}
         <Button className="w-24 px-8" onClick={handleSelect}>
-          {contextType === 'QuickStart' && type === 'Extensions'
-            ? isSelected
-              ? 'Unadd'
-              : 'Add'
-            : contextType === 'Dashboard'
-            ? isInCollection
-              ? 'Remove'
-              : 'Save'
-            : contextType === 'Library'
-            ? isInCollection
-              ? 'Saved'
-              : 'Save'
-            : isSelected
-            ? 'Deselect'
-            : 'Select'}
+          {renderButtonLabel()}
         </Button>
       </CardFooter>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
