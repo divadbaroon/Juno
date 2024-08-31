@@ -7,6 +7,7 @@ export interface IExtensions extends Document {
   sharePreference: string;
   createdAt?: Date;
   updatedAt?: Date;
+  index: number;
 }
 
 const ExtensionSchema = new Schema({
@@ -16,6 +17,7 @@ const ExtensionSchema = new Schema({
   sharePreference: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  index: { type: Number, required: true },
 });
 
 

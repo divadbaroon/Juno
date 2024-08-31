@@ -8,6 +8,7 @@ export interface ILLM extends Document {
   link: string;
   createdAt?: Date;
   updatedAt?: Date;
+  index: number
 }
 
 const LLMSchema = new Schema({
@@ -18,6 +19,7 @@ const LLMSchema = new Schema({
   link: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  index: { type: Number, required: true },
 });
 
 

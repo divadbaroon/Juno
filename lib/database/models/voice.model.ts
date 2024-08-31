@@ -9,6 +9,7 @@ export interface IVoice extends Document {
   objectURL: string;
   createdAt?: Date;
   updatedAt?: Date;
+  index: number;
 }
 
 const VoiceSchema = new Schema({
@@ -20,6 +21,7 @@ const VoiceSchema = new Schema({
   objectURL: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  index: { type: Number, required: true },
 });
 
 
