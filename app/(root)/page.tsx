@@ -51,7 +51,7 @@ const Home = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>Explore the Library</h2>
           <p className="p-20-regular text-dark-400" style={{ fontSize: '18px', marginTop: '20px', lineHeight: '1.6', marginLeft: '3px'  }}>
-            Discover a vast collection of ready-to-use AI components in Juno&apos;s <Link href="/library" className="text-primary-600 underline">Library</Link>, where you&apos;ll find pre-made AI profiles, voices, language models, and extensions ready for use.
+            Discover a vast collection of ready-to-use AI components in Juno&apos;s <Link href="/library" className="text-primary-600 underline">Library</Link>, where you&apos;ll find pre-made AI profiles, prompts, voices, language models, and extensions ready for use.
           </p>
         </div>
         <Separator className="my-8" />
@@ -60,7 +60,7 @@ const Home = () => {
         <div className="section">
           <h2 className="h2-bold text-dark-600" style={{ fontSize: '32px', marginTop: '40px' }}>Seamlessly Interact</h2>
             <p className="p-20-regular text-dark-400" style={{ fontSize: '18px', marginTop: '20px', lineHeight: '1.6', marginLeft: '3px'  }}>
-              Use the Juno Chrome Extension to easily interact with your personalized AI, using a simple keybind.
+              Use the Juno Chrome Extension to seamlessly interact with your personalized AI, using a simple keybind.
             </p>
         </div>
       </div>
