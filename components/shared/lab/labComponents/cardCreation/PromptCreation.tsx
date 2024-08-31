@@ -71,7 +71,7 @@ const PromptCreation: React.FC<PromptCreationProps> = ({
   return (
     <div className="root-container">
       <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '-15px', marginLeft: '5px' }}>
-        Create a prompt for your LLM to align with your AI's intended behavior and identity.
+        Create a prompt for your LLM to align with your AI&apos;s intended behavior and identity.
       </p>
       
       <Separator className="my-4" />
