@@ -22,6 +22,7 @@ declare type CreateUserParams = {
     llms: string[];
     voices: string[];
     extensions: string[];
+    prompts: string[];
   };
 
   declare type User = {
@@ -39,6 +40,7 @@ declare type CreateUserParams = {
       llms: string[];
       voices: string[];
       extensions: string[];
+      prompts: string[];
     };
     __v: number;
   }
@@ -189,6 +191,7 @@ declare type CreateUserParams = {
       llms: string[];
       voices: string[];
       extensions: string[];
+      prompts: string[];
     };
     isInCollection: boolean;
     additionalInfo?: string;
