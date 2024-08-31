@@ -85,7 +85,7 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
       return isInCollection ? 'Remove' : 'Save';
     }
     if (contextType === 'Library') {
-      return isInCollection ? 'Saved' : 'Save';
+      return isInCollection ? 'Remove' : 'Save';
     }
     return isSelected ? 'Deselect' : 'Select';
   };
