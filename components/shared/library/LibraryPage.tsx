@@ -1,104 +1,108 @@
 import React, { useEffect, useState } from 'react';
-import { Collection } from "@/components/shared/cardCollection/Collection";
+
+// ui components
 import { Separator } from "@/components/ui/separator";
+
+// Used to fetch card data
 import { getAllProfiles } from "@/lib/actions/fetchProfileData.action";
 import { getAllLLMs } from "@/lib/actions/fetchLLMData.actions";
 import { getAllVoices } from "@/lib/actions/fetchVoiceData.action";
 import { getAllExtensions } from "@/lib/actions/fetchExtensionData.action";
+import { getAllPrompts } from "@/lib/actions/fetchPromptData.action";
 
-interface UserDetails {
-  _id: string;
-  clerkId: string;
-  email: string;
-  username: string;
-  photo: string;
-  firstName: string | null;
-  lastName: string | null;
-  usageLeft: number;
-  plan: string;
-  userCollection: {
-    profiles: string[];
-    llms: string[];
-    voices: string[];
-    extensions: string[];
-  };
-  __v: number;
-}
+// Creates and displays a collection of cards
+import { CardCollection } from "@/components/shared/cards/CardCollection";
 
-interface ProfilesProps {
-  user: UserDetails;
-  contextType: string;
-  libraryType: string;
-  h2Text: string;
-  pText: string;
-  onReload: () => void;
-  onSelect?: (selectedItem: Data | null) => void; 
-  selectedCardId?: string | string[] | null;
-}
+// Used for filtering 
+import Fuse from 'fuse.js';
 
-interface Data {
-  _id: string;
-  name: string;
-  creator: string;
-  description: string;
-  sharePreference: string;
-  createdAt: string;
-  updatedAt: string;
-}
+/*
+Fetches appropriate card data based on specified type such as profiles, llms, prompts, ect.
+*/
+const fetchDataByType = async (user: User, libraryType: string, activeFilters: { [key: string]: string }): Promise<Data[]> => {
+  let fetchedData: Data[];
 
-const fetchDataByType = async (user: UserDetails, libraryType: string): Promise<Data[]> => {
   switch (libraryType) {
     case "Profiles":
-      const profiles = await getAllProfiles();
-      const orderedProfiles = [
-        ...profiles.filter((profile: Data) => profile.name === "Vanessa"),
-        ...profiles.filter((profile: Data)=> profile.name === "Margret"),
-        ...profiles.filter((profile: Data) => profile.name === "Dylan"),
-        ...profiles.filter((profile: Data) => profile.name === "David Attenborough"),
-        ...profiles.filter((profile: Data) => profile.name === "Morgan Freeman"),
-        ...profiles.filter((profile: Data) => profile.name === "Barack Obama"),
-        ...profiles.filter((profile: Data) => profile.name === "Albert"),
-        ...profiles.filter((profile: Data) => profile.name === "Isaac"),
-        ...profiles.filter((profile: Data) => profile.name === "Sarah"),
-        ...profiles.filter((profile: Data) => profile.name === "Sky"),
-        ...profiles.filter((profile: Data) => profile.name === "Star"),
-        ...profiles.filter((profile: Data) => profile.name === "Arc"),
-        ...profiles.filter((profile: Data) => profile.name === "Clara"),
-        ...profiles.filter((profile: Data) => profile.name === "Eden"),
-        ...profiles.filter((profile: Data) => profile.name === "Matthew"),
-        ...profiles.filter((profile: Data) => !["Vanessa", "Margret", "Dylan", "David Attenborough", "Morgan Freeman", "Barack Obama", "Albert", "Isaac", "Sarah", "Sky", "Star", "Arc", "Clara", "Eden", "Matthew"].includes(profile.name))
-      ];
-      return orderedProfiles;
+      fetchedData = await getAllProfiles();
+      break;
     case "LLMs":
-      return await getAllLLMs();
+      fetchedData = await getAllLLMs();
+      break;
+    case "Prompts":
+      fetchedData = await getAllPrompts();
+      break;
     case "Voices":
-      return await getAllVoices();
+      fetchedData = await getAllVoices();
+      break;
     case "Extensions":
-      return await getAllExtensions();
+      fetchedData = await getAllExtensions();
+      break;
     case "CollectionProfiles":
       const allProfiles = await getAllProfiles();
-      return allProfiles.filter((profile: Data) => user.userCollection.profiles.includes(profile._id));
+      fetchedData = allProfiles.filter((profile: Data) => user.userCollection.profiles.includes(profile._id));
+      break;
     case "CollectionLLMs":
       const llms = await getAllLLMs();
-      return llms.filter((llm: Data) => user.userCollection.llms.includes(llm._id));
+      fetchedData = llms.filter((llm: Data) => user.userCollection.llms.includes(llm._id));
+      break;
     case "CollectionVoices":
       const voices = await getAllVoices();
-      return voices.filter((voice: Data) => user.userCollection.voices.includes(voice._id));
+      fetchedData = voices.filter((voice: Data) => user.userCollection.voices.includes(voice._id));
+      break;
     case "CollectionExtensions":
       const extensions = await getAllExtensions();
-      return extensions.filter((extension: Data) => user.userCollection.extensions.includes(extension._id));
+      fetchedData = extensions.filter((extension: Data) => user.userCollection.extensions.includes(extension._id));
+      break;
     default:
-      return [];
+      fetchedData = [];
   }
+  if (activeFilters)
+  {
+    // Apply filters and search
+    if (Object.keys(activeFilters).length > 0) {
+      // Check if 'query' is in activeFilters
+      const queryFilter = activeFilters['query'];
+      
+      if (queryFilter) {
+        // Apply Fuse.js search
+        const fuse = new Fuse(fetchedData, {
+          keys: ['name', 'description'],
+          includeScore: true,
+          threshold: 0.4 // Adjust this value to make the search more or less strict
+        });
+
+        const searchResults = fuse.search(queryFilter);
+        fetchedData = searchResults.map(result => result.item);
+      }
+
+      // Apply other filters
+      fetchedData = fetchedData.filter((item: Data) => {
+        return Object.entries(activeFilters).every(([key, value]) => {
+          if (key === 'query') return true; // Skip 'query' as it's already handled
+          if (!item.tags) return false;
+          return item.tags.some((tag: string) => {
+            const [tagKey, tagValue] = tag.split(': ');
+            return tagKey === key && (value === '' || tagValue === value);
+          });
+        });
+      });
+    }
+  }
+
+  // Sort the fetchedData by index in ascending order
+  return fetchedData.sort((a, b) => (a.index || 0) - (b.index || 0));
 };
 
-export const LibraryPage = ({ user, contextType, libraryType, h2Text, pText, onReload, onSelect, selectedCardId }: ProfilesProps) => {
+/*
+Fetches appropriate card data based on specified type and loads in a collection of cards using the data
+*/
+export const LibraryPage = ({ user, contextType, libraryType, h2Text, pText, onReload, activeFilters, onSelect, selectedCardId }: ProfilesProps) => {
   const [data, setData] = useState<Data[]>([]);
-
 
   const fetchData = async () => {
     try {
-      const fetchedData = await fetchDataByType(user, libraryType);
+      const fetchedData = await fetchDataByType(user, libraryType, activeFilters || {});
       setData(fetchedData);
     } catch (error) {
       console.error('Failed to fetch data:', error);
@@ -107,7 +111,7 @@ export const LibraryPage = ({ user, contextType, libraryType, h2Text, pText, onR
 
   useEffect(() => {
     fetchData();
-  }, [libraryType, user]);
+  }, [libraryType, user, activeFilters]); 
 
   return (
     <div>
@@ -117,7 +121,7 @@ export const LibraryPage = ({ user, contextType, libraryType, h2Text, pText, onR
         <Separator className="my-4" />
       </div>
       <section className="sm:mt-12">
-        <Collection
+        <CardCollection
           userDetails={user}
           contextType={contextType}
           type={libraryType}
