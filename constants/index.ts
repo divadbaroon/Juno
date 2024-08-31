@@ -5,19 +5,14 @@ export const navLinks = [
       icon: "/assets/icons/bolt.svg",
     },
     {
-      label: "Lab",
-      route: "/lab",
-      icon: "/assets/icons/beaker.svg",
-    },
-    {
       label: "Library",
       route: "/library",
       icon: "/assets/icons/book.svg",
     },
     {
-      label: "My Collection",
-      route: "/myCollection",
-      icon: "/assets/icons/folder.svg",
+      label: "Lab",
+      route: "/lab",
+      icon: "/assets/icons/beaker.svg",
     },
     {
       label: "Dashboard",
@@ -161,11 +156,12 @@ export const profileFilterOptions: FilterType[] = [
     value: 'expertise',
     label: 'Expertise',
     options: [
-      { value: 'digital-art', label: 'Digital Art' },
-      { value: 'animation', label: 'Animation' },
-      { value: 'graphic-design', label: 'Graphic Design' },
-      { value: '3d-modeling', label: '3D Modeling' },
-      { value: 'natural-history', label: 'Natural History' }
+      { value: 'coding', label: 'Coding' },
+      { value: 'science', label: 'Science' },
+      { value: 'history', label: 'History' },
+      { value: 'nature', label: 'Nature' },
+      { value: 'space', label: 'Space' },
+      { value: 'technology', label: 'Technology' }
     ]
   },
   {
@@ -181,15 +177,6 @@ export const profileFilterOptions: FilterType[] = [
       { value: 'enthusiastic', label: 'Enthusiastic' },
       { value: 'adaptable', label: 'Adaptable' },
       { value: 'inquisitive', label: 'Inquisitive' }
-    ]
-  },
-  {
-    value: 'context',
-    label: 'Work Context',
-    options: [
-      { value: 'studio', label: 'Studio' },
-      { value: 'collaboration', label: 'Collaboration' },
-      { value: 'nature', label: 'Nature' }
     ]
   },
   { 
@@ -349,24 +336,13 @@ export const voiceFilterOptions: FilterType[] = [
 
 export const extensionFilterOptions: FilterType[] = [
   {
-    value: 'functionality',
-    label: 'Functionality',
+    value: 'use-case',
+    label: 'Use Case',
     options: [
-      { value: 'text-processing', label: 'Text Processing' },
-      { value: 'web-browsing', label: 'Web Browsing' },
-      { value: 'media-control', label: 'Media Control' },
-      { value: 'scheduling', label: 'Scheduling' },
-      { value: 'content-understanding', label: 'Content Understanding' }
-    ]
-  },
-  {
-    value: 'integration',
-    label: 'Integration',
-    options: [
-      { value: 'spotify', label: 'Spotify' },
-      { value: 'google-calendar', label: 'Google Calendar' },
-      { value: 'youtube', label: 'YouTube' },
-      { value: 'web-browser', label: 'Web Browser' }
+      { value: 'productivity', label: 'Productivity' },
+      { value: 'entertainment', label: 'Entertainment' },
+      { value: 'information-gathering', label: 'Information Gathering' },
+      { value: 'hands-free-control', label: 'Hands-free Control' }
     ]
   },
   {
@@ -379,13 +355,67 @@ export const extensionFilterOptions: FilterType[] = [
     ]
   },
   {
-    value: 'use-case',
-    label: 'Use Case',
+    value: 'integration',
+    label: 'Integration',
     options: [
-      { value: 'productivity', label: 'Productivity' },
+      { value: 'spotify', label: 'Spotify' },
+      { value: 'google-calendar', label: 'Google Calendar' },
+      { value: 'youtube', label: 'YouTube' },
+      { value: 'web-browser', label: 'Web Browser' }
+    ]
+  }
+];
+
+export const promptFilterOptions: FilterType[] = [
+  {
+    value: 'context',
+    label: 'Context',
+    options: [
       { value: 'entertainment', label: 'Entertainment' },
-      { value: 'information-gathering', label: 'Information Gathering' },
-      { value: 'hands-free-control', label: 'Hands-free Control' }
+      { value: 'educational', label: 'Educational' },
+      { value: 'coding', label: 'Coding' },
+    ]
+  },
+  {
+    value: 'background',
+    label: 'Background',
+    options: [
+      { value: 'historical', label: 'Historical' },
+      { value: 'scientific', label: 'Scientific' },
+      { value: 'cultural', label: 'Cultural' },
+      { value: 'technical', label: 'Technical' },
+      { value: 'general-knowledge', label: 'General Knowledge' },
+    ]
+  },
+  {
+    value: 'personality',
+    label: 'Personality Traits',
+    options: [
+      { value: 'friendly', label: 'Friendly' },
+      { value: 'professional', label: 'Professional' },
+      { value: 'humorous', label: 'Humorous' },
+      { value: 'empathetic', label: 'Empathetic' },
+      { value: 'analytical', label: 'Analytical' },
+    ]
+  },
+  {
+    value: 'interaction-style',
+    label: 'Interaction Style',
+    options: [
+      { value: 'conversational', label: 'Conversational' },
+      { value: 'formal', label: 'Formal' },
+      { value: 'instructional', label: 'Instructional' },
+      { value: 'question-answering', label: 'Question-Answering' },
+      { value: 'storytelling', label: 'Storytelling' },
+    ]
+  },
+  {
+    value: 'temperature',
+    label: 'Temperature',
+    options: [
+      { value: 'low', label: 'Low (More Predictable)' },
+      { value: 'medium', label: 'Medium' },
+      { value: 'high', label: 'High (More Creative)' },
     ]
   }
 ];
