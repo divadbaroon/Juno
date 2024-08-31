@@ -6,6 +6,7 @@ import { LibraryPage } from "@/components/shared/library/LibraryPage";
   }
   
   interface PromptSelectionProps {
+    contextType: string
     userDetails: User;
     onReload: () => void;
     onSelect: (selectedExtension: PromptData | null) => void;
@@ -13,6 +14,7 @@ import { LibraryPage } from "@/components/shared/library/LibraryPage";
   }
 
 const PromptSelection: React.FC<PromptSelectionProps> = ({ 
+    contextType,
     userDetails, 
     onReload, 
     onSelect, 
@@ -20,7 +22,7 @@ const PromptSelection: React.FC<PromptSelectionProps> = ({
     }) => {
   return (
     <LibraryPage
-    contextType="Library"
+    contextType={contextType}
     libraryType="Prompts" 
     h2Text="Prompts" 
     pText="Personalize your AI's voice from a wide range of lifelike options, enhancing communication with styles from warm and friendly to formal and authoritative."
