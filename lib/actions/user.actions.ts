@@ -122,19 +122,24 @@ export async function updatePlan(buyerID: string, newPlan: string) {
 }
 
 // UPDATE COLLECTION
-export async function updateUserCollection(clerkId: string, userCollection: UpdateUserCollection) {
+export async function updateUserCollection(clerkId: string, cardType: string, cardId: string) {
   try {
     await connectToDatabase();
+    
+    // Validate the cardType
+    const validTypes = ['profiles', 'llms', 'voices', 'extensions'];
+    if (!validTypes.includes(cardType)) {
+      throw new Error("Invalid card type");
+    }
+
+    // Create the update object dynamically
+    const updateObject = {
+      [`userCollection.${cardType}`]: cardId
+    };
+
     const updatedUser = await User.findOneAndUpdate(
       { clerkId },
-      {
-        $addToSet: {
-          "userCollection.profiles": { $each: userCollection.profiles },
-          "userCollection.llms": { $each: userCollection.llms },
-          "userCollection.voices": { $each: userCollection.voices },
-          "userCollection.extensions": { $each: userCollection.extensions },
-        },
-      },
+      { $addToSet: updateObject },
       { new: true }
     );
 
@@ -147,19 +152,24 @@ export async function updateUserCollection(clerkId: string, userCollection: Upda
 }
 
 // REMOVE FROM COLLECTION
-export async function removeFromUserCollection(clerkId: string, userCollection: UpdateUserCollection) {
+export async function removeFromUserCollection(clerkId: string, cardType: string, cardId: string) {
   try {
     await connectToDatabase();
+
+    // Validate the cardType
+    const validTypes = ['profiles', 'llms', 'voices', 'extensions'];
+    if (!validTypes.includes(cardType)) {
+      throw new Error("Invalid card type");
+    }
+
+    // Create the update object dynamically
+    const updateObject = {
+      [`userCollection.${cardType}`]: cardId
+    };
+
     const updatedUser = await User.findOneAndUpdate(
       { clerkId },
-      {
-        $pull: {
-          "userCollection.profiles": { $in: userCollection.profiles },
-          "userCollection.llms": { $in: userCollection.llms },
-          "userCollection.voices": { $in: userCollection.voices },
-          "userCollection.extensions": { $in: userCollection.extensions },
-        },
-      },
+      { $pull: updateObject },
       { new: true }
     );
 
