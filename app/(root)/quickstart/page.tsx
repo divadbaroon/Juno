@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, ReactNode, useEffect } from 'react';
-import { redirect } from 'next/navigation';
+import { redirect, useSearchParams } from 'next/navigation';
 import { useUser } from '@clerk/clerk-react';
 import { getUserById } from "@/lib/actions/user.actions";
 import { LibraryPage } from "@/components/shared/library/LibraryPage";
@@ -13,14 +13,24 @@ interface Data {
   _id: string;
 }
 
-/**
- * QuickStart component represents a step-by-step guide for customizing and interacting with a personalized AI.
- */
 const QuickStart = () => {
   const [openStep, setOpenStep] = useState<string | null>(null);
   const { user, isSignedIn, isLoaded } = useUser();
   const [userDetails, setUserDetails] = useState<any>(null);
   const [reloadCounter, setReloadCounter] = useState(0);
+  const searchParams = useSearchParams();
+  const [activeFilters, setActiveFilters] = useState<{[key: string]: string}>({});
+
+  useEffect(() => {
+    // Process URL parameters
+    const filters: {[key: string]: string} = {};
+    searchParams.forEach((value, key) => {
+        filters[key] = value;
+    });
+    
+    setActiveFilters(filters);
+
+}, [searchParams]);
 
   const [selections, setSelections] = useState({
     profile: null,
@@ -65,16 +75,13 @@ const QuickStart = () => {
   };
 
   useEffect(() => {
-    if (!isLoaded) return; // Wait for Clerk to fully initialize
+    if (!isLoaded) return; 
 
     if (!isSignedIn) {
-      redirect('/sign-in'); // Use Next.js's redirect for client-side redirection
+      redirect('/sign-in'); 
       return;
     }
 
-    /**
-     * Fetches user details based on the user ID.
-     */
     const fetchUserDetails = async () => {
       try {
         if (user) {
@@ -83,22 +90,19 @@ const QuickStart = () => {
         }
       } catch (error) {
         console.error("Failed to fetch user details:", error);
-        // Optionally handle errors, like redirecting to an error page
       }
     };
 
     fetchUserDetails();
   }, [isSignedIn, isLoaded, user, reloadCounter]);
 
-  /**
-   * Triggers a reload of the user details.
-   */
+
   const handleReload = () => {
     setReloadCounter((prev) => prev + 1);
   };
 
   if (!userDetails) {
-    return; // Placeholder while loading
+    return; 
   }
 
   const handleSelection = (category: keyof typeof selections, selectedItem: Data) => {
@@ -116,18 +120,10 @@ const QuickStart = () => {
     }
   };
 
-  
   const isLlmSectionComplete = isLLMSelectionComplete && selections.llm !== null;
   const isVoiceSectionComplete = isVoiceSelectionComplete && selections.voice !== null;
   const isExtensionsSectionComplete = isExtensionsSelectionComplete && selections.extensions !== null;
 
-
-  /**
-   * Renders a section with a title, description, and steps.
-   * @param title - The title of the section.
-   * @param description - The description of the section.
-   * @param steps - The steps to be rendered within the section.
-   */
   const renderSection = (title: string, description: string, steps: ReactNode) => (
     <div className="section">
       <h2 className="h2-bold text-dark-600" style={{ marginTop: '35px' }}>{title}</h2>
@@ -137,12 +133,6 @@ const QuickStart = () => {
     </div>
   );
 
-  /**
-   * Renders a step with a title and content that can be expanded/collapsed.
-   * @param title - The title of the step.
-   * @param stepKey - The unique key for the step.
-   * @param content - The content to be rendered when the step is expanded.
-   */
   const renderStep = (title: string, stepKey: keyof typeof selections, content: ReactNode) => {
     const isStepComplete = {
       profile: isProfileSelectionComplete,
@@ -206,7 +196,7 @@ const QuickStart = () => {
             Quick Start
           </h4>
           <p className="p-20-regular text-dark-400" style={{ marginTop: '15px', marginLeft: '3px' }}>
-          Browse, Select, and Interact with AI in less than 30 seconds   
+          Browse, Select, and Interact with AI in less than 60 seconds   
           </p>
         </div>
         <Separator className="my-4" />
@@ -224,6 +214,7 @@ const QuickStart = () => {
               pText="Profiles are pre-configured AIs designed to provide unique capabilities. Each profile combines a large language model with tailored instructions, a distinctive voice, and specific functionalities to suit your needs."
               user={userDetails}
               onReload={handleReload}
+              activeFilters={activeFilters}
             />
           )}
         </>
