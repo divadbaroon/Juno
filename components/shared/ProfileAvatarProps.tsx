@@ -6,9 +6,10 @@ import { FormDescription, FormLabel } from "@/components/ui/form";
 interface ProfileAvatarProps {
   photo: File | null;
   onPhotoChange: (file: File | null) => void;
+  fieldDescription: string;
 }
 
-export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ photo, onPhotoChange }): React.ReactElement | null => {
+export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ photo, onPhotoChange, fieldDescription }): React.ReactElement | null => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedArea, setCroppedArea] = useState<Area | null>(null);
@@ -68,7 +69,7 @@ export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ photo, onPhotoChan
         Profile Avatar (Optional)
       </FormLabel>
       <FormDescription style={{ marginTop: '.2rem' }}>
-        Upload a photo to represent your profile.
+        {fieldDescription}
       </FormDescription>
       <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
         {photo ? (
