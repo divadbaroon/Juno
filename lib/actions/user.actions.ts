@@ -127,7 +127,7 @@ export async function updateUserCollection(clerkId: string, cardType: string, ca
     await connectToDatabase();
     
     // Validate the cardType
-    const validTypes = ['profiles', 'llms', 'voices', 'extensions'];
+    const validTypes = ['profiles', 'llms', 'voices', 'extensions', 'prompts'];
     if (!validTypes.includes(cardType)) {
       throw new Error("Invalid card type");
     }
@@ -157,7 +157,7 @@ export async function removeFromUserCollection(clerkId: string, cardType: string
     await connectToDatabase();
 
     // Validate the cardType
-    const validTypes = ['profiles', 'llms', 'voices', 'extensions'];
+    const validTypes = ['profiles', 'llms', 'voices', 'extensions', 'prompts'];
     if (!validTypes.includes(cardType)) {
       throw new Error("Invalid card type");
     }
