@@ -5,7 +5,7 @@ export interface IVoice extends Document {
   creator: string;
   description: string;
   sharePreference: string;
-  vocieId: string;
+  voiceId: string;
   objectURL: string;
   createdAt?: Date;
   updatedAt?: Date;
