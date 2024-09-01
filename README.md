@@ -7,4 +7,4 @@ Features include:
 - Library of pre-made AI components
 - Chrome Extension for seamless AI interaction
 
-Create your personalized AI assistant in minutes and integrate it into your workflow effortlessly.
+Create your personalized AI assistant in minutes and integrate it into your webbrowser effortlessly.
