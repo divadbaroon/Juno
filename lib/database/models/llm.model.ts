@@ -8,7 +8,7 @@ export interface ILLM extends Document {
   link: string;
   createdAt?: Date;
   updatedAt?: Date;
-  index: number
+  index?: number
 }
 
 const LLMSchema = new Schema({

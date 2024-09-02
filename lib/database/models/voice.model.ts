@@ -9,7 +9,7 @@ export interface IVoice extends Document {
   objectURL: string;
   createdAt?: Date;
   updatedAt?: Date;
-  index: number;
+  index?: number;
 }
 
 const VoiceSchema = new Schema({

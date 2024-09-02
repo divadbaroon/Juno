@@ -140,6 +140,7 @@ export default function ProfileCreationPage() {
                 creator: userDetails?.username || 'Unknown',
                 objectURL: '',
                 tags,
+                index: 100
               };
               
               await handleCreatePrompt({

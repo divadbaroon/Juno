@@ -20,6 +20,7 @@ interface ProfileData {
   creator: string;
   prompt: string;
   tags: string[];
+  index?: number;
 }
 
 interface HandleCreateProfileParams {

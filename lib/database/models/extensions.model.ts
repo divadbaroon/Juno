@@ -7,7 +7,7 @@ export interface IExtensions extends Document {
   sharePreference: string;
   createdAt?: Date;
   updatedAt?: Date;
-  index: number;
+  index?: number;
 }
 
 const ExtensionSchema = new Schema({

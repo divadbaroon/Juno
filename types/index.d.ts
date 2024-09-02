@@ -224,6 +224,7 @@ declare type CreateUserParams = {
     background: string;
     temperature: number;
     tags: string[]; 
+    index?: number
   };
 
 

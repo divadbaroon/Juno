@@ -13,7 +13,7 @@ export interface IPrompt extends Document {
   tags: string[]; 
   createdAt?: Date;
   updatedAt?: Date;
-  index: number;
+  index?: number;
 }
 
 const PromptSchema = new Schema<IPrompt>({

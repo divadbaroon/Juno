@@ -13,7 +13,7 @@ export interface IProfile extends Document {
   tags: string[];
   createdAt?: Date;
   updatedAt?: Date;
-  index: number;
+  index?: number;
 }
 
 const ProfileSchema = new Schema({

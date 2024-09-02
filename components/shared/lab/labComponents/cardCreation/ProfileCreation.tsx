@@ -199,7 +199,8 @@ export const ProfileCreation: React.FC = () => {
             sharePreference,
             photo, 
             creator: userDetails?.username || 'Unknown',
-            tags
+            tags,
+            index: 100
           },
           setIsLoading,
           setIsCreated,

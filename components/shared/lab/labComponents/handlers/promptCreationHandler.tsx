@@ -22,6 +22,7 @@ interface HandleCreatePromptParams {
     creator: string;
     objectURL: string;
     tags: string[];
+    index?: number
   };
   photo: File | null;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
