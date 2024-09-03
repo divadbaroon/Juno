@@ -68,7 +68,7 @@ export default function PromptLibraryPage() {
           contextType="Library"
           libraryType="Prompts" 
           h2Text="Prompts" 
-          pText="Personalize your AI's voice from a wide range of lifelike options, enhancing communication with styles from warm and friendly to formal and authoritative."
+          pText="Shape your AI's personality and expertise with carefully crafted prompts."
           user={userDetails}
           onReload={handleReload}
           activeFilters={activeFilters}

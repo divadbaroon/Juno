@@ -68,7 +68,7 @@ export default function LLMLibraryPage() {
           contextType="Library"
           libraryType="LLMs" 
           h2Text="Large Language Models" 
-          pText="The underlying power in your AI's intelligence."
+          pText="The cognitive engines powering your AI's intelligence. Choose from a range of cutting-edge models to find the perfect balance of capability, speed, and specificity for your needs."
           user={userDetails}
           onReload={handleReload}
           activeFilters={activeFilters}

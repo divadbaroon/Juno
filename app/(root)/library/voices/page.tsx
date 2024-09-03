@@ -68,7 +68,7 @@ export default function VoiceLibraryPage() {
           contextType="Library"
           libraryType="Voices" 
           h2Text="Voices" 
-          pText="Personalize your AI's voice from a wide range of lifelike options, enhancing communication with styles from warm and friendly to formal and authoritative."
+          pText="Bring your AI to life with our diverse array of lifelike voices."
           user={userDetails}
           onReload={handleReload}
           activeFilters={activeFilters}
