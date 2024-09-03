@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input";
 import { getLLMById } from '@/lib/actions/fetchLLMbyId.action';
 import { getVoiceById } from '@/lib/actions/fetchVoiceById.action';
 import { getExtensionsById } from '@/lib/actions/fetchExtensionById.action';
+import { getPromptById } from '@/lib/actions/fetchPromptById.action';
 
 interface FormValues {
   title: string;
@@ -67,6 +68,15 @@ interface ExtensionData {
   creator: string;
 }
 
+interface PromptData {
+  personality: string;
+  context: string;
+  interactionGuidelines: string;
+  background: string;
+  temperature: number;
+}
+
+
 const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, creator, description, link, onUpdateDetails, allItems}) => {
   const [showDetails, setShowDetails] = useState(false);
   const [showExampleUsage, setShowExampleUsage] = useState(false);
@@ -77,12 +87,22 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
   const [llmData, setLLMData] = useState<LLMData | null>(null);
   const [voiceData, setVoiceData] = useState<VoiceData | null>(null);
   const [extensionData, setExtensionData] = useState<ExtensionData | null>(null);
+  const [promptData, setPromptData] = useState<PromptData | null>(null);
 
   useEffect(() => {
     const fetchLLMData = async () => {
       try {
         const data = await getLLMById(allItems.llm);
         setLLMData(data);
+      } catch (error) {
+        console.error('Failed to fetch extension data:', error);
+      }
+    };
+
+    const fetchPromptData = async () => {
+      try {
+        const data = await getPromptById(allItems.prompt);
+        setPromptData(data);
       } catch (error) {
         console.error('Failed to fetch extension data:', error);
       }
@@ -109,7 +129,8 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
     fetchLLMData();
     fetchVoiceData();
     fetchExtensionData()
-  }, [allItems.llm, allItems.voice, allItems.extensions]);
+    fetchPromptData()
+  }, [allItems.llm, allItems.voice, allItems.extensions, allItems.prompt]);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -255,10 +276,10 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="font-bold" style={{ color: '#373737' }}>
-                              Core Identity
+                              Context
                             </FormLabel>
                             <FormControl>
-                              <Input {...field} defaultValue={allItems.identity} />
+                              <Input {...field} defaultValue={promptData?.context} />
                             </FormControl>
                           </FormItem>
                         )}
@@ -271,10 +292,10 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="font-bold" style={{ color: '#373737' }}>
-                              Context & Background
+                              Background Information
                             </FormLabel>
                             <FormControl>
-                              <Input {...field} defaultValue={allItems.context} />
+                              <Input {...field} defaultValue={promptData?.background} />
                             </FormControl>
                           </FormItem>
                         )}
@@ -290,7 +311,7 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
                               Personality Traits
                             </FormLabel>
                             <FormControl>
-                              <Input {...field} defaultValue={allItems.personality} />
+                              <Input {...field} defaultValue={promptData?.personality} />
                             </FormControl>
                           </FormItem>
                         )}
@@ -306,7 +327,7 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
                               Interaction Style
                             </FormLabel>
                             <FormControl>
-                              <Input {...field} defaultValue={allItems.interactionGuidelines} />
+                              <Input {...field} defaultValue={promptData?.interactionGuidelines} />
                             </FormControl>
                           </FormItem>
                         )}
@@ -328,7 +349,7 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ models, type, title, cr
                                 min={0}
                                 max={100}
                                 {...field}
-                                defaultValue={allItems.temperature || 0}
+                                defaultValue={promptData?.temperature || 0}
                               />
                             </FormControl>
                           </FormItem>
