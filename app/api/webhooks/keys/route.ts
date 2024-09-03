@@ -6,6 +6,10 @@ export async function GET(request: NextRequest) {
     const googleSpeechAPI = process.env.GOOGLE_SPEECH_API
     const googleSpeechEndPoint = process.env.GOOGLE_SPEECH_ENDPOINT
     const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+    const azureCLUKey = process.env.AZURE_CLU_KEY
+    const azureCLUEndpoint = process.env.AZURE_CLU_ENDPOINT
+    const azureCLUProjectName = process.env.AZURE_CLU_PROJECT_NAME
+    const azureCLUDeploymentName = process.env.AZURE_CLU_DEPLOYMENT_NAME
 
     // Check if the key exists
     if (!googleSpeechAPI) {
@@ -16,7 +20,11 @@ export async function GET(request: NextRequest) {
     const keys = {
       GoogleSpeechAPI: googleSpeechAPI,
       GoogleSpeechEndpoint: googleSpeechEndPoint,
-      ClerkPublishableKey: clerkPublishableKey
+      ClerkPublishableKey: clerkPublishableKey,
+      AzureCLUKey : azureCLUKey,
+      AzureCLUEndpoint: azureCLUEndpoint,
+      AzureCLUProjectName: azureCLUProjectName,
+      AzureCLUDeploymentName: azureCLUDeploymentName
     }
 
     return NextResponse.json(keys)
