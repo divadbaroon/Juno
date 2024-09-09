@@ -12,11 +12,13 @@ export default function ProfileCreationPage() {
 
       <Separator className="my-8" />
       
-      <TabNavigation />
-
+      <div className="mb-8"> 
+        <TabNavigation />
+      </div>
+      
       <Separator className="my-8" />
 
-      <ProfileCreation />
+      <ProfileCreation  />
     </div>
   );
 }

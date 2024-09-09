@@ -82,10 +82,10 @@ export const ProfileCreation: React.FC = () => {
 
   return (
     <div className="root-container">
-      <h2 className="h2-bold text-dark-600" style={{ marginTop: '0px' }}>
+      <h2 className="h2-bold text-dark-600" style={{ marginTop: '-15px' }}>
         Profile Creation
       </h2>
-      <p className="p-20-regular text-dark-400 mt-2" style={{ marginTop: '15px' }}>
+      <p className="p-20-regular text-dark-400" style={{ marginTop: '15px' }}>
         Design your ideal AI from the ground up, tailoring every detail to your exact preferences.
       </p>
 
