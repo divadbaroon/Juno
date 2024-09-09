@@ -57,18 +57,24 @@ export default function ProfileLibraryPage() {
     }
     
     return (
-        <div className="root-container">
-            <LibraryHeader/>
+        <div className="root-container p-8">
+             
+            <LibraryHeader />
 
-            <Separator className="my-4" />
-            <LibraryTabNavigation/>
-            <Separator className="my-4" />
+            <Separator className="my-8" /> 
+
+            <div className="mb-8"> 
+                <LibraryTabNavigation />
+            </div>
+
+            <Separator className="my-8" /> 
 
             <LibraryPage 
                 contextType="Library"
                 libraryType="Profiles" 
-                h2Text="Profiles" 
-                pText="Explore pre-configured profiles, powered by Large Language Models, lifelike voices, and unique capabilities. Select a profile that resonates, and refine it to match your needs."
+                h2Text="Profiles"
+                pText="Explore pre-configured profiles, powered by Large Language Models, lifelike voices, and unique capabilities. 
+                    Select a profile that resonates, and refine it to match your needs." 
                 user={userDetails}
                 onReload={handleReload}
                 activeFilters={activeFilters}

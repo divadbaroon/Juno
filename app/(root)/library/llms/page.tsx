@@ -57,12 +57,15 @@ export default function LLMLibraryPage() {
     }
 
     return (
-    <div className="root-container">
+    <div className="root-container p-8">
+
         <LibraryHeader/>
 
-        <Separator className="my-4" />
+        <Separator className="my-8" />
+
         <LibraryTabNavigation/>
-        <Separator className="my-4" />
+
+        <Separator className="my-8" />
 
         <LibraryPage 
           contextType="Library"
