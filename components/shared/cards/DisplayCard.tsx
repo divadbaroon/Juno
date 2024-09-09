@@ -92,63 +92,65 @@ const DisplayCard: React.FC<DisplayCardProps> = ({
 
   return (
     <>
-    <Card className={`${borderClass}`}>
-      
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{creator}</CardDescription>
-      </CardHeader>
-      <CardContent>
-      <p className="card__description" style={{ marginTop: '0px' }}>{description}</p>
+    <div className="w-full bg-white shadow-lg rounded-lg overflow-hidden">
+      <Card className={`${borderClass}`}>
+        
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{creator}</CardDescription>
+        </CardHeader>
+        <CardContent>
+        <p className="card__description" style={{ marginTop: '0px' }}>{description}</p>
 
-      </CardContent>
-      <CardFooter className="card-footer flex justify-center items-center space-x-10 -mb-.5">
-        {type === 'Voices' ? (
-          <Button className="w-24 px-8" variant="outline" onClick={playAudioSample}>
-          Sample
-        </Button>
-        ) : (
-          <Button className="w-24 px-8" variant="outline" onClick={openModal}>
-            Details
+        </CardContent>
+        <CardFooter className="card-footer flex justify-center items-center space-x-10 -mb-.5">
+          {type === 'Voices' ? (
+            <Button className="w-24 px-8" variant="outline" onClick={playAudioSample}>
+            Sample
           </Button>
-        )}
-        <Button className="w-24 px-8" onClick={handleSelect}>
-          {renderButtonLabel()}
-        </Button>
-      </CardFooter>
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-[800px]">
-          <div className="flex">
-            <div className="w-1/2 pr-4">
-              <Card className="collection-card">
-                <CardHeader>
-                  <CardTitle>{title}</CardTitle>
-                  <CardDescription>{creator}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="card__description" style={{ marginTop: '-30px' }}>{description}</p>
-                </CardContent>
-              </Card>
+          ) : (
+            <Button className="w-24 px-8" variant="outline" onClick={openModal}>
+              Details
+            </Button>
+          )}
+          <Button className="w-24 px-8" onClick={handleSelect}>
+            {renderButtonLabel()}
+          </Button>
+        </CardFooter>
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <DialogContent className="sm:max-w-[800px]">
+            <div className="flex">
+              <div className="w-1/2 pr-4">
+                <Card className="collection-card">
+                  <CardHeader>
+                    <CardTitle>{title}</CardTitle>
+                    <CardDescription>{creator}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="card__description" style={{ marginTop: '-30px' }}>{description}</p>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="w-1/2 pl-4">
+              <DetailsSection
+                  type={type}
+                  models={models}
+                  title={cardTitle}
+                  creator={creator}
+                  description={cardDescription}
+                  link={link}
+                  onUpdateDetails={handleUpdateDetails}
+                  allItems = {allItems}
+                />   
+              </div>          
             </div>
-            <div className="w-1/2 pl-4">
-            <DetailsSection
-                type={type}
-                models={models}
-                title={cardTitle}
-                creator={creator}
-                description={cardDescription}
-                link={link}
-                onUpdateDetails={handleUpdateDetails}
-                allItems = {allItems}
-              />   
-             </div>          
-          </div>
-          <DialogFooter>
-            <Button onClick={closeModal}>Close</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </Card>
+            <DialogFooter>
+              <Button onClick={closeModal}>Close</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </Card>
+   </div>
   </>
   );
 };
