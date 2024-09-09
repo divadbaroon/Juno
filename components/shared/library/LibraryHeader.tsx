@@ -1,7 +1,7 @@
 
 const LibraryHeader = () => {
     return (
-    <div className="about-section">
+    <div className="about-section -mb-3.5">
         <div className="space-y-6">
             <h4 className="h2-bold text-dark-600" style={{ fontSize: '55px'}}>
             The Library
