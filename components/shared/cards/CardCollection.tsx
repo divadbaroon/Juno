@@ -91,8 +91,12 @@ export const CardCollection: React.FC<{ userDetails: User, contextType: string; 
       </div>
       <Separator className="collection-separator mb-5" />
       {items.length > 0 ? (
-        <ul className="collection-list" style={{ maxHeight: contextType === 'Library' ? '750px' : '500px', overflowY: 'auto'  }}>
-         {items.map((item) => ( 
+        <ul className="collection-list custom-scrollbar" style={{ 
+          maxHeight: contextType === 'Library' ? '750px' : '500px', 
+          overflowY: 'auto',
+          paddingRight: '10px' 
+        }}>         
+        {items.map((item) => ( 
             <li key={item._id}>
               <DisplayCard
                 clerkId={userDetails.clerkId}
