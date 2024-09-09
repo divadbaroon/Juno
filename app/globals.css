@@ -492,19 +492,12 @@
 
 /* border-color: #c7d2fe #c7d2fe #6366f1; */
 
-.selected-card {
-  /* border-color: #c7d2fe #c7d2fe #6366f1; */
-  width: 290px;
+.selected-card, .non-selected-card {
+  width: 100%;
+  max-width: 290px;
   height: 270px;
   position: relative; 
-  border-radius: 10px 10px 10px 10px; 
-}
-
-.non-selected-card {
-  width: 290px;
-  height: 270px;
-  position: relative; 
-  border-radius: 10px 10px 10px 10px; 
+  border-radius: 10px;
 }
 
 .card-footer {
@@ -533,4 +526,26 @@
 
 .logo-container img:hover {
   transform: scale(1.05);
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #777 #f1f1f1;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #777;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
