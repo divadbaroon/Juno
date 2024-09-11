@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { Zap, BookOpen, Beaker, BarChart2, HelpCircle, UploadCloud, User, ChevronLeft, ChevronRight, Menu } from 'lucide-react'
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { UserButton, useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -24,6 +24,7 @@ const bottomMenuItems = [
 const Sidebar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(true)
+  const { isSignedIn } = useUser();
 
   const renderMenuItem = (item: any, index: any) => (
     <li key={index}>
@@ -63,7 +64,7 @@ const Sidebar = () => {
         variant="ghost"
         size="sm"
         className={cn(
-          "fixed top-4 left-4 p-2 z-50 transition-all duration-300 -ml-5",
+          "fixed top-4 left-4 p-2 z-50 transition-all duration-300",
           isOpen ? "left-64" : "left-4"
         )}
         onClick={() => setIsOpen(!isOpen)}
@@ -89,26 +90,23 @@ const Sidebar = () => {
           </div>
           <Separator className="my-2 -mt-12" />
           <nav className="sidebar-nav flex-grow">
-            <SignedIn>
-              <ul className="space-y-2">
-                {mainMenuItems.map(renderMenuItem)}
-              </ul>
-            </SignedIn>
+            <ul className="space-y-2">
+              {mainMenuItems.map(renderMenuItem)}
+            </ul>
           </nav>
           <div className="mt-auto">
             <ul className="space-y-2">
               {bottomMenuItems.map(renderMenuItem)}
             </ul>
-            <SignedIn>
-              <div className="mt-4 px-4 mb-3">
+            <div className="mt-4 px-4 mb-3">
+              {isSignedIn ? (
                 <UserButton afterSignOutUrl="/" showName />
-              </div>
-            </SignedIn>
-            <SignedOut>
-              <Button asChild className="button bg-purple-gradient bg-cover w-full mt-4">
-                <Link href="/sign-in">Login</Link>
-              </Button>
-            </SignedOut>
+              ) : (
+                <Button asChild className="button bg-purple-gradient bg-cover w-full">
+                  <Link href="/sign-in">Login</Link>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </aside>
