@@ -9,9 +9,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-background flex flex-col mt-3">  
       <main className="flex-grow container mx-auto py-16 px-4">
         <section className="text-center mb-24 relative">
-          <div className="absolute inset-0 -z-10">
-            <Image src="/assets/images/abstractHeader.svg" alt="logo" width={300} height={300}/>
-          </div>
+        
           <div className="bg-white bg-opacity-90 py-12 px-6 rounded-lg shadow-lg">
             <h1 className="text-6xl font-bold mb-6 text-gray-900">Welcome to Juno</h1>
             <p className="text-2xl text-gray-700 mb-12 max-w-2xl mx-auto">
