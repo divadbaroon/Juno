@@ -64,8 +64,8 @@ const Sidebar = () => {
         variant="ghost"
         size="sm"
         className={cn(
-          "fixed top-4 left-4 p-2 z-50 transition-all duration-300",
-          isOpen ? "left-64" : "left-4"
+          "fixed top-4 left-4 p-0 z-50 transition-all duration-300",
+          isOpen ? "left-64" : "left-1"
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
