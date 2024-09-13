@@ -1,9 +1,8 @@
 "use client"
-
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { Zap, BookOpen, Beaker, BarChart2, HelpCircle, UploadCloud, User, ChevronLeft, ChevronRight, Menu } from 'lucide-react'
+import { Zap, BookOpen, Beaker, BarChart2, UploadCloud, ChevronLeft, Menu } from 'lucide-react'
 import { UserButton, useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -25,6 +24,14 @@ const Sidebar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(true)
   const { isSignedIn } = useUser();
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const renderMenuItem = (item: any, index: any) => (
     <li key={index}>
@@ -32,23 +39,24 @@ const Sidebar = () => {
         asChild
         variant="ghost"
         className={cn(
-          "flex items-center w-full px-4 py-3 text-left transition-colors group",
+          "flex items-center w-full px-4 py-3 text-left transition-all duration-300 group",
           item.route === pathname 
-            ? "bg-purple-gradient text-white hover:bg-purple-gradient hover:text-white" 
+            ? "bg-blue-400 text-white hover:bg-blue-500" 
             : "hover:bg-gray-200 text-gray-700",
-          "justify-start"
+          "justify-start rounded-lg"
         )}
       >
         <Link href={item.route} className="flex items-center w-full">
           <item.icon className={cn(
             "flex-shrink-0 w-6 h-6 mr-3",
             item.route === pathname 
-              ? "text-white group-hover:text-white" 
-              : "text-gray-700 group-hover:text-gray-900"
+              ? "text-white" 
+              : "text-gray-500 group-hover:text-gray-700"
           )} />
           <span className={cn(
+            "font-medium",
             item.route === pathname 
-              ? "text-white group-hover:text-white" 
+              ? "text-white" 
               : "text-gray-700 group-hover:text-gray-900"
           )}>
             {item.label}
@@ -61,48 +69,51 @@ const Sidebar = () => {
   return (
     <>
       <Button
-        variant="ghost"
-        size="sm"
+        variant="outline"
+        size="icon"
         className={cn(
-          "fixed top-4 left-4 p-0 z-50 transition-all duration-300",
-          isOpen ? "left-64" : "left-1"
+          "fixed top-4 z-50 transition-all duration-300 shadow-md",
+          isOpen ? "left-64" : "left-4"
         )}
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
       >
-        {isOpen ? <ChevronLeft size={24} /> : <Menu size={24} />}
+        {isOpen ? <ChevronLeft size={20} /> : <Menu size={20} />}
       </Button>
       
       <aside className={cn(
-        "sidebar fixed top-0 left-0 flex flex-col h-screen bg-gray-50 text-gray-700 transition-all duration-300 z-40",
-        isOpen ? "w-64" : "w-0 -left-64"
+        "fixed top-0 left-0 flex flex-col h-screen bg-white shadow-lg transition-all duration-300 ease-in-out z-40",
+        isOpen ? "w-64" : "w-0",
+        isMobile && !isOpen && "-translate-x-full"
       )}>
         <div className="flex flex-col h-full overflow-y-auto">
-          <div className="p-4 flex justify-center items-center -mt-9">
-            <Link href="/" className="sidebar-logo">
+          <div className="p-4 flex justify-center items-center">
+            <Link href="/" className="sidebar-logo -mt-12">
               <Image 
                 src="/assets/icons/junologo2.svg" 
                 alt="Juno logo" 
-                width={180}
-                height={80}
+                width={300}
+                height={50}
                 className="transition-all duration-300"
               />
             </Link>
           </div>
           <Separator className="my-2 -mt-12" />
-          <nav className="sidebar-nav flex-grow">
-            <ul className="space-y-2">
+          <nav className="flex-grow px-2">
+            <ul className="space-y-1">
               {mainMenuItems.map(renderMenuItem)}
             </ul>
           </nav>
-          <div className="mt-auto">
-            <ul className="space-y-2">
+          <div className="mt-auto px-2 pb-4">
+            <Separator className="my-2" />
+            <ul className="space-y-1">
               {bottomMenuItems.map(renderMenuItem)}
             </ul>
-            <div className="mt-4 px-4 mb-3">
+            <div className="mt-4 ml-3">
               {isSignedIn ? (
                 <UserButton afterSignOutUrl="/" showName />
               ) : (
-                <Button asChild className="button bg-purple-gradient bg-cover w-full">
+                <Button asChild className="w-full bg-black-500 hover:bg-black-600 text-white">
                   <Link href="/sign-in">Login</Link>
                 </Button>
               )}
