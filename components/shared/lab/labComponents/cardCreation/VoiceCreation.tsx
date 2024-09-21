@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 
-const ExtensionCreation = () => {
+const VoiceCreation = () => {
     return (
       <div className="root-container">
         <h2 className="h2-bold text-dark-600" style={{ marginTop: '0px' }}>
@@ -18,4 +18,4 @@ const ExtensionCreation = () => {
     )
   }
 
-  export default ExtensionCreation
+  export default VoiceCreation
