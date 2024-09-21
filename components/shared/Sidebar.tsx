@@ -88,7 +88,7 @@ const Sidebar = () => {
       )}>
         <div className="flex flex-col h-full overflow-y-auto">
           <div className="p-4 flex justify-center items-center">
-            <Link href="/" className="sidebar-logo -mt-12">
+            <Link href="/" className="sidebar-logo -mt-10">
               <Image 
                 src="/assets/icons/junologo2.svg" 
                 alt="Juno logo" 
@@ -98,7 +98,7 @@ const Sidebar = () => {
               />
             </Link>
           </div>
-          <Separator className="my-2 -mt-12" />
+          <Separator className="my-2 -mt-14" />
           <nav className="flex-grow px-2">
             <ul className="space-y-1">
               {mainMenuItems.map(renderMenuItem)}
