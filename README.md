@@ -2,11 +2,17 @@
 
 Create, customize, and interact with AI directly in your web browser.
 
-## Overview
+## Contributing
 
-Juno is an all-in-one platform for streamlined AI customization and interaction. It allows users to easily create, customize, and interact with tailor-made AI assistants directly within their web browser.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-License
-MIT License
+## License
+
+[MIT License](LICENSE)
+
+## Contact
+
+For questions or feedback, please contact dbarron410@vt.edu
+
 
 
